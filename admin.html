@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bảng Điều Khiển Quản Trị | CLEANNOVA ADMIN</title>
+  <meta name="description" content="Hệ thống quản trị website thương mại điện tử Cleannova - Báo cáo doanh thu, đơn hàng, sản phẩm và tồn kho.">
+
+  <!-- Google Fonts: Plus Jakarta Sans & Inter -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap" rel="stylesheet">
+
+  <!-- Stylesheets -->
+  <link rel="stylesheet" href="css/tokens.css">
+  <link rel="stylesheet" href="css/animations.css">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/admin.css">
+</head>
+<body class="admin-body">
+
+  <div class="admin-layout">
+    <!-- Dynamic Admin Sidebar -->
+    <aside id="admin-sidebar"></aside>
+
+    <!-- Main Dashboard Area -->
+    <main class="admin-main">
+      <!-- Topbar Header -->
+      <div class="admin-topbar">
+        <div class="admin-page-title">
+          <h1>Tổng Quan Hoạt Động (Dashboard)</h1>
+          <p>Chương 4.3 – Báo cáo doanh thu và tình hình kinh doanh hệ thống Cleannova</p>
+        </div>
+        <div class="admin-user-profile">
+          <div style="text-align: right;">
+            <div style="font-weight: 700; color: #0F172A; font-size: 0.9375rem;">Admin Quản Trị</div>
+            <div style="font-size: 0.75rem; color: #10B981; font-weight: 600;">✦ Trực Tuyến</div>
+          </div>
+          <div class="admin-avatar">AD</div>
+        </div>
+      </div>
+
+      <!-- 4 KPI Cards -->
+      <div class="admin-kpi-grid">
+        <div class="admin-kpi-card">
+          <div class="kpi-icon-box kpi-revenue">💰</div>
+          <div>
+            <div class="kpi-value" id="kpi-revenue">148.500.000₫</div>
+            <div class="kpi-label">Doanh thu hôm nay (+34.2%)</div>
+          </div>
+        </div>
+        <div class="admin-kpi-card">
+          <div class="kpi-icon-box kpi-orders">📦</div>
+          <div>
+            <div class="kpi-value" id="kpi-orders">24</div>
+            <div class="kpi-label">Đơn hàng mới trong ngày</div>
+          </div>
+        </div>
+        <div class="admin-kpi-card">
+          <div class="kpi-icon-box kpi-sold">🛒</div>
+          <div>
+            <div class="kpi-value" id="kpi-sold">38</div>
+            <div class="kpi-label">Thiết bị & phụ kiện đã bán</div>
+          </div>
+        </div>
+        <div class="admin-kpi-card">
+          <div class="kpi-icon-box kpi-inventory">📊</div>
+          <div>
+            <div class="kpi-value" id="kpi-inventory">396</div>
+            <div class="kpi-label">Tổng tồn kho toàn hệ thống</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Monthly Revenue Chart Card -->
+      <div class="admin-card">
+        <div class="admin-card-header">
+          <h2 class="admin-card-title">Báo Cáo Tăng Trưởng Doanh Thu Theo Tháng (Triệu VNĐ)</h2>
+          <span style="font-size: 0.8125rem; font-weight: 600; color: var(--accent-emerald); background: rgba(16, 185, 129, 0.1); padding: 4px 12px; border-radius: 999px;">
+            Q3 – Q4 Năm 2026
+          </span>
+        </div>
+        <div id="revenue-chart">
+          <!-- Rendered by js/admin.js -->
+        </div>
+      </div>
+
+      <!-- Recent Orders Table -->
+      <div class="admin-card">
+        <div class="admin-card-header">
+          <h2 class="admin-card-title">Đơn Hàng Gần Đây</h2>
+          <a href="admin-orders.html" style="font-size: 0.875rem; color: var(--accent-emerald); font-weight: 600;">
+            Xem tất cả đơn hàng →
+          </a>
+        </div>
+        <div class="admin-table-wrap">
+          <table class="admin-table">
+            <thead>
+              <tr>
+                <th>Mã Đơn</th>
+                <th>Khách Hàng</th>
+                <th>Sản Phẩm</th>
+                <th>Ngày Đặt</th>
+                <th>Tổng Tiền</th>
+                <th>Trạng Thái</th>
+              </tr>
+            </thead>
+            <tbody id="recent-orders-table-body">
+              <!-- Populated by admin.js -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <div id="toast-container" class="toast-container"></div>
+
+  <!-- Scripts -->
+  <script src="js/data.js"></script>
+  <script src="js/app.js"></script>
+  <script src="js/admin.js"></script>
+</body>
+</html>

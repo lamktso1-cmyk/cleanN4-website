@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Giỏ Hàng Của Bạn | CLEANNOVA</title>
+  <meta name="description" content="Xem giỏ hàng, áp dụng mã voucher ưu đãi Cleannova và tiến hành thanh toán an toàn, bảo mật.">
+
+  <!-- Google Fonts: Plus Jakarta Sans & Inter -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap" rel="stylesheet">
+
+  <!-- Design System & Stylesheets -->
+  <link rel="stylesheet" href="css/tokens.css">
+  <link rel="stylesheet" href="css/animations.css">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/responsive.css">
+
+  <style>
+    .cart-page-header {
+      background: #FFFFFF;
+      padding: 30px 0;
+      border-bottom: 1px solid var(--border-light);
+    }
+    .cart-layout {
+      display: grid;
+      grid-template-columns: 1fr 380px;
+      gap: 40px;
+      padding: 50px 0 100px;
+      align-items: start;
+    }
+
+    /* Cart Items Table/List */
+    .cart-items-card {
+      background: #FFFFFF;
+      border: 1px solid var(--border-light);
+      border-radius: var(--radius-xl);
+      padding: 30px;
+      box-shadow: var(--shadow-sm);
+    }
+    .cart-item-row {
+      display: grid;
+      grid-template-columns: 80px 1fr 140px 120px 40px;
+      align-items: center;
+      gap: 20px;
+      padding: 20px 0;
+      border-bottom: 1px solid var(--border-light);
+    }
+    .cart-item-row:last-child {
+      border-bottom: none;
+    }
+    .cart-item-img img {
+      width: 80px;
+      height: 80px;
+      object-fit: cover;
+      border-radius: var(--radius-md);
+      border: 1px solid var(--border-light);
+    }
+    .cart-item-name {
+      font-size: 1.1rem;
+      margin-bottom: 4px;
+    }
+    .cart-item-name a:hover {
+      color: var(--accent-emerald);
+    }
+    .cart-item-unit-price {
+      font-size: 0.875rem;
+      color: var(--text-muted);
+      margin-top: 4px;
+    }
+    .cart-item-total {
+      font-family: var(--font-heading);
+      font-size: 1.15rem;
+      font-weight: 800;
+      color: var(--text-primary);
+      text-align: right;
+    }
+    .cart-item-remove-btn {
+      background: none;
+      border: none;
+      color: var(--text-muted);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 6px;
+      border-radius: 50%;
+      transition: all var(--transition-fast);
+    }
+    .cart-item-remove-btn:hover {
+      color: var(--accent-danger);
+      background: rgba(239, 68, 68, 0.1);
+    }
+
+    /* Summary Card */
+    .cart-summary-card {
+      background: #FFFFFF;
+      border: 1px solid var(--border-light);
+      border-radius: var(--radius-xl);
+      padding: 30px;
+      box-shadow: var(--shadow-sm);
+      position: sticky;
+      top: 100px;
+    }
+    .summary-title {
+      font-size: 1.25rem;
+      margin-bottom: 20px;
+      padding-bottom: 16px;
+      border-bottom: 1px solid var(--border-light);
+    }
+    .voucher-box {
+      margin-bottom: 24px;
+      background: var(--bg-subtle);
+      padding: 16px;
+      border-radius: var(--radius-md);
+    }
+    .voucher-input-group {
+      display: flex;
+      gap: 8px;
+      margin-top: 8px;
+    }
+    .voucher-input-group input {
+      flex: 1;
+      padding: 10px 14px;
+      border: 1px solid var(--border-light);
+      border-radius: var(--radius-sm);
+      background: #FFFFFF;
+      font-size: 0.875rem;
+      outline: none;
+      text-transform: uppercase;
+    }
+    .voucher-hints {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      margin-top: 8px;
+    }
+    .summary-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 14px;
+      font-size: 0.9375rem;
+      color: var(--text-secondary);
+    }
+    .summary-row.total-row {
+      font-size: 1.25rem;
+      font-weight: 800;
+      color: var(--text-primary);
+      border-top: 1px solid var(--border-light);
+      padding-top: 16px;
+      margin-top: 16px;
+    }
+    .summary-row.total-row span:last-child {
+      color: var(--accent-emerald);
+      font-family: var(--font-heading);
+    }
+
+    /* Empty Cart State */
+    .empty-cart-view {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 100px 20px;
+      text-align: center;
+      background: #FFFFFF;
+      border-radius: var(--radius-xl);
+      border: 1px dashed var(--border-light);
+      margin: 40px 0;
+    }
+    .empty-cart-icon {
+      font-size: 4rem;
+      margin-bottom: 20px;
+    }
+
+    @media (max-width: 992px) {
+      .cart-layout {
+        grid-template-columns: 1fr;
+      }
+      .cart-item-row {
+        grid-template-columns: 70px 1fr 40px;
+        gap: 12px;
+      }
+      .cart-item-qty,
+      .cart-item-total {
+        grid-column: 2 / -1;
+      }
+      .cart-item-total {
+        text-align: left;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Dynamic Header Injection -->
+  <header id="main-header"></header>
+
+  <!-- Page Header -->
+  <div class="cart-page-header">
+    <div class="container">
+      <div style="font-size: 0.875rem; color: var(--text-muted); margin-bottom: 8px;">
+        <a href="index.html">Trang chủ</a> / <span>Giỏ hàng</span>
+      </div>
+      <h1 style="font-size: 2rem;">Giỏ Hàng Của Bạn</h1>
+    </div>
+  </div>
+
+  <main class="container">
+    <!-- Active Cart Layout -->
+    <div class="cart-layout" id="cart-content">
+      <!-- Left: Items List -->
+      <div class="cart-items-card">
+        <h2 style="font-size: 1.25rem; margin-bottom: 20px;">Danh Sách Thiết Bị Đã Chọn</h2>
+        <div id="cart-items">
+          <!-- Populated by cart.js -->
+        </div>
+      </div>
+
+      <!-- Right: Summary & Voucher -->
+      <div class="cart-summary-card">
+        <h3 class="summary-title">Tóm Tắt Đơn Hàng</h3>
+
+        <!-- Voucher Input -->
+        <div class="voucher-box">
+          <label style="font-size: 0.8125rem; font-weight: 600; color: var(--text-primary);">Mã Giảm Giá / Voucher</label>
+          <div class="voucher-input-group">
+            <input type="text" id="voucher-code-input" placeholder="Nhập mã ưu đãi..." autocomplete="off">
+            <button id="apply-voucher-btn" class="btn btn-secondary btn-sm">Áp Dụng</button>
+          </div>
+          <div id="voucher-msg" style="font-size: 0.75rem; margin-top: 6px;"></div>
+          <div class="voucher-hints">
+            Mã gợi ý: <strong>CLEANNOVA1000</strong> (-1Tr) | <strong>SMART20</strong> (-20%)
+          </div>
+        </div>
+
+        <!-- Calculations -->
+        <div class="summary-row">
+          <span>Tạm tính</span>
+          <span id="subtotal-val" style="font-weight: 600;">0₫</span>
+        </div>
+        <div class="summary-row" id="discount-row" style="display: none; color: var(--accent-emerald);">
+          <span>Giảm giá Voucher</span>
+          <span id="discount-val" style="font-weight: 700;">-0₫</span>
+        </div>
+        <div class="summary-row">
+          <span>Phí vận chuyển toàn quốc</span>
+          <span style="color: var(--accent-emerald); font-weight: 600;">Miễn phí (0₫)</span>
+        </div>
+        <div class="summary-row total-row">
+          <span>Tổng thanh toán</span>
+          <span id="total-val">0₫</span>
+        </div>
+
+        <a href="checkout.html" class="btn btn-cta btn-lg btn-block btn-sheen" style="margin-top: 24px;">
+          <span>Tiến Hành Thanh Toán</span>
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+            <line x1="5" y1="12" x2="19" y2="12"/>
+            <polyline points="12 5 19 12 12 19"/>
+          </svg>
+        </a>
+
+        <div style="margin-top: 16px; text-align: center;">
+          <a href="products.html" style="font-size: 0.875rem; color: var(--accent-emerald); font-weight: 600;">
+            ← Tiếp tục mua sắm
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Empty State -->
+    <div class="empty-cart-view" id="empty-cart" style="display: none;">
+      <div class="empty-cart-icon">🛒</div>
+      <h2 style="font-size: 1.75rem; margin-bottom: 10px;">Giỏ hàng của bạn đang trống</h2>
+      <p style="color: var(--text-muted); max-width: 420px; margin-bottom: 28px;">
+        Chưa có robot hoặc phụ kiện nào trong giỏ. Hãy khám phá ngay các model Cleannova mới nhất.
+      </p>
+      <a href="products.html" class="btn btn-cta btn-lg">
+        <span>Khám Phá Sản Phẩm Ngay</span>
+      </a>
+    </div>
+  </main>
+
+  <!-- Dynamic Footer Injection -->
+  <footer id="main-footer"></footer>
+
+  <!-- Floating AI Chatbot Container -->
+  <div id="chatbot-container"></div>
+
+  <!-- Toast Notification Container -->
+  <div id="toast-container" class="toast-container" aria-live="polite"></div>
+
+  <!-- Scripts -->
+  <script src="js/data.js"></script>
+  <script src="js/app.js"></script>
+  <script src="js/cart.js"></script>
+  <script src="js/chatbot.js"></script>
+</body>
+</html>

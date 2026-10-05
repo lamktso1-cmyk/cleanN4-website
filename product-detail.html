@@ -1,0 +1,742 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Chi Tiết Sản Phẩm | CLEANNOVA</title>
+  <meta name="description" content="Chi tiết robot hút bụi lau nhà thông minh Cleannova. Thông số kỹ thuật, công nghệ AI 3D, chính sách bảo hành 18 tháng và dùng thử 7 ngày miễn phí.">
+
+  <!-- Google Fonts: Plus Jakarta Sans & Inter -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap" rel="stylesheet">
+
+  <!-- Design System & Stylesheets -->
+  <link rel="stylesheet" href="css/tokens.css">
+  <link rel="stylesheet" href="css/animations.css">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/responsive.css">
+
+  <style>
+    .breadcrumb-bar {
+      padding: 24px 0;
+      font-size: 0.875rem;
+      color: var(--text-muted);
+      border-bottom: 1px solid var(--border-light);
+      background: #FFFFFF;
+    }
+    .breadcrumb-bar a {
+      color: var(--text-secondary);
+    }
+    .breadcrumb-bar a:hover {
+      color: var(--accent-emerald);
+    }
+
+    .detail-grid {
+      display: grid;
+      grid-template-columns: 1.1fr 0.9fr;
+      gap: 60px;
+      padding: 50px 0 80px;
+      align-items: start;
+    }
+
+    /* Gallery */
+    .gallery-sticky {
+      position: sticky;
+      top: 100px;
+    }
+    .gallery-main-view {
+      position: relative;
+      background: #FFFFFF;
+      border: 1px solid var(--border-light);
+      border-radius: var(--radius-xl);
+      overflow: hidden;
+      padding-top: 75%;
+      box-shadow: var(--shadow-sm);
+    }
+    .gallery-main-view img {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.4s ease;
+    }
+    .gallery-thumbs-row {
+      display: flex;
+      gap: 14px;
+      margin-top: 18px;
+    }
+    .gallery-thumb {
+      width: 80px;
+      height: 80px;
+      border-radius: var(--radius-md);
+      border: 2px solid var(--border-light);
+      overflow: hidden;
+      cursor: pointer;
+      transition: all var(--transition-fast);
+      background: #FFFFFF;
+    }
+    .gallery-thumb:hover,
+    .gallery-thumb.active {
+      border-color: var(--accent-mint);
+      box-shadow: 0 0 0 2px rgba(16, 185, 129, 0.2);
+    }
+    .gallery-thumb img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    /* Detail Right */
+    .detail-info {
+      display: flex;
+      flex-direction: column;
+    }
+    .detail-badge-row {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 12px;
+    }
+    .detail-title {
+      font-size: 2.5rem;
+      margin-bottom: 12px;
+      line-height: 1.2;
+    }
+    .detail-rating-row {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 24px;
+      font-size: 0.9375rem;
+    }
+    .detail-stars {
+      color: var(--accent-gold);
+      font-size: 1.15rem;
+    }
+
+    .detail-price-box {
+      background: var(--bg-subtle);
+      border: 1px solid var(--border-light);
+      border-radius: var(--radius-lg);
+      padding: 24px;
+      margin-bottom: 28px;
+    }
+    .detail-price-main {
+      display: flex;
+      align-items: baseline;
+      gap: 16px;
+      margin-bottom: 8px;
+    }
+    .detail-curr-price {
+      font-family: var(--font-heading);
+      font-size: 2.25rem;
+      font-weight: 800;
+      color: var(--text-primary);
+    }
+    .detail-old-price {
+      font-size: 1.15rem;
+      color: var(--text-muted);
+      text-decoration: line-through;
+    }
+    .detail-installment {
+      font-size: 0.875rem;
+      color: var(--accent-emerald);
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    /* Specs Highlights Grid */
+    .detail-specs-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 12px;
+      margin-bottom: 28px;
+    }
+    .detail-spec-card {
+      background: #FFFFFF;
+      border: 1px solid var(--border-light);
+      border-radius: var(--radius-md);
+      padding: 14px 10px;
+      text-align: center;
+    }
+    .detail-spec-icon {
+      font-size: 1.25rem;
+      margin-bottom: 4px;
+    }
+    .detail-spec-val {
+      font-weight: 700;
+      font-size: 0.9375rem;
+      color: var(--text-primary);
+    }
+    .detail-spec-lbl {
+      font-size: 0.6875rem;
+      color: var(--text-muted);
+    }
+
+    /* Features List */
+    .detail-features-box {
+      margin-bottom: 28px;
+    }
+    .detail-features-box h4 {
+      font-size: 1rem;
+      margin-bottom: 12px;
+    }
+    .detail-features-list {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+    }
+    .detail-feature-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.875rem;
+      color: var(--text-secondary);
+    }
+    .detail-feature-check {
+      color: var(--accent-emerald);
+      font-weight: 800;
+    }
+
+    /* Quantity & Actions */
+    .detail-actions-box {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      margin-bottom: 32px;
+    }
+    .qty-row {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+    .qty-counter {
+      display: flex;
+      align-items: center;
+      border: 1px solid var(--border-light);
+      border-radius: var(--radius-pill);
+      background: #FFFFFF;
+      overflow: hidden;
+    }
+    .qty-btn {
+      width: 40px;
+      height: 40px;
+      background: none;
+      border: none;
+      font-size: 1.15rem;
+      font-weight: 600;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--text-primary);
+      transition: background var(--transition-fast);
+    }
+    .qty-btn:hover {
+      background: var(--bg-subtle);
+    }
+    .qty-input {
+      width: 48px;
+      text-align: center;
+      border: none;
+      outline: none;
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--text-primary);
+      background: transparent;
+    }
+
+    /* Trust Guarantees */
+    .detail-trust-row {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+      border-top: 1px solid var(--border-light);
+      padding-top: 24px;
+      font-size: 0.8125rem;
+      color: var(--text-muted);
+      text-align: center;
+    }
+
+    /* Comparison Table Section */
+    .comparison-section {
+      background: #FFFFFF;
+      border-top: 1px solid var(--border-light);
+      padding: 80px 0;
+    }
+    .comparison-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 40px;
+      background: #FFFFFF;
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      box-shadow: var(--shadow-sm);
+      border: 1px solid var(--border-light);
+    }
+    .comparison-table th, 
+    .comparison-table td {
+      padding: 18px 24px;
+      text-align: left;
+      border-bottom: 1px solid var(--border-light);
+    }
+    .comparison-table th {
+      background: var(--bg-subtle);
+      font-size: 1rem;
+      font-weight: 700;
+    }
+    .comparison-table th.cleannova-col {
+      background: rgba(16, 185, 129, 0.08);
+      color: var(--accent-emerald);
+      font-size: 1.15rem;
+    }
+    .comparison-table td.cleannova-col {
+      background: rgba(16, 185, 129, 0.03);
+      font-weight: 600;
+      color: var(--text-primary);
+    }
+
+    /* Specs Tab Table */
+    .specs-table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+    .specs-table tr {
+      border-bottom: 1px solid var(--border-light);
+    }
+    .specs-table td {
+      padding: 14px 20px;
+      font-size: 0.9375rem;
+    }
+    .specs-table td:first-child {
+      font-weight: 600;
+      color: var(--text-muted);
+      width: 35%;
+    }
+
+    /* Mobile Sticky Purchase Bar */
+    .mobile-purchase-bar {
+      display: none;
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(16px);
+      box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.1);
+      padding: 12px 20px;
+      z-index: 890;
+      align-items: center;
+      justify-content: space-between;
+      border-top: 1px solid var(--border-light);
+    }
+
+    @media (max-width: 992px) {
+      .detail-grid {
+        grid-template-columns: 1fr;
+        gap: 40px;
+      }
+      .gallery-sticky {
+        position: static;
+      }
+      .mobile-purchase-bar {
+        display: flex;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Dynamic Header Injection -->
+  <header id="main-header"></header>
+
+  <!-- Breadcrumbs -->
+  <div class="breadcrumb-bar">
+    <div class="container">
+      <a href="index.html">Trang chủ</a> / 
+      <a href="products.html">Sản phẩm</a> / 
+      <span id="breadcrumb-product-name" style="color: var(--text-primary); font-weight: 600;">Chi tiết</span>
+    </div>
+  </div>
+
+  <main class="container">
+    <!-- Main Detail Grid -->
+    <div class="detail-grid">
+      <!-- Left: Interactive Gallery -->
+      <div class="gallery-sticky">
+        <div class="gallery-main-view">
+          <img src="" id="main-product-img" alt="Cleannova Product">
+        </div>
+        <div class="gallery-thumbs-row" id="gallery-thumbs">
+          <!-- Populated by JavaScript -->
+        </div>
+      </div>
+
+      <!-- Right: Product Purchase Controls -->
+      <div class="detail-info">
+        <div class="detail-badge-row">
+          <span class="product-card-badge badge-emerald" id="detail-badge">BÁN CHẠY NHẤT</span>
+          <span style="font-size: 0.8125rem; font-weight: 600; color: var(--accent-emerald);" id="detail-series">Flagship AI Series</span>
+        </div>
+
+        <h1 class="detail-title" id="detail-name">CLEANNOVA AI X1</h1>
+
+        <div class="detail-rating-row">
+          <span class="detail-stars" id="detail-stars">★★★★★</span>
+          <span style="font-weight: 600;" id="detail-rating-text">4.9/5</span>
+          <span style="color: var(--text-muted);" id="detail-reviews-count">(312 đánh giá)</span>
+          <span style="color: var(--border-light);">•</span>
+          <span style="color: var(--accent-emerald); font-weight: 600;">Còn hàng (Sẵn sàng giao)</span>
+        </div>
+
+        <!-- Price Box -->
+        <div class="detail-price-box">
+          <div class="detail-price-main">
+            <span class="detail-curr-price" id="detail-price">8.990.000₫</span>
+            <span class="detail-old-price" id="detail-old-price">10.990.000₫</span>
+            <span class="discount-tag" id="detail-discount">-18%</span>
+          </div>
+          <div class="detail-installment">
+            <span>💳 Trả góp 0% chỉ từ 749.000₫/tháng qua thẻ tín dụng hoặc MoMo</span>
+          </div>
+        </div>
+
+        <!-- Highlight Specs -->
+        <div class="detail-specs-grid" id="detail-specs-cards">
+          <!-- Populated by JS -->
+        </div>
+
+        <!-- Description -->
+        <p style="font-size: 1rem; color: var(--text-secondary); line-height: 1.7; margin-bottom: 24px;" id="detail-desc">
+          Mô tả sản phẩm...
+        </p>
+
+        <!-- Features Checklist -->
+        <div class="detail-features-box">
+          <h4>Tính Năng Vượt Trội:</h4>
+          <div class="detail-features-list" id="detail-features-list">
+            <!-- Populated by JS -->
+          </div>
+        </div>
+
+        <!-- Quantity & CTAs -->
+        <div class="detail-actions-box">
+          <div class="qty-row">
+            <span style="font-weight: 600; font-size: 0.9375rem;">Số lượng:</span>
+            <div class="qty-counter">
+              <button class="qty-btn" id="qty-minus">−</button>
+              <input type="number" class="qty-input" id="qty-input" value="1" min="1" max="10" readonly>
+              <button class="qty-btn" id="qty-plus">+</button>
+            </div>
+            <span style="font-size: 0.8125rem; color: var(--text-muted);">(Tối đa 10 máy/đơn)</span>
+          </div>
+
+          <div style="display: grid; grid-template-columns: 1.2fr 0.8fr; gap: 12px;">
+            <button id="buy-now-btn" class="btn btn-cta btn-lg btn-sheen" style="width: 100%;">
+              <span>MUA NGAY – TRẢ GÓP 0%</span>
+            </button>
+            <button id="add-to-cart-btn" class="btn btn-primary btn-lg" style="width: 100%;">
+              <span>Thêm Vào Giỏ</span>
+            </button>
+          </div>
+
+          <button id="try-at-home-btn" class="btn btn-secondary btn-lg" style="width: 100%;">
+            <span>🏠 Đăng Ký Dùng Thử 7 Ngày Miễn Phí Tại Nhà</span>
+          </button>
+        </div>
+
+        <!-- Trust Badges -->
+        <div class="detail-trust-row">
+          <div>
+            <div style="font-size: 1.25rem; margin-bottom: 4px;">🚚</div>
+            <strong>Giao Hỏa Tốc</strong>
+            <p>Miễn phí toàn quốc</p>
+          </div>
+          <div>
+            <div style="font-size: 1.25rem; margin-bottom: 4px;">🔄</div>
+            <strong>1 Đổi 1 Trong 30 Ngày</strong>
+            <p>Nếu có lỗi kỹ thuật</p>
+          </div>
+          <div>
+            <div style="font-size: 1.25rem; margin-bottom: 4px;">🛡️</div>
+            <strong>18 Tháng Bảo Hành</strong>
+            <p>Hỗ trợ kỹ thuật 24/7</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- ========================================================================
+       SECTION: HOW IT WORKS (ROBOT HOẠT ĐỘNG NHƯ THẾ NÀO?)
+       ======================================================================== -->
+  <section class="section" style="background: #FFFFFF; border-top: 1px solid var(--border-light);">
+    <div class="container">
+      <div class="section-header">
+        <div class="section-tag">Quy Trình Hoạt Động</div>
+        <h2 class="section-title">Robot hoạt động như thế nào?</h2>
+        <p class="section-subtitle">
+          Quy trình tự động hóa khép kín 4 bước từ khi rời trạm sạc đến lúc hoàn thành chu trình giặt sấy.
+        </p>
+      </div>
+
+      <div class="value-grid">
+        <div class="value-card">
+          <div class="value-card-icon">1</div>
+          <h3 class="value-card-title">Quét & Lập Bản Đồ 3D</h3>
+          <p class="value-card-desc">Cảm biến LiDAR 360° quét toàn diện căn hộ, chia khu vực phòng khách, phòng ngủ và nhận diện chất liệu sàn.</p>
+        </div>
+        <div class="value-card">
+          <div class="value-card-icon">2</div>
+          <h3 class="value-card-title">Hút Bụi & Lau Áp Lực</h3>
+          <p class="value-card-desc">Động cơ hút mạnh mẽ hút sạch bụi mịn trong khi 2 đĩa lau xoay ấn lực 10N đánh bay các vết bẩn cứng đầu.</p>
+        </div>
+        <div class="value-card">
+          <div class="value-card-icon">3</div>
+          <h3 class="value-card-title">Tự Động Gom Rác 60 Ngày</h3>
+          <p class="value-card-desc">Robot quay về dock sạc, hệ thống hút kín chuyển toàn bộ rác sang túi chứa kháng khuẩn không gây bụi bẩn ra không khí.</p>
+        </div>
+        <div class="value-card">
+          <div class="value-card-icon">4</div>
+          <h3 class="value-card-title">Giặt & Sấy Nóng 80°C</h3>
+          <p class="value-card-desc">Trạm sạc tự động bơm nước nóng giặt sạch giẻ và sấy khô bằng khí nhiệt 80°C, sẵn sàng cho phiên dọn dẹp tiếp theo.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========================================================================
+       SECTION: COMPARISON TABLE (CLEANNOVA VS ROBOT THÔNG THƯỜNG)
+       ======================================================================== -->
+  <section class="comparison-section">
+    <div class="container">
+      <div class="section-header">
+        <div class="section-tag">So Sánh Đẳng Cấp</div>
+        <h2 class="section-title">Cleannova vs Robot Thông Thường</h2>
+        <p class="section-subtitle">
+          Sự khác biệt vượt bậc trong công nghệ mang lại giá trị sử dụng thảnh thơi vượt trội.
+        </p>
+      </div>
+
+      <table class="comparison-table">
+        <thead>
+          <tr>
+            <th>Tiêu chí so sánh</th>
+            <th class="cleannova-col">✦ CLEANNOVA AI SERIES</th>
+            <th>Robot giá rẻ thông thường</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Khả năng né vật cản</strong></td>
+            <td class="cleannova-col">AI 3D Structured Light né chuẩn từng sợi dây cáp & đồ chơi nhỏ</td>
+            <td>Dùng thanh cản va đập thụ động, dễ kẹt vào gầm bàn ghế</td>
+          </tr>
+          <tr>
+            <td><strong>Trạm sạc tự động</strong></td>
+            <td class="cleannova-col">All-in-One: Tự đổ rác 60 ngày + Tự giặt sấy nóng 80°C tiệt trùng</td>
+            <td>Chỉ có đế sạc thông thường, phải tự giặt giẻ và đổ rác hàng ngày</td>
+          </tr>
+          <tr>
+            <td><strong>Lực hút áp suất</strong></td>
+            <td class="cleannova-col">8.000 – 15.000 Pa (Hút sạch sâu sợi thảm)</td>
+            <td>1.500 – 3.000 Pa (Chỉ hút được bụi nhẹ bề mặt)</td>
+          </tr>
+          <tr>
+            <td><strong>Khả năng lọc không khí</strong></td>
+            <td class="cleannova-col">HEPA H13/H14 kháng khuẩn 99.97% mạt bụi và vi khuẩn</td>
+            <td>Lưới lọc bọt biển đơn giản, dễ làm bụi mịn phát tán lại phòng</td>
+          </tr>
+          <tr>
+            <td><strong>Chính sách hậu mãi</strong></td>
+            <td class="cleannova-col">Bảo hành 18 tháng • 1 đổi 1 30 ngày • Kỹ sư hỗ trợ tận nhà</td>
+            <td>Bảo hành 6 tháng, khách hàng tự mang đi sửa chữa xa xôi</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- ========================================================================
+       SECTION: DETAILED SPECIFICATIONS
+       ======================================================================== -->
+  <section class="section" style="background: var(--bg-main);">
+    <div class="container">
+      <div class="section-header">
+        <div class="section-tag">Chi Tiết Kỹ Thuật</div>
+        <h2 class="section-title">Bảng Thông Số Kỹ Thuật</h2>
+      </div>
+
+      <div style="max-width: 800px; margin: 0 auto; background: #FFFFFF; border-radius: var(--radius-lg); border: 1px solid var(--border-light); overflow: hidden; box-shadow: var(--shadow-sm);">
+        <table class="specs-table" id="detail-specs-table">
+          <!-- Populated by JS -->
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- Mobile Sticky Bar -->
+  <div class="mobile-purchase-bar">
+    <div>
+      <div style="font-size: 0.75rem; color: var(--text-muted);">Giá khuyến mãi</div>
+      <div style="font-weight: 800; font-size: 1.15rem; color: var(--text-primary);" id="mobile-sticky-price">8.990.000₫</div>
+    </div>
+    <div style="display: flex; gap: 8px;">
+      <button id="mobile-add-cart" class="btn btn-secondary btn-sm">Thêm Giỏ</button>
+      <button id="mobile-buy-now" class="btn btn-cta btn-sm">Mua Ngay</button>
+    </div>
+  </div>
+
+  <!-- Dynamic Footer Injection -->
+  <footer id="main-footer"></footer>
+
+  <!-- Floating AI Chatbot Container -->
+  <div id="chatbot-container"></div>
+
+  <!-- Toast Notification Container -->
+  <div id="toast-container" class="toast-container" aria-live="polite"></div>
+
+  <!-- Scripts -->
+  <script src="js/data.js"></script>
+  <script src="js/app.js"></script>
+  <script src="js/chatbot.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const params = new URLSearchParams(window.location.search);
+      const id = parseInt(params.get('id')) || 1;
+      const product = getProductById(id) || PRODUCTS[0];
+
+      renderProductDetail(product);
+      initActions(product);
+    });
+
+    function renderProductDetail(p) {
+      document.title = `${p.name} | CLEANNOVA`;
+      document.getElementById('breadcrumb-product-name').textContent = p.name;
+      document.getElementById('detail-name').textContent = p.name;
+      document.getElementById('detail-series').textContent = p.series || 'Cleannova Series';
+      document.getElementById('detail-badge').textContent = p.badge || 'CHÍNH HÃNG';
+      document.getElementById('detail-stars').innerHTML = renderStars(p.rating || 5);
+      document.getElementById('detail-rating-text').textContent = `${p.rating || 5}/5`;
+      document.getElementById('detail-reviews-count').textContent = `(${p.reviews || 100} đánh giá)`;
+      document.getElementById('detail-price').textContent = formatPrice(p.price);
+      document.getElementById('mobile-sticky-price').textContent = formatPrice(p.price);
+
+      if (p.oldPrice) {
+        document.getElementById('detail-old-price').textContent = formatPrice(p.oldPrice);
+        document.getElementById('detail-discount').textContent = `-${p.discount || 15}%`;
+      } else {
+        document.getElementById('detail-old-price').style.display = 'none';
+        document.getElementById('detail-discount').style.display = 'none';
+      }
+
+      document.getElementById('detail-desc').textContent = p.description;
+
+      // Main image & Gallery
+      const mainImg = document.getElementById('main-product-img');
+      mainImg.src = p.image;
+      mainImg.alt = p.name;
+
+      const galleryImages = p.gallery || [p.image];
+      const thumbsContainer = document.getElementById('gallery-thumbs');
+      thumbsContainer.innerHTML = galleryImages.map((src, idx) => `
+        <div class="gallery-thumb ${idx === 0 ? 'active' : ''}" onclick="selectThumb(this, '${src}')">
+          <img src="${src}" alt="${p.name} view ${idx+1}">
+        </div>
+      `).join('');
+
+      // Highlights spec cards
+      const specCardsContainer = document.getElementById('detail-specs-cards');
+      if (p.suction) {
+        specCardsContainer.innerHTML = `
+          <div class="detail-spec-card">
+            <div class="detail-spec-icon">💨</div>
+            <div class="detail-spec-val">${p.suctionDisplay}</div>
+            <div class="detail-spec-lbl">Lực Hút</div>
+          </div>
+          <div class="detail-spec-card">
+            <div class="detail-spec-icon">🔋</div>
+            <div class="detail-spec-val">${p.battery} Phút</div>
+            <div class="detail-spec-lbl">Pin Sạc</div>
+          </div>
+          <div class="detail-spec-card">
+            <div class="detail-spec-icon">📐</div>
+            <div class="detail-spec-val">${p.area} m²</div>
+            <div class="detail-spec-lbl">Diện Tích</div>
+          </div>
+          <div class="detail-spec-card">
+            <div class="detail-spec-icon">♨️</div>
+            <div class="detail-spec-val">80°C</div>
+            <div class="detail-spec-lbl">Sấy Nóng</div>
+          </div>
+        `;
+      } else {
+        specCardsContainer.style.display = 'none';
+      }
+
+      // Features
+      const featList = document.getElementById('detail-features-list');
+      featList.innerHTML = (p.features || ['Chính hãng 100%', 'Bảo hành đầy đủ']).map(f => `
+        <div class="detail-feature-item">
+          <span class="detail-feature-check">✓</span>
+          <span>${f}</span>
+        </div>
+      `).join('');
+
+      // Specs Table
+      const specsTable = document.getElementById('detail-specs-table');
+      if (p.specs) {
+        specsTable.innerHTML = Object.entries(p.specs).map(([key, val]) => `
+          <tr>
+            <td>${key}</td>
+            <td><strong>${val}</strong></td>
+          </tr>
+        `).join('');
+      } else {
+        specsTable.innerHTML = `<tr><td colspan="2" style="text-align: center;">Thông số chuẩn chính hãng Cleannova</td></tr>`;
+      }
+    }
+
+    function selectThumb(el, src) {
+      document.getElementById('main-product-img').src = src;
+      document.querySelectorAll('.gallery-thumb').forEach(t => t.classList.remove('active'));
+      el.classList.add('active');
+    }
+
+    function initActions(p) {
+      let qty = 1;
+      const qtyInput = document.getElementById('qty-input');
+      document.getElementById('qty-minus').addEventListener('click', () => {
+        if (qty > 1) { qty--; qtyInput.value = qty; }
+      });
+      document.getElementById('qty-plus').addEventListener('click', () => {
+        if (qty < 10) { qty++; qtyInput.value = qty; }
+      });
+
+      const handleAdd = () => {
+        addToCart(p.id, qty);
+        showToast(`Đã thêm ${qty} x ${p.name} vào giỏ hàng!`, '🛍️');
+      };
+
+      const handleBuy = () => {
+        addToCart(p.id, qty);
+        window.location.href = 'checkout.html';
+      };
+
+      document.getElementById('add-to-cart-btn').addEventListener('click', handleAdd);
+      document.getElementById('buy-now-btn').addEventListener('click', handleBuy);
+      document.getElementById('mobile-add-cart').addEventListener('click', handleAdd);
+      document.getElementById('mobile-buy-now').addEventListener('click', handleBuy);
+
+      document.getElementById('try-at-home-btn').addEventListener('click', () => {
+        showToast('Đã ghi nhận yêu cầu dùng thử! Nhân viên sẽ liên hệ trong 15 phút.', '🏠');
+      });
+    }
+  </script>
+</body>
+</html>

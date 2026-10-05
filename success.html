@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Đặt Hàng Thành Công | CLEANNOVA</title>
+  <meta name="description" content="Đơn hàng robot hút bụi thông minh Cleannova đã được tiếp nhận thành công.">
+
+  <!-- Google Fonts: Plus Jakarta Sans & Inter -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap" rel="stylesheet">
+
+  <!-- Design System & Stylesheets -->
+  <link rel="stylesheet" href="css/tokens.css">
+  <link rel="stylesheet" href="css/animations.css">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/responsive.css">
+
+  <style>
+    .success-container {
+      max-width: 720px;
+      margin: 60px auto 100px;
+      padding: 0 20px;
+      text-align: center;
+    }
+    .success-card {
+      background: #FFFFFF;
+      border: 1px solid var(--border-light);
+      border-radius: var(--radius-xl);
+      padding: 50px 40px;
+      box-shadow: var(--shadow-lg);
+    }
+    .success-icon-badge {
+      width: 80px;
+      height: 80px;
+      background: var(--accent-mint-light);
+      color: var(--accent-emerald);
+      border-radius: 50%;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2.5rem;
+      margin-bottom: 24px;
+      box-shadow: 0 0 0 10px rgba(16, 185, 129, 0.1);
+    }
+
+    /* Timeline Tracking */
+    .tracking-timeline {
+      display: flex;
+      justify-content: space-between;
+      margin: 40px 0;
+      position: relative;
+    }
+    .tracking-timeline::before {
+      content: '';
+      position: absolute;
+      top: 18px;
+      left: 10%;
+      right: 10%;
+      height: 3px;
+      background: var(--border-light);
+      z-index: 1;
+    }
+    .tracking-step {
+      position: relative;
+      z-index: 2;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      width: 25%;
+    }
+    .step-circle {
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      background: #FFFFFF;
+      border: 3px solid var(--border-light);
+      color: var(--text-muted);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.875rem;
+      font-weight: 700;
+      margin-bottom: 10px;
+    }
+    .tracking-step.active .step-circle {
+      background: var(--accent-mint);
+      border-color: var(--accent-mint);
+      color: #FFFFFF;
+      box-shadow: 0 0 0 4px rgba(16, 185, 129, 0.25);
+    }
+    .step-label {
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: var(--text-secondary);
+      text-align: center;
+    }
+
+    .order-recap-box {
+      background: var(--bg-subtle);
+      border-radius: var(--radius-lg);
+      padding: 24px;
+      text-align: left;
+      margin: 30px 0;
+      border: 1px solid var(--border-light);
+    }
+    .recap-row {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 12px;
+      font-size: 0.9375rem;
+    }
+    .recap-row:last-child {
+      margin-bottom: 0;
+      padding-top: 12px;
+      border-top: 1px solid var(--border-light);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Dynamic Header Injection -->
+  <header id="main-header"></header>
+
+  <main class="success-container">
+    <div class="success-card">
+      <div class="success-icon-badge">✓</div>
+      <h1 style="font-size: 2.25rem; margin-bottom: 12px;">Đặt Hàng Thành Công!</h1>
+      <p style="font-size: 1.125rem; color: var(--text-muted); max-width: 500px; margin: 0 auto 30px;">
+        Cleannova đang chuẩn bị đóng gói và kiểm định kỹ thuật robot cho ngôi nhà của bạn.
+      </p>
+
+      <!-- Order ID Pill -->
+      <div style="display: inline-flex; align-items: center; gap: 8px; background: var(--bg-subtle); padding: 8px 20px; border-radius: var(--radius-pill); font-size: 0.9375rem; font-weight: 700; color: var(--text-primary); border: 1px solid var(--border-light); margin-bottom: 20px;">
+        <span>Mã đơn hàng:</span>
+        <span id="order-id-display" style="color: var(--accent-emerald);">#CN-2026-8942</span>
+      </div>
+
+      <!-- Tracking Timeline -->
+      <div class="tracking-timeline">
+        <div class="tracking-step active">
+          <div class="step-circle">✓</div>
+          <div class="step-label">Đã xác nhận</div>
+        </div>
+        <div class="tracking-step active">
+          <div class="step-circle">2</div>
+          <div class="step-label">Kiểm định xuất kho</div>
+        </div>
+        <div class="tracking-step">
+          <div class="step-circle">3</div>
+          <div class="step-label">Đang vận chuyển</div>
+        </div>
+        <div class="tracking-step">
+          <div class="step-circle">4</div>
+          <div class="step-label">Bàn giao & HDSD</div>
+        </div>
+      </div>
+
+      <!-- Order Recap Box -->
+      <div class="order-recap-box">
+        <div class="recap-row">
+          <span style="color: var(--text-muted);">Thời gian giao dự kiến:</span>
+          <strong>24h – 48h (Giao hỏa tốc miễn phí)</strong>
+        </div>
+        <div class="recap-row">
+          <span style="color: var(--text-muted);">Khách hàng:</span>
+          <strong id="recap-name">Nguyễn Văn A</strong>
+        </div>
+        <div class="recap-row">
+          <span style="color: var(--text-muted);">Địa chỉ nhận hàng:</span>
+          <strong id="recap-address">TP. Hồ Chí Minh</strong>
+        </div>
+        <div class="recap-row">
+          <span style="color: var(--text-muted);">Phương thức thanh toán:</span>
+          <strong id="recap-payment">Chuyển khoản VietQR</strong>
+        </div>
+        <div class="recap-row">
+          <span>Tổng thanh toán:</span>
+          <span id="recap-total" style="font-size: 1.25rem; font-weight: 800; color: var(--accent-emerald); font-family: var(--font-heading);">
+            8.990.000₫
+          </span>
+        </div>
+      </div>
+
+      <div style="display: flex; gap: 16px; justify-content: center; flex-wrap: wrap;">
+        <a href="index.html" class="btn btn-primary btn-lg">
+          <span>Quay Về Trang Chủ</span>
+        </a>
+        <a href="user-flow.html" class="btn btn-secondary btn-lg">
+          <span>Xem Sơ Đồ User Flow (Chương 4.2)</span>
+        </a>
+      </div>
+    </div>
+  </main>
+
+  <!-- Dynamic Footer Injection -->
+  <footer id="main-footer"></footer>
+
+  <!-- Floating AI Chatbot Container -->
+  <div id="chatbot-container"></div>
+
+  <!-- Toast Notification Container -->
+  <div id="toast-container" class="toast-container" aria-live="polite"></div>
+
+  <!-- Scripts -->
+  <script src="js/data.js"></script>
+  <script src="js/app.js"></script>
+  <script src="js/chatbot.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const params = new URLSearchParams(window.location.search);
+      const orderIdParam = params.get('orderId');
+
+      let order = null;
+      try {
+        order = JSON.parse(localStorage.getItem('cleannova-latest-order') || '{}');
+      } catch {}
+
+      if (orderIdParam) {
+        document.getElementById('order-id-display').textContent = orderIdParam;
+      } else if (order && order.orderId) {
+        document.getElementById('order-id-display').textContent = order.orderId;
+      }
+
+      if (order && order.customer) {
+        document.getElementById('recap-name').textContent = order.customer.name || 'Quý khách';
+        document.getElementById('recap-address').textContent = `${order.customer.address}, ${order.customer.city}`;
+        document.getElementById('recap-payment').textContent = 
+          order.paymentMethod === 'vietqr' ? 'Chuyển khoản ngân hàng VietQR' :
+          order.paymentMethod === 'momo' ? 'Ví điện tử MoMo' :
+          order.paymentMethod === 'vnpay' ? 'Cổng thanh toán VNPay' : 'Thanh toán khi nhận hàng (COD)';
+        document.getElementById('recap-total').textContent = formatPrice(order.finalTotal || 0);
+      }
+    });
+  </script>
+</body>
+</html>

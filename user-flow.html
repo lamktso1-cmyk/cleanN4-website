@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sơ Đồ Luồng Hoạt Động (User Flow) | CLEANNOVA</title>
+  <meta name="description" content="Chương 4.2 – Sơ đồ luồng hoạt động và trải nghiệm khách hàng (Customer Journey) trên website thương mại điện tử Cleannova.">
+
+  <!-- Google Fonts: Plus Jakarta Sans & Inter -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="css/tokens.css">
+  <link rel="stylesheet" href="css/animations.css">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/responsive.css">
+
+  <style>
+    .flow-page-header {
+      background: #FFFFFF;
+      padding: 50px 0 30px;
+      border-bottom: 1px solid var(--border-light);
+      text-align: center;
+    }
+    .flow-tree-container {
+      max-width: 900px;
+      margin: 50px auto 100px;
+      position: relative;
+      padding: 0 20px;
+    }
+
+    /* Central vertical connecting line */
+    .flow-tree-container::before {
+      content: '';
+      position: absolute;
+      top: 20px;
+      bottom: 20px;
+      left: 50%;
+      width: 4px;
+      background: linear-gradient(180deg, #10B981 0%, #06B6D4 100%);
+      transform: translateX(-50%);
+      border-radius: 4px;
+      z-index: 1;
+    }
+
+    .flow-step-node {
+      position: relative;
+      z-index: 2;
+      display: flex;
+      margin-bottom: 40px;
+      width: 50%;
+    }
+    .flow-step-node.left {
+      left: 0;
+      justify-content: flex-end;
+      padding-right: 40px;
+    }
+    .flow-step-node.right {
+      left: 50%;
+      justify-content: flex-start;
+      padding-left: 40px;
+    }
+
+    .node-box {
+      background: #FFFFFF;
+      border: 1px solid var(--border-light);
+      border-radius: var(--radius-lg);
+      padding: 24px;
+      box-shadow: var(--shadow-sm);
+      width: 100%;
+      max-width: 360px;
+      transition: all var(--transition-normal);
+      position: relative;
+    }
+    .node-box:hover {
+      transform: translateY(-4px);
+      box-shadow: var(--shadow-lg);
+      border-color: var(--accent-mint);
+    }
+
+    /* Connection dots */
+    .flow-step-node.left .node-box::after {
+      content: '';
+      position: absolute;
+      top: 50%;
+      right: -48px;
+      width: 16px;
+      height: 16px;
+      border-radius: 50%;
+      background: #10B981;
+      border: 3px solid #FFFFFF;
+      box-shadow: 0 0 0 2px #10B981;
+      transform: translateY(-50%);
+      z-index: 3;
+    }
+    .flow-step-node.right .node-box::after {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: -48px;
+      width: 16px;
+      height: 16px;
+      border-radius: 50%;
+      background: #10B981;
+      border: 3px solid #FFFFFF;
+      box-shadow: 0 0 0 2px #10B981;
+      transform: translateY(-50%);
+      z-index: 3;
+    }
+
+    .step-number-pill {
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: var(--accent-emerald);
+      background: var(--accent-mint-light);
+      padding: 3px 10px;
+      border-radius: 999px;
+      display: inline-block;
+      margin-bottom: 8px;
+    }
+    .step-node-title {
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: var(--text-primary);
+      margin-bottom: 6px;
+    }
+    .step-node-desc {
+      font-size: 0.875rem;
+      color: var(--text-muted);
+      line-height: 1.6;
+      margin-bottom: 12px;
+    }
+    .step-action-link {
+      font-size: 0.8125rem;
+      font-weight: 700;
+      color: var(--accent-emerald);
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+    }
+    .step-action-link:hover {
+      text-decoration: underline;
+    }
+
+    @media (max-width: 768px) {
+      .flow-tree-container::before {
+        left: 20px;
+      }
+      .flow-step-node {
+        width: 100% !important;
+        left: 0 !important;
+        padding-left: 50px !important;
+        padding-right: 0 !important;
+        justify-content: flex-start !important;
+      }
+      .flow-step-node.left .node-box::after,
+      .flow-step-node.right .node-box::after {
+        left: -38px !important;
+        right: auto !important;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Dynamic Header Injection -->
+  <header id="main-header"></header>
+
+  <!-- Page Header -->
+  <div class="flow-page-header">
+    <div class="container">
+      <div style="font-size: 0.875rem; color: var(--text-muted); margin-bottom: 8px;">
+        <a href="index.html">Trang chủ</a> / <span>Chương 4.2 – User Flow</span>
+      </div>
+      <h1 style="font-size: 2.25rem; margin-bottom: 12px;">Sơ Đồ Luồng Khách Hàng (Customer Journey)</h1>
+      <p style="color: var(--text-muted); max-width: 680px; margin: 0 auto; font-size: 1.05rem;">
+        Mô hình hóa toàn bộ hành trình trải nghiệm người dùng từ khi tiếp cận trang chủ, tìm kiếm qua bộ lọc, tư vấn AI đến giỏ hàng, áp mã giảm giá và hoàn tất đơn hàng.
+      </p>
+    </div>
+  </div>
+
+  <main class="container">
+    <div class="flow-tree-container">
+      <!-- Step 1 -->
+      <div class="flow-step-node left">
+        <div class="node-box">
+          <span class="step-number-pill">BƯỚC 1</span>
+          <h3 class="step-node-title">Khách Truy Cập Trang Chủ</h3>
+          <p class="step-node-desc">Người dùng vào trang chủ, tiếp cận thông điệp thương hiệu, các điểm nổi bật 8000Pa, AI 3D và 6 model robot.</p>
+          <a href="index.html" class="step-action-link">Xem trang chủ →</a>
+        </div>
+      </div>
+
+      <!-- Step 2 -->
+      <div class="flow-step-node right">
+        <div class="node-box">
+          <span class="step-number-pill">BƯỚC 2</span>
+          <h3 class="step-node-title">Khám Phá Danh Sách Sản Phẩm</h3>
+          <p class="step-node-desc">Chuyển sang trang Product Listing để xem toàn bộ danh mục robot và phụ kiện theo từng mức giá.</p>
+          <a href="products.html" class="step-action-link">Xem danh sách sản phẩm →</a>
+        </div>
+      </div>
+
+      <!-- Step 3 -->
+      <div class="flow-step-node left">
+        <div class="node-box">
+          <span class="step-number-pill">BƯỚC 3</span>
+          <h3 class="step-node-title">Sử Dụng Bộ Lọc Đa Tiêu Chí</h3>
+          <p class="step-node-desc">Khách hàng tinh chỉnh bộ lọc theo mức giá, lực hút, tính năng AI 3D, tự đổ rác và diện tích mặt sàn.</p>
+          <a href="products.html" class="step-action-link">Thử nghiệm bộ lọc →</a>
+        </div>
+      </div>
+
+      <!-- Step 4 -->
+      <div class="flow-step-node right">
+        <div class="node-box">
+          <span class="step-number-pill">BƯỚC 4</span>
+          <h3 class="step-node-title">Xem Chi Tiết Sản Phẩm (Detail)</h3>
+          <p class="step-node-desc">Khám phá thư viện ảnh độ nét cao, bảng thông số kỹ thuật, so sánh Cleannova vs robot thường và các đánh giá thật.</p>
+          <a href="product-detail.html?id=1" class="step-action-link">Xem trang chi tiết AI X1 →</a>
+        </div>
+      </div>
+
+      <!-- Step 5 -->
+      <div class="flow-step-node left">
+        <div class="node-box">
+          <span class="step-number-pill">BƯỚC 5</span>
+          <h3 class="step-node-title">Tư Vấn Cùng Trợ Lý AI Chatbot</h3>
+          <p class="step-node-desc">Nếu còn băn khoăn, khách hàng mở CleanBot ở góc phải màn hình, trả lời 3 câu hỏi nhanh để nhận đề xuất chính xác.</p>
+          <button onclick="document.getElementById('chatbot-fab').click();" class="step-action-link" style="background:none; border:none; cursor:pointer;">
+            Mở thử Chatbot AI ✦
+          </button>
+        </div>
+      </div>
+
+      <!-- Step 6 -->
+      <div class="flow-step-node right">
+        <div class="node-box">
+          <span class="step-number-pill">BƯỚC 6</span>
+          <h3 class="step-node-title">Thêm Vào Giỏ Hàng (Cart)</h3>
+          <p class="step-node-desc">Chọn số lượng, bấm "Thêm Vào Giỏ" hoặc "Mua Ngay", nhận thông báo Toast xác nhận tức thì.</p>
+          <a href="cart.html" class="step-action-link">Xem giỏ hàng →</a>
+        </div>
+      </div>
+
+      <!-- Step 7 -->
+      <div class="flow-step-node left">
+        <div class="node-box">
+          <span class="step-number-pill">BƯỚC 7</span>
+          <h3 class="step-node-title">Áp Dụng Mã Giảm Giá (Voucher)</h3>
+          <p class="step-node-desc">Nhập mã ưu đãi (ví dụ: CLEANNOVA1000 hoặc SMART20), hệ thống tự động trừ tiền giảm giá vào tổng thanh toán.</p>
+          <a href="cart.html" class="step-action-link">Thử nhập voucher →</a>
+        </div>
+      </div>
+
+      <!-- Step 8 -->
+      <div class="flow-step-node right">
+        <div class="node-box">
+          <span class="step-number-pill">BƯỚC 8</span>
+          <h3 class="step-node-title">Điền Thông Tin & Chọn Thanh Toán</h3>
+          <p class="step-node-desc">Nhập họ tên, địa chỉ nhận hàng, chọn 1 trong 4 hình thức thanh toán: VietQR, MoMo, VNPay hoặc COD.</p>
+          <a href="checkout.html" class="step-action-link">Xem trang checkout →</a>
+        </div>
+      </div>
+
+      <!-- Step 9 -->
+      <div class="flow-step-node left">
+        <div class="node-box">
+          <span class="step-number-pill">BƯỚC 9</span>
+          <h3 class="step-node-title">Xác Nhận & Theo Dõi Tiến Độ</h3>
+          <p class="step-node-desc">Màn hình Order Success hiển thị mã đơn, tiến độ xử lý kho, thời gian giao hàng và thông tin hỗ trợ 24/7.</p>
+          <a href="success.html" class="step-action-link">Xem màn hình Success →</a>
+        </div>
+      </div>
+
+      <!-- Step 10 -->
+      <div class="flow-step-node right">
+        <div class="node-box" style="border-color: rgba(16, 185, 129, 0.4); background: #F8FAFC;">
+          <span class="step-number-pill" style="background: #10B981; color: white;">BƯỚC 10 (ADMIN)</span>
+          <h3 class="step-node-title">Hệ Thống Quản Trị Cập Nhật</h3>
+          <p class="step-node-desc">Đơn hàng tự động đồng bộ sang Admin Dashboard để ban quản trị tiến hành xuất kho, theo dõi doanh thu và trừ tồn kho.</p>
+          <a href="admin.html" class="step-action-link">Truy cập Admin Dashboard →</a>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Dynamic Footer Injection -->
+  <footer id="main-footer"></footer>
+
+  <!-- Floating AI Chatbot Container -->
+  <div id="chatbot-container"></div>
+
+  <!-- Toast Notification Container -->
+  <div id="toast-container" class="toast-container" aria-live="polite"></div>
+
+  <!-- Scripts -->
+  <script src="js/data.js"></script>
+  <script src="js/app.js"></script>
+  <script src="js/chatbot.js"></script>
+</body>
+</html>

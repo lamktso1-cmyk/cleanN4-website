@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Quản Lý Sản Phẩm | CLEANNOVA ADMIN</title>
+  <meta name="description" content="Quản lý danh sách robot hút bụi và phụ kiện hệ thống Cleannova.">
+
+  <!-- Google Fonts: Plus Jakarta Sans & Inter -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="css/tokens.css">
+  <link rel="stylesheet" href="css/animations.css">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/admin.css">
+</head>
+<body class="admin-body">
+
+  <div class="admin-layout">
+    <aside id="admin-sidebar"></aside>
+
+    <main class="admin-main">
+      <div class="admin-topbar">
+        <div class="admin-page-title">
+          <h1>Quản Lý Sản Phẩm & Giá Bán</h1>
+          <p>Chương 4.3 – Danh mục thiết bị robot thông minh và phụ kiện chính hãng Cleannova</p>
+        </div>
+        <div>
+          <button onclick="showToast('Mở cửa sổ thêm sản phẩm mới...', '✦')" class="btn btn-cta btn-sm">
+            + Thêm Sản Phẩm Mới
+          </button>
+        </div>
+      </div>
+
+      <div class="admin-card">
+        <div class="admin-card-header">
+          <h2 class="admin-card-title">Danh Sách Model Robot Hiện Hành</h2>
+        </div>
+        <div class="admin-table-wrap">
+          <table class="admin-table">
+            <thead>
+              <tr>
+                <th>Tên Thiết Bị & Series</th>
+                <th>Giá Niêm Yết</th>
+                <th>Công Suất Hút</th>
+                <th>Tồn Kho</th>
+                <th>Trạng Thái</th>
+                <th>Thao Tác</th>
+              </tr>
+            </thead>
+            <tbody id="admin-products-table-body">
+              <!-- Populated by admin.js -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <div id="toast-container" class="toast-container"></div>
+
+  <!-- Scripts -->
+  <script src="js/data.js"></script>
+  <script src="js/app.js"></script>
+  <script src="js/admin.js"></script>
+</body>
+</html>
