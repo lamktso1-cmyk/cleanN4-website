@@ -3,345 +3,706 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>CLEANNOVA | Robot Hút Bụi Lau Nhà Thông Minh Cao Cấp</title>
-  <meta name="description" content="CLEANNOVA - Giải pháp không gian sống sạch hoàn hảo và trải nghiệm thảnh thơi trọn vẹn. Dùng thử 7 ngày miễn phí, trả góp 0%, bảo hành 18 tháng chính hãng.">
+  <title>N4 Cleanova | Robot Hút Bụi & Thiết Bị Vệ Sinh Thông Minh</title>
+  <meta name="description" content="N4 Cleanova – Smart Clean, Better Life. Robot hút bụi điều hướng LiDAR, máy hút cầm tay không dây và linh kiện chính hãng cao cấp.">
 
-  <!-- Google Fonts: Plus Jakarta Sans & Inter -->
+  <!-- Preload fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600;9..40,700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 
-  <!-- Design System & Stylesheets -->
+  <!-- Design System -->
   <link rel="stylesheet" href="css/tokens.css">
   <link rel="stylesheet" href="css/animations.css">
   <link rel="stylesheet" href="css/style.css">
   <link rel="stylesheet" href="css/responsive.css">
+
+  <style>
+    /* ── Hero extras ─────────────── */
+    .hero {
+      background: var(--bg-white);
+      padding: 68px 0 84px;
+      border-bottom: 1px solid var(--border-xs);
+      position: relative;
+      overflow: hidden;
+    }
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: -140px; right: -80px;
+      width: 650px; height: 650px;
+      background: radial-gradient(circle, rgba(197, 160, 89, 0.08) 0%, transparent 65%);
+      pointer-events: none;
+    }
+    .hero-inner {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 64px;
+      align-items: center;
+    }
+    .hero-eyebrow {
+      display: inline-flex; align-items: center; gap: 8px;
+      font-size: 0.75rem; font-weight: 600; letter-spacing: 0.12em;
+      text-transform: uppercase; color: var(--gold-dark); margin-bottom: 20px;
+    }
+    .eyebrow-dot {
+      width: 7px; height: 7px; border-radius: 50%;
+      background: var(--gold); display: inline-block;
+    }
+    .hero-title {
+      font-size: clamp(2.125rem, 4.5vw, 3.25rem);
+      font-weight: 700; line-height: 1.18;
+      letter-spacing: -0.03em; color: var(--text-primary); margin-bottom: 20px;
+    }
+    .hero-title em { font-style: normal; color: var(--gold-dark); font-weight: 600; }
+    .hero-desc {
+      font-size: 1.0625rem; color: var(--text-body); line-height: 1.72;
+      margin-bottom: 34px; max-width: 480px;
+    }
+    .hero-actions { display: flex; align-items: center; gap: 14px; flex-wrap: wrap; }
+    .hero-trust-row {
+      display: flex; align-items: center; gap: 24px; margin-top: 36px;
+      padding-top: 26px; border-top: 1px solid var(--border-xs); flex-wrap: wrap;
+    }
+    .hero-trust-item { display: flex; align-items: center; gap: 7px; font-size: 0.8125rem; color: var(--text-muted); }
+    .hero-trust-item .check { color: var(--gold); font-weight: 700; }
+
+    /* Hero visual */
+    .hero-visual-wrap {
+      position: relative; display: flex; align-items: center; justify-content: center;
+    }
+    .hero-img-box {
+      width: 100%; max-width: 520px; aspect-ratio: 4/3;
+      border-radius: var(--r-2xl); overflow: hidden;
+      background: var(--bg-white); border: 1px solid var(--gold-border-sm);
+      box-shadow: 0 16px 48px rgba(197, 160, 89, 0.12), 0 4px 16px rgba(0,0,0,0.05);
+      position: relative;
+    }
+    .hero-img-box img { width: 100%; height: 100%; object-fit: cover; }
+
+    /* Floating info chips */
+    .hero-chip {
+      position: absolute;
+      background: var(--bg-white); border: 1px solid var(--gold-border);
+      border-radius: var(--r-lg); padding: 10px 15px;
+      display: flex; align-items: center; gap: 10px;
+      box-shadow: 0 6px 20px rgba(197, 160, 89, 0.14); font-size: 0.8125rem;
+      z-index: 5;
+    }
+    .hero-chip.chip-tr { top: 18px; right: -20px; }
+    .hero-chip.chip-bl { bottom: 22px; left: -20px; }
+    .chip-icon {
+      width: 36px; height: 36px; border-radius: var(--r-sm);
+      background: var(--gold-soft); color: var(--gold-dark); display: flex; align-items: center;
+      justify-content: center; font-size: 1.1rem; flex-shrink: 0;
+    }
+    .chip-label { font-weight: 700; color: var(--text-primary); line-height: 1.2; }
+    .chip-sub { color: var(--text-muted); font-size: 0.75rem; }
+
+    /* ── Category grid (High Priority Highlight) ─────── */
+    .cat-section { padding: 92px 0; background: var(--bg-off); position: relative; }
+    .cat-row {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 22px;
+    }
+    .cat-tile {
+      border-radius: var(--r-xl); overflow: hidden;
+      background: var(--bg-white); border: 1px solid var(--gold-border);
+      display: flex; flex-direction: column;
+      position: relative;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.03);
+      transition: transform var(--t-base) var(--ease), box-shadow var(--t-base) var(--ease), border-color var(--t-base) var(--ease);
+      text-decoration: none;
+    }
+    .cat-tile::before {
+      content: '';
+      position: absolute; inset: 0;
+      background: radial-gradient(circle 240px at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(197, 160, 89, 0.09), transparent 70%);
+      opacity: 0; transition: opacity 0.3s ease; pointer-events: none; z-index: 1;
+    }
+    .cat-tile:hover::before { opacity: 1; }
+    .cat-tile:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 14px 36px rgba(197, 160, 89, 0.18);
+      border-color: var(--gold);
+    }
+    .cat-tile-img {
+      height: 200px; overflow: hidden;
+      background: #FFFFFF;
+      position: relative;
+      display: flex; align-items: center; justify-content: center;
+      border-bottom: 1px solid var(--border-xs);
+    }
+    .cat-tile-img img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.55s var(--ease); }
+    .cat-tile:hover .cat-tile-img img { transform: scale(1.035); }
+    .cat-tile-body { padding: 20px 24px 22px; position: relative; z-index: 2; display: flex; flex-direction: column; gap: 5px; }
+    .cat-tile-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 2px; }
+    .cat-tile-icon { font-size: 1.25rem; }
+    .cat-tile-badge {
+      font-size: 0.6875rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase;
+      padding: 2px 8px; border-radius: var(--r-pill); background: var(--gold-soft);
+      color: var(--gold-dark); border: 1px solid var(--gold-border-sm);
+    }
+    .cat-tile-name {
+      font-family: var(--font-heading); font-size: 1.125rem;
+      font-weight: 700; color: var(--text-primary); margin-bottom: 2px;
+      transition: color var(--t-fast) var(--ease);
+    }
+    .cat-tile:hover .cat-tile-name { color: var(--gold-dark); }
+    .cat-tile-count { font-size: 0.8125rem; color: var(--text-muted); line-height: 1.5; }
+    .cat-tile-arrow {
+      font-size: 0.875rem; font-weight: 600; color: var(--gold-dark);
+      display: inline-flex; align-items: center; gap: 6px; margin-top: 10px;
+      transition: all var(--t-fast) var(--ease);
+    }
+    .cat-tile:hover .cat-tile-arrow { color: var(--gold); transform: translateX(4px); }
+
+    /* ── Bestsellers ─────────────────── */
+    .bestsellers-section { padding: 88px 0; background: var(--bg-white); }
+    .sec-header-row {
+      display: flex; align-items: flex-end; justify-content: space-between; margin-bottom: 48px;
+    }
+    .products-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 20px;
+    }
+
+    /* ── Benefits (value props) ─────── */
+    .benefits-section { padding: 88px 0; background: var(--bg-page); }
+    .benefits-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; }
+    .benefit-card {
+      background: var(--bg-white); border: 1px solid var(--border-xs);
+      border-radius: var(--r-lg); padding: 30px 24px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.02);
+      transition: transform var(--t-base) var(--ease), box-shadow var(--t-base) var(--ease), border-color var(--t-base) var(--ease);
+    }
+    .benefit-card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 24px rgba(197, 160, 89, 0.12);
+      border-color: var(--gold-border);
+    }
+    .benefit-icon {
+      width: 48px; height: 48px; background: var(--gold-soft); color: var(--gold-dark);
+      border-radius: var(--r-md); display: flex; align-items: center; justify-content: center;
+      font-size: 1.4rem; margin-bottom: 18px;
+    }
+    .benefit-title {
+      font-family: var(--font-heading); font-size: 1.0625rem; font-weight: 600;
+      color: var(--text-primary); margin-bottom: 8px;
+    }
+    .benefit-desc { font-size: 0.875rem; color: var(--text-muted); line-height: 1.6; }
+
+    /* ── Trust / warranty ──────────── */
+    .trust-section { padding: 88px 0; background: var(--bg-white); }
+    .trust-band {
+      background: var(--bg-off); border-radius: var(--r-2xl);
+      padding: 44px; display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px;
+      border: 1px solid var(--gold-border-sm);
+    }
+    .trust-item-card { text-align: center; padding: 8px; }
+    .trust-item-icon { font-size: 2.1rem; margin-bottom: 12px; display: block; }
+    .trust-item-title { font-family: var(--font-heading); font-size: 1rem; font-weight: 600; color: var(--text-primary); margin-bottom: 6px; }
+    .trust-item-desc { font-size: 0.8125rem; color: var(--text-muted); line-height: 1.55; }
+
+    /* ── Reviews ───────────────────── */
+    .reviews-section { padding: 88px 0; background: var(--bg-page); }
+    .reviews-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+    .review-card {
+      background: var(--bg-white); border: 1px solid var(--border-xs);
+      border-radius: var(--r-lg); padding: 28px;
+      display: flex; flex-direction: column; gap: 14px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.02);
+      transition: box-shadow var(--t-base) var(--ease), border-color var(--t-base) var(--ease);
+    }
+    .review-card:hover {
+      box-shadow: 0 6px 20px rgba(197, 160, 89, 0.12);
+      border-color: var(--gold-border);
+    }
+    .review-stars { color: var(--gold); letter-spacing: 2px; font-size: 1.0625rem; }
+    .review-text { font-size: 0.9375rem; color: var(--text-body); line-height: 1.7; flex: 1; }
+    .review-author {
+      display: flex; align-items: center; gap: 12px;
+      border-top: 1px solid var(--border-xs); padding-top: 16px;
+    }
+    .review-avatar {
+      width: 40px; height: 40px; border-radius: 50%;
+      background: var(--gold-soft); color: var(--gold-dark);
+      font-weight: 700; font-size: 0.875rem; display: flex;
+      align-items: center; justify-content: center; flex-shrink: 0;
+    }
+    .review-name { font-size: 0.9375rem; font-weight: 600; color: var(--text-primary); }
+    .review-meta { font-size: 0.75rem; color: var(--text-muted); margin-top: 1px; }
+
+    /* ── CTA banner (Soft White / Ivory with Gold Accent) ────────── */
+    .cta-section { padding: 0 0 88px; }
+    .cta-box {
+      background: linear-gradient(145deg, #FFFFFF 0%, #FAF8F4 100%);
+      border: 1px solid var(--gold-border);
+      border-radius: var(--r-2xl);
+      padding: 68px 48px; text-align: center;
+      box-shadow: 0 10px 36px rgba(197, 160, 89, 0.08);
+      position: relative; overflow: hidden;
+    }
+    .cta-box::before {
+      content: ''; position: absolute;
+      top: -120px; left: 50%; transform: translateX(-50%);
+      width: 550px; height: 280px;
+      background: radial-gradient(ellipse, rgba(197, 160, 89, 0.12) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .cta-box h2 {
+      color: var(--text-primary);
+      font-size: clamp(1.625rem, 3vw, 2.375rem);
+      font-weight: 700; margin-bottom: 12px; position: relative;
+    }
+    .cta-box p {
+      color: var(--text-muted); font-size: 1.0625rem;
+      max-width: 500px; margin: 0 auto 34px; position: relative;
+    }
+    .cta-actions { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; position: relative; }
+
+    /* ── Trust topbar ────────────── */
+    .trust-topbar {
+      background: var(--bg-white);
+      border-top: 1px solid var(--border-xs);
+      border-bottom: 1px solid var(--border-xs);
+      padding: 18px 0;
+    }
+    .trust-topbar-inner {
+      display: flex; align-items: center; justify-content: center;
+      gap: 40px; flex-wrap: wrap;
+    }
+    .ttb-item { display: flex; align-items: center; gap: 8px; font-size: 0.875rem; color: var(--text-body); }
+
+    /* ── Product card (Homepage White & Gold) ─── */
+    .hp-card {
+      background: var(--bg-white); border: 1px solid var(--border-xs);
+      border-radius: var(--r-xl); overflow: hidden;
+      display: flex; flex-direction: column;
+      position: relative;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.03);
+      transition: transform var(--t-base) var(--ease), box-shadow var(--t-base) var(--ease), border-color var(--t-base) var(--ease);
+    }
+    .hp-card::before {
+      content: '';
+      position: absolute; inset: 0;
+      background: radial-gradient(circle 240px at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(197, 160, 89, 0.08), transparent 70%);
+      opacity: 0; transition: opacity 0.28s ease; pointer-events: none; z-index: 1;
+    }
+    .hp-card:hover::before { opacity: 1; }
+    .hp-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 30px rgba(197, 160, 89, 0.16);
+      border-color: var(--gold);
+    }
+    .hp-card-img {
+      background: #FFFFFF; overflow: hidden; position: relative;
+      aspect-ratio: 4/3;
+      display: flex; align-items: center; justify-content: center;
+      border-bottom: 1px solid var(--border-xs);
+    }
+    .hp-card-img img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.55s var(--ease); }
+    .hp-card:hover .hp-card-img img { transform: scale(1.03); }
+    .hp-card-badge {
+      position: absolute; top: 12px; left: 12px;
+      background: var(--bg-white); color: var(--gold-dark);
+      font-size: 0.6875rem; font-weight: 700; letter-spacing: 0.06em;
+      text-transform: uppercase; padding: 4px 10px; border-radius: var(--r-pill);
+      border: 1px solid var(--gold-border);
+      box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+      z-index: 2;
+    }
+    .hp-card-body { padding: 18px 20px 20px; display: flex; flex-direction: column; gap: 6px; flex: 1; position: relative; z-index: 2; }
+    .hp-card-cat { font-size: 0.75rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.07em; color: var(--gold-dark); }
+    .hp-card-name { font-family: var(--font-heading); font-size: 1rem; font-weight: 600; color: var(--text-primary); line-height: 1.35; }
+    .hp-card-name a { color: inherit; transition: color var(--t-fast) var(--ease); }
+    .hp-card-name a:hover { color: var(--gold-dark); }
+    .hp-card-stars { font-size: 0.8125rem; color: var(--text-muted); margin-top: 2px; }
+    .hp-card-stars .s { color: var(--gold); }
+    .hp-card-pricing { display: flex; align-items: baseline; gap: 8px; margin-top: 6px; }
+    .hp-price { font-family: var(--font-heading); font-size: 1.25rem; font-weight: 700; color: var(--gold-dark); }
+    .hp-price-old { font-size: 0.875rem; color: var(--text-light); text-decoration: line-through; }
+    .hp-discount { font-size: 0.75rem; font-weight: 700; color: var(--accent-red); background: var(--accent-red-lt); padding: 2px 6px; border-radius: var(--r-xs); }
+    .hp-card-action { display: grid; grid-template-columns: 1fr auto; gap: 8px; margin-top: 14px; }
+    .btn-add-hp {
+      width: 40px; height: 40px; border-radius: var(--r-sm); border: 1.5px solid var(--gold-border);
+      background: var(--bg-white); color: var(--gold-dark); display: flex;
+      align-items: center; justify-content: center;
+      transition: all var(--t-fast) var(--ease); flex-shrink: 0;
+    }
+    .btn-add-hp:hover { border-color: var(--gold); color: #FFFFFF; background: var(--gold); box-shadow: 0 4px 14px rgba(197, 160, 89, 0.3); }
+
+    /* Responsive */
+    @media (max-width: 1023px) {
+      .hero-inner { grid-template-columns: 1fr; text-align: center; gap: 44px; }
+      .hero-desc { margin-left: auto; margin-right: auto; }
+      .hero-actions { justify-content: center; }
+      .hero-trust-row { justify-content: center; }
+      .hero-visual-wrap { order: -1; }
+      .hero-img-box { max-width: 420px; margin: 0 auto; }
+      .hero-chip { display: none; }
+      .cat-row { grid-template-columns: repeat(2, 1fr); }
+      .products-grid { grid-template-columns: repeat(2, 1fr); }
+      .benefits-grid { grid-template-columns: repeat(2, 1fr); }
+      .reviews-grid { grid-template-columns: repeat(2, 1fr); }
+      .trust-band { grid-template-columns: repeat(2, 1fr); padding: 32px; }
+    }
+    @media (max-width: 767px) {
+      .cat-row { grid-template-columns: 1fr; }
+      .products-grid { grid-template-columns: 1fr; }
+      .benefits-grid { grid-template-columns: 1fr; }
+      .reviews-grid { grid-template-columns: 1fr; }
+      .trust-band { grid-template-columns: 1fr; padding: 24px; }
+      .sec-header-row { flex-direction: column; align-items: flex-start; gap: 16px; }
+      .trust-topbar-inner { gap: 18px; }
+      .cta-box { padding: 48px 24px; }
+      .cta-actions { flex-direction: column; align-items: center; }
+    }
+  </style>
 </head>
 <body>
 
-  <!-- Dynamic Header Injection -->
+  <!-- ════════════════════════════════
+       INTRO SPLASH
+  ════════════════════════════════ -->
+  <div id="n4-intro-splash" class="intro-screen" role="dialog" aria-label="Giới thiệu N4 Cleanova">
+    <div class="intro-logo-mark">
+      <span class="intro-n">N</span>
+      <span class="intro-4">4</span>
+    </div>
+    <div class="intro-bar"></div>
+    <div class="intro-tagline">CLEANOVA · SMART CLEAN · BETTER LIFE</div>
+  </div>
+
+  <!-- Dynamic Header -->
   <header id="main-header"></header>
 
   <main>
-    <!-- ========================================================================
-         SECTION 1: HERO (THE CROWN JEWEL STORYTELLING)
-         ======================================================================== -->
-    <section class="hero-section">
-      <div class="container">
-        <div class="hero-grid">
-          <!-- Left: Hero Text Content -->
-          <div>
-            <div class="hero-pill">
-              <span class="pulse-dot"></span>
-              <span>CLEANNOVA 2026 • THẾ HỆ ROBOT AI MỚI NHẤT</span>
-            </div>
 
+    <!-- ════════════════════════════════
+         HERO SECTION
+    ════════════════════════════════ -->
+    <section class="hero" id="hero">
+      <div class="container">
+        <div class="hero-inner">
+
+          <!-- Left: Text + CTA -->
+          <div class="hero-text-side">
+            <div class="hero-eyebrow">
+              <span class="eyebrow-dot"></span>
+              Thương hiệu Việt · Smart Cleaning Technology
+            </div>
             <h1 class="hero-title">
-              Để robot làm việc.<br>
-              <span class="gradient-text-mint">Bạn tận hưởng cuộc sống.</span>
+              Nhà sạch hơn,<br>
+              <em>cuộc sống nhẹ nhàng hơn</em>
             </h1>
-
             <p class="hero-desc">
-              Robot hút bụi lau nhà thông minh thế hệ mới với công nghệ AI 3D LiDAR, lực hút áp suất cực đại và trạm sạc All-in-One tự động giặt sấy đa năng.
+              Robot hút bụi điều hướng LiDAR, máy hút cầm tay không dây và hệ sinh thái thiết bị vệ sinh thông minh dành cho ngôi nhà hiện đại của bạn.
             </p>
-
             <div class="hero-actions">
-              <a href="products.html" class="btn btn-cta btn-lg btn-sheen">
-                <span>Dùng Thử 7 Ngày Miễn Phí</span>
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
-                  <line x1="5" y1="12" x2="19" y2="12"/>
-                  <polyline points="12 5 19 12 12 19"/>
-                </svg>
+              <a href="products.html" class="btn btn-primary btn-lg btn-shimmer" id="hero-btn-shop">
+                Xem tất cả sản phẩm
+                <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
               </a>
-              <a href="#technology" class="btn btn-secondary btn-lg">
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                  <polygon points="5 3 19 12 5 21 5 3"/>
-                </svg>
-                <span>Khám Phá Công Nghệ</span>
-              </a>
+              <a href="contact.html" class="btn btn-outline btn-lg">Nhận tư vấn miễn phí</a>
             </div>
-
-            <!-- Hero Highlights Stats -->
-            <div class="hero-stats">
-              <div class="stat-item">
-                <div class="stat-num">8.000<span>Pa</span></div>
-                <div class="stat-label">Lực hút cực đại</div>
+            <div class="hero-trust-row">
+              <div class="hero-trust-item">
+                <span class="check">✓</span> Bảo hành 12 tháng
               </div>
-              <div class="stat-item">
-                <div class="stat-num">AI<span>3D</span></div>
-                <div class="stat-label">LiDAR né vật cản</div>
+              <div class="hero-trust-item">
+                <span class="check">✓</span> Miễn phí vận chuyển
               </div>
-              <div class="stat-item">
-                <div class="stat-num">18<span>Tháng</span></div>
-                <div class="stat-label">Bảo hành chính hãng</div>
-              </div>
-              <div class="stat-item">
-                <div class="stat-num">7<span>Ngày</span></div>
-                <div class="stat-label">Dùng thử miễn phí</div>
+              <div class="hero-trust-item">
+                <span class="check">✓</span> Đổi trả 30 ngày
               </div>
             </div>
           </div>
 
-          <!-- Right: Hero Centerpiece Visual with Floating Badges -->
-          <div class="hero-visual-wrapper">
-            <div class="hero-ambient-glow"></div>
-            
-            <img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800&q=85&auto=format&fit=crop" 
-                 alt="CLEANNOVA AI X1 Flagship Robot Vacuum" 
-                 class="hero-main-img animate-float">
-
-            <!-- Floating Card Top Right -->
-            <div class="floating-card floating-card-top">
-              <div class="floating-card-icon">✦</div>
+          <!-- Right: Product Image -->
+          <div class="hero-visual-wrap">
+            <div class="hero-img-box animate-float">
+              <img src="assets/images/cat-robot.jpg" alt="N4 Cleanova Robot Vacuum Flagship White & Gold" loading="eager">
+            </div>
+            <!-- Floating chips -->
+            <div class="hero-chip chip-tr">
+              <div class="chip-icon">⚡</div>
               <div>
-                <div class="floating-card-title">Dock Tự Giặt Sấy 80°C</div>
-                <div class="floating-card-desc">Khử khuẩn và sấy khô giẻ lau</div>
+                <div class="chip-label">5.000 Pa</div>
+                <div class="chip-sub">Lực hút mạnh mẽ</div>
               </div>
             </div>
-
-            <!-- Floating Card Bottom Left -->
-            <div class="floating-card floating-card-bottom">
-              <div class="floating-card-icon">⚡</div>
+            <div class="hero-chip chip-bl">
+              <div class="chip-icon">🗺️</div>
               <div>
-                <div class="floating-card-title">60 Ngày Rảnh Tay</div>
-                <div class="floating-card-desc">Tự động hút rác vào túi kín</div>
+                <div class="chip-label">LiDAR 360°</div>
+                <div class="chip-sub">Bản đồ thời gian thực</div>
               </div>
             </div>
           </div>
+
         </div>
       </div>
     </section>
 
-    <!-- ========================================================================
-         SECTION 2: VALUE PROPOSITION (4 PILLARS OF FREEDOM)
-         ======================================================================== -->
-    <section class="section" style="background: #FFFFFF;">
+    <!-- ════════════════════════════════
+         TRUST BAR
+    ════════════════════════════════ -->
+    <div class="trust-topbar">
       <div class="container">
-        <div class="section-header">
-          <div class="section-tag">Giá Trị Cốt Lõi</div>
-          <h2 class="section-title">Không chỉ là một chiếc robot.</h2>
-          <p class="section-subtitle">
-            Đó là cách Cleannova trả lại thời gian cho cuộc sống. Từng công nghệ được tinh chỉnh hoàn mỹ để giải phóng hoàn toàn đôi tay của bạn.
-          </p>
+        <div class="trust-topbar-inner">
+          <div class="ttb-item"><span class="ttb-icon">🚚</span> Miễn phí vận chuyển toàn quốc</div>
+          <div class="ttb-item"><span class="ttb-icon">🛡️</span> Bảo hành chính hãng 12 tháng</div>
+          <div class="ttb-item"><span class="ttb-icon">🔄</span> Đổi trả dễ dàng trong 30 ngày</div>
+          <div class="ttb-item"><span class="ttb-icon">💬</span> Hỗ trợ kỹ thuật 24/7</div>
         </div>
+      </div>
+    </div>
 
-        <div class="value-grid">
-          <!-- Card 1 -->
-          <div class="value-card">
-            <div class="value-card-icon">👁️</div>
-            <h3 class="value-card-title">AI 3D Né Vật Cản</h3>
-            <p class="value-card-desc">
-              Cảm biến ánh sáng có cấu trúc kết hợp AI nhận diện và né tránh dây cáp sạc, giày dép, đồ chơi và vật nuôi với độ chuẩn xác dưới 1 centimet.
-            </p>
-          </div>
+    <!-- ════════════════════════════════
+         DANH MỤC SẢN PHẨM (TRỌNG TÂM TRANG CHỦ - 6 DANH MỤC)
+    ════════════════════════════════ -->
+    <section class="cat-section" id="categories">
+      <div class="container">
+        <div class="section-header center">
+          <div class="section-label">— Danh mục thiết bị</div>
+          <h2 class="section-title">Hệ Sinh Thái Làm Sạch Toàn Diện</h2>
+          <p class="section-subtitle">Thiết bị vệ sinh gia đình cao cấp phong cách Trắng & Gold tinh tế. Tối giản, hiện đại và chuẩn xác cho từng góc nhà.</p>
+        </div>
+        <div class="cat-row">
 
-          <!-- Card 2 -->
-          <div class="value-card">
-            <div class="value-card-icon">📦</div>
-            <h3 class="value-card-title">Tự Động Đổ Rác</h3>
-            <p class="value-card-desc">
-              Trạm sạc tự động hút sạch bụi bẩn từ robot vào túi chứa kháng khuẩn 3.2L. Bạn hoàn toàn không cần chạm tay vào bụi bẩn suốt 60 ngày.
-            </p>
-          </div>
+          <!-- 1. Robot hút bụi -->
+          <a href="products.html?category=robot" class="cat-tile reveal">
+            <div class="cat-tile-img">
+              <img src="assets/images/cat-robot.jpg" alt="Robot hút bụi thông minh N4">
+            </div>
+            <div class="cat-tile-body">
+              <div class="cat-tile-header">
+                <span class="cat-tile-icon">🤖</span>
+                <span class="cat-tile-badge">FLAGSHIP</span>
+              </div>
+              <div class="cat-tile-name">Robot hút bụi</div>
+              <div class="cat-tile-count">Điều hướng laser LiDAR 360° & AI quét chướng ngại vật</div>
+              <div class="cat-tile-arrow">Khám phá danh mục <span>→</span></div>
+            </div>
+          </a>
 
-          <!-- Card 3 -->
-          <div class="value-card">
-            <div class="value-card-icon">♨️</div>
-            <h3 class="value-card-title">Tự Giặt & Sấy Nóng</h3>
-            <p class="value-card-desc">
-              Hệ thống bơm nước nóng tự động giặt sạch giẻ lau xoay kép và sấy khô bằng khí nóng 80°C, ngăn ngừa ẩm mốc và vi khuẩn gây mùi khó chịu.
-            </p>
-          </div>
+          <!-- 2. Máy hút bụi -->
+          <a href="products.html?category=cordless" class="cat-tile reveal">
+            <div class="cat-tile-img">
+              <img src="assets/images/cat-cordless.jpg" alt="Máy hút bụi cầm tay không dây N4">
+            </div>
+            <div class="cat-tile-body">
+              <div class="cat-tile-header">
+                <span class="cat-tile-icon">🧹</span>
+                <span class="cat-tile-badge">MỚI 2026</span>
+              </div>
+              <div class="cat-tile-name">Máy hút bụi</div>
+              <div class="cat-tile-count">Không dây lông vũ 1.2kg, pin 60 phút, động cơ 120.000 rpm</div>
+              <div class="cat-tile-arrow">Khám phá danh mục <span>→</span></div>
+            </div>
+          </a>
 
-          <!-- Card 4 -->
-          <div class="value-card">
-            <div class="value-card-icon">🛡️</div>
-            <h3 class="value-card-title">Lọc Kháng Khuẩn 99.9%</h3>
-            <p class="value-card-desc">
-              Màng lọc chuẩn y tế HEPA H13 giữ lại toàn bộ phấn hoa, lông thú và bụi mịn PM0.3, bảo vệ đường hô hấp cho trẻ nhỏ và người già.
-            </p>
-          </div>
+          <!-- 3. Thiết bị vệ sinh -->
+          <a href="products.html?category=cleaning" class="cat-tile reveal">
+            <div class="cat-tile-img">
+              <img src="assets/images/cat-cleaning.jpg" alt="Máy vệ sinh lau sàn khô ướt thông minh N4">
+            </div>
+            <div class="cat-tile-body">
+              <div class="cat-tile-header">
+                <span class="cat-tile-icon">💧</span>
+                <span class="cat-tile-badge">HYDRO CLEAN</span>
+              </div>
+              <div class="cat-tile-name">Thiết bị vệ sinh</div>
+              <div class="cat-tile-count">Hút lau khô ướt 2-in-1, điện phân nước diệt khuẩn 99.9%</div>
+              <div class="cat-tile-arrow">Khám phá danh mục <span>→</span></div>
+            </div>
+          </a>
+
+          <!-- 4. Thiết bị dọn rác -->
+          <a href="products.html?category=waste" class="cat-tile reveal">
+            <div class="cat-tile-img">
+              <img src="assets/images/cat-waste.jpg" alt="Trạm gom rác tự động N4 Station">
+            </div>
+            <div class="cat-tile-body">
+              <div class="cat-tile-header">
+                <span class="cat-tile-icon">🗑️</span>
+                <span class="cat-tile-badge">TỰ ĐỘNG HÓA</span>
+              </div>
+              <div class="cat-tile-name">Thiết bị dọn rác</div>
+              <div class="cat-tile-count">Trạm gom bụi tự động 28.000Pa, 60 ngày rảnh tay hoàn toàn</div>
+              <div class="cat-tile-arrow">Khám phá danh mục <span>→</span></div>
+            </div>
+          </a>
+
+          <!-- 5. Phụ kiện -->
+          <a href="products.html?category=accessories" class="cat-tile reveal">
+            <div class="cat-tile-img">
+              <img src="assets/images/cat-accessories.jpg" alt="Phụ kiện chính hãng N4 Cleanova">
+            </div>
+            <div class="cat-tile-body">
+              <div class="cat-tile-header">
+                <span class="cat-tile-icon">⚙️</span>
+                <span class="cat-tile-badge">CHÍNH HÃNG</span>
+              </div>
+              <div class="cat-tile-name">Phụ kiện</div>
+              <div class="cat-tile-count">Màng lọc HEPA H13, chổi quét cạnh TPU, giẻ lau sợi vi hạt</div>
+              <div class="cat-tile-arrow">Khám phá danh mục <span>→</span></div>
+            </div>
+          </a>
+
+          <!-- 6. Linh kiện -->
+          <a href="products.html?category=parts" class="cat-tile reveal">
+            <div class="cat-tile-img">
+              <img src="assets/images/cat-parts.jpg" alt="Linh kiện thay thế chuẩn nhà máy N4">
+            </div>
+            <div class="cat-tile-body">
+              <div class="cat-tile-header">
+                <span class="cat-tile-icon">🔋</span>
+                <span class="cat-tile-badge">CHUẨN NHÀ MÁY</span>
+              </div>
+              <div class="cat-tile-name">Linh kiện</div>
+              <div class="cat-tile-count">Pin Lithium dung lượng cao, mắt thần LiDAR ToF, motor zin</div>
+              <div class="cat-tile-arrow">Khám phá danh mục <span>→</span></div>
+            </div>
+          </a>
+
         </div>
       </div>
     </section>
 
-    <!-- ========================================================================
-         SECTION 3: FEATURED PRODUCTS
-         ======================================================================== -->
-    <section class="section" id="featured-products" style="background: var(--bg-main);">
+    <!-- ════════════════════════════════
+         SẢN PHẨM BÁN CHẠY
+    ════════════════════════════════ -->
+    <section class="bestsellers-section" id="bestsellers">
       <div class="container">
-        <div class="section-header">
-          <div class="section-tag">Hệ Sinh Thái Cleannova</div>
-          <h2 class="section-title">Chọn robot phù hợp với ngôi nhà của bạn.</h2>
-          <p class="section-subtitle">
-            Từ căn hộ chung cư năng động đến biệt thự sân vườn rộng lớn, Cleannova luôn có một giải pháp làm sạch thông minh tương thích trọn vẹn.
-          </p>
-        </div>
-
-        <div class="product-grid" id="homepage-product-grid">
-          <!-- Populated by JavaScript from PRODUCTS -->
-        </div>
-
-        <div style="text-align: center; margin-top: 50px;">
-          <a href="products.html" class="btn btn-secondary btn-lg">
-            <span>Xem Toàn Bộ 6 Model & Phụ Kiện</span>
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <line x1="5" y1="12" x2="19" y2="12"/>
-              <polyline points="12 5 19 12 12 19"/>
-            </svg>
+        <div class="sec-header-row">
+          <div>
+            <div class="section-label">— Sản phẩm nổi bật</div>
+            <h2 class="section-title" style="margin-bottom:0">Bán chạy nhất tháng này</h2>
+          </div>
+          <a href="products.html" class="btn btn-outline btn-sm">
+            Xem tất cả →
           </a>
         </div>
+        <div class="products-grid" id="homepage-product-grid">
+          <!-- Filled by JS -->
+        </div>
       </div>
     </section>
 
-    <!-- ========================================================================
-         SECTION 4: INTERACTIVE TECHNOLOGY (DARK LUXURY AESTHETIC)
-         ======================================================================== -->
-    <section class="section section-dark" id="technology">
+    <!-- ════════════════════════════════
+         LÝ DO CHỌN N4
+    ════════════════════════════════ -->
+    <section class="benefits-section" id="why-n4">
       <div class="container">
-        <div class="section-header">
-          <div class="section-tag">Đột Phá Kỹ Thuật</div>
-          <h2 class="section-title">Công nghệ phía sau một không gian sạch.</h2>
-          <p class="section-subtitle">
-            Hội tụ những phát minh tối tân nhất trong ngành robot tiêu dùng: Trí tuệ nhân tạo, cảm biến không gian 3D và cơ khí chính xác.
-          </p>
+        <div class="section-header center">
+          <div class="section-label">— Lý do chọn N4</div>
+          <h2 class="section-title">Hơn hẳn một chiếc máy hút bụi</h2>
+          <p class="section-subtitle">Mỗi sản phẩm N4 Cleanova được thiết kế để mang lại cuộc sống dễ chịu hơn — không chỉ nhà sạch hơn.</p>
         </div>
-
-        <!-- Interactive Tech Tabs -->
-        <div class="tech-tabs">
-          <button class="tech-tab-btn active" data-tech="ai3d">AI 3D Tránh Vật Cản</button>
-          <button class="tech-tab-btn" data-tech="lidar">Laser LiDAR LDS 360°</button>
-          <button class="tech-tab-btn" data-tech="suction">Động Cơ Turbo 8000–15000Pa</button>
-          <button class="tech-tab-btn" data-tech="hepa">Bộ Lọc HEPA Kháng Khuẩn</button>
-          <button class="tech-tab-btn" data-tech="dock">Dock Sạc All-in-One 80°C</button>
-        </div>
-
-        <!-- Dynamic Tech Showcase Display -->
-        <div class="tech-display-box">
-          <div class="tech-info">
-            <h3 id="tech-title">Trí Tuệ Nhân Tạo AI 3D Obstacle Avoidance</h3>
-            <p id="tech-desc">
-              Chip xử lý NPU độc quyền của Cleannova quét và phân tích không gian với tần số 30 khung hình/giây. Nhận diện chính xác 68 loại vật cản trong nhà như dây cáp sạc, giày dép, đồ chơi trẻ em và chất thải thú cưng để chủ động tránh né mượt mà.
-            </p>
-            <div class="tech-metrics">
-              <div>
-                <div class="tech-metric-val" id="tech-metric-val">&lt; 1 cm</div>
-                <div class="tech-metric-lbl" id="tech-metric-lbl">Độ chính xác né tránh</div>
-              </div>
-              <div style="border-left: 1px solid rgba(255,255,255,0.1); padding-left: 32px;">
-                <div class="tech-metric-val">30 FPS</div>
-                <div class="tech-metric-lbl">Quét không gian thời gian thực</div>
-              </div>
-            </div>
+        <div class="benefits-grid">
+          <div class="benefit-card reveal">
+            <div class="benefit-icon">🧠</div>
+            <div class="benefit-title">AI điều hướng thông minh</div>
+            <p class="benefit-desc">Cảm biến LiDAR laser 3D tạo bản đồ nhà theo thời gian thực, tự động tránh vật cản với độ chính xác milimet.</p>
           </div>
-          <div class="tech-visual-stage">
-            <img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800&q=85&auto=format&fit=crop" 
-                 id="tech-img" 
-                 alt="Cleannova Technology Preview">
+          <div class="benefit-card reveal">
+            <div class="benefit-icon">💨</div>
+            <div class="benefit-title">Lực hút vượt trội</div>
+            <p class="benefit-desc">Động cơ không chổi than 5.000 Pa hút sạch bụi mịn, lông thú cưng và vụn thức ăn từ khe sàn gỗ sâu nhất.</p>
+          </div>
+          <div class="benefit-card reveal">
+            <div class="benefit-icon">🔋</div>
+            <div class="benefit-title">Pin bền, hoạt động lâu</div>
+            <p class="benefit-desc">Pin Lithium 5.200 mAh hoạt động liên tục đến 180 phút — đủ để làm sạch toàn bộ căn hộ một lần sạc.</p>
+          </div>
+          <div class="benefit-card reveal">
+            <div class="benefit-icon">📱</div>
+            <div class="benefit-title">Kết nối ứng dụng thông minh</div>
+            <p class="benefit-desc">Điều khiển và lên lịch vệ sinh từ xa qua ứng dụng N4 Smart App, tích hợp Google Home và Amazon Alexa.</p>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- ========================================================================
-         SECTION 5: LIFESTYLE & SPLIT SCREEN
-         ======================================================================== -->
-    <section class="section" id="lifestyle" style="background: #FFFFFF;">
+    <!-- ════════════════════════════════
+         CAM KẾT & BẢO HÀNH
+    ════════════════════════════════ -->
+    <section class="trust-section" id="warranty">
       <div class="container">
-        <div class="lifestyle-grid">
-          <div class="lifestyle-media">
-            <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=1000&q=85&auto=format&fit=crop" 
-                 alt="Gia đình thảnh thơi cùng Cleannova">
+        <div class="section-header center">
+          <div class="section-label">— Cam kết của chúng tôi</div>
+          <h2 class="section-title">Mua hàng tự tin, không lo rủi ro</h2>
+        </div>
+        <div class="trust-band">
+          <div class="trust-item-card reveal">
+            <span class="trust-item-icon">🛡️</span>
+            <div class="trust-item-title">Bảo hành 12 tháng</div>
+            <p class="trust-item-desc">Bảo hành chính hãng toàn quốc. Lỗi 1 đổi 1 trong 30 ngày đầu không cần hỏi lý do.</p>
           </div>
-          <div class="lifestyle-content">
-            <div class="section-tag">Phong Cách Sống</div>
-            <h2>Bạn có thời gian cho những điều quan trọng hơn.</h2>
-            <p>
-              Hãy tưởng tượng mỗi buổi chiều trở về nhà, sàn nhà đã được hút sạch bóng và lau thơm mát. Bạn chỉ việc cởi giày, chơi đùa cùng con trẻ hoặc tận hưởng tách trà thơm mà không phải bận tâm việc dọn dẹp.
-            </p>
-            <div class="lifestyle-features">
-              <div class="lifestyle-feature-item">
-                <div class="lifestyle-check-icon">✓</div>
-                <div>
-                  <h4 style="margin-bottom: 4px; font-size: 1.1rem;">Thân thiện tuyệt đối với thú cưng</h4>
-                  <p style="font-size: 0.9375rem; color: var(--text-muted); margin: 0;">Lực hút chuyên sâu hút sạch lông rụng, màng than hoạt tính khử mùi hôi hiệu quả.</p>
-                </div>
-              </div>
-              <div class="lifestyle-feature-item">
-                <div class="lifestyle-check-icon">✓</div>
-                <div>
-                  <h4 style="margin-bottom: 4px; font-size: 1.1rem;">Bảo vệ sàn gỗ và thảm trải sàn cao cấp</h4>
-                  <p style="font-size: 0.9375rem; color: var(--text-muted); margin: 0;">Tự động nâng giẻ lau khi lên thảm, kiểm soát lượng nước điện tử chống phồng rộp sàn gỗ.</p>
-                </div>
-              </div>
-              <div class="lifestyle-feature-item">
-                <div class="lifestyle-check-icon">✓</div>
-                <div>
-                  <h4 style="margin-bottom: 4px; font-size: 1.1rem;">Điều khiển từ xa qua ứng dụng Tiếng Việt</h4>
-                  <p style="font-size: 0.9375rem; color: var(--text-muted); margin: 0;">Thiết lập khu vực cấm, hẹn giờ dọn dẹp phòng khách lúc vắng nhà chỉ bằng 1 chạm.</p>
-                </div>
-              </div>
-            </div>
+          <div class="trust-item-card reveal">
+            <span class="trust-item-icon">🚚</span>
+            <div class="trust-item-title">Giao hàng miễn phí</div>
+            <p class="trust-item-desc">Ship toàn quốc trong 24–48 giờ. Nội thành Hà Nội và TP.HCM giao trong ngày.</p>
+          </div>
+          <div class="trust-item-card reveal">
+            <span class="trust-item-icon">🔄</span>
+            <div class="trust-item-title">Đổi trả 30 ngày</div>
+            <p class="trust-item-desc">Trải nghiệm thoải mái tại nhà. Không hài lòng hoàn tiền 100% trong 30 ngày đầu.</p>
+          </div>
+          <div class="trust-item-card reveal">
+            <span class="trust-item-icon">💬</span>
+            <div class="trust-item-title">Hỗ trợ 24/7</div>
+            <p class="trust-item-desc">Đội kỹ thuật viên N4 sẵn sàng hỗ trợ qua hotline, chat và đến tận nơi nếu cần.</p>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- ========================================================================
-         SECTION 6: SOCIAL PROOF / REVIEWS
-         ======================================================================== -->
-    <section class="section" style="background: var(--bg-main);">
+    <!-- ════════════════════════════════
+         ĐÁNH GIÁ KHÁCH HÀNG
+    ════════════════════════════════ -->
+    <section class="reviews-section" id="reviews">
       <div class="container">
-        <div class="section-header">
-          <div class="section-tag">Khách Hàng Nói Về Cleannova</div>
-          <h2 class="section-title">Hơn 10.000+ gia đình đã tin dùng.</h2>
-          <p class="section-subtitle">
-            Trải nghiệm thực tế từ những khách hàng yêu công nghệ và trân quý không gian sống sạch tại các thành phố lớn.
-          </p>
+        <div class="section-header center">
+          <div class="section-label">— Khách hàng nói gì</div>
+          <h2 class="section-title">Hơn 2.400 đánh giá 5 sao</h2>
+          <p class="section-subtitle">Người dùng thực tế tin dùng N4 Cleanova — đây là chia sẻ của họ.</p>
         </div>
-
         <div class="reviews-grid">
-          <!-- Review 1 -->
-          <div class="review-card">
+          <div class="review-card reveal">
             <div class="review-stars">★★★★★</div>
-            <p class="review-text">
-              "Nhà mình nuôi 2 bé mèo Anh lông dài nên trước đây ngày nào cũng phải hút bụi 2 lần. Từ khi dùng Cleannova AI X1, việc dọn nhà nhẹ hơn rất nhiều. Robot tự lên lịch dọn lúc mình đi làm, tránh khay ăn của mèo rất khéo!"
-            </p>
-            <div class="review-author-box">
-              <div class="review-avatar">LA</div>
+            <p class="review-text">"Con robot này thật sự thay đổi cuộc sống của mình. Nhà hai tầng mà nó tự biết hút hết không cần mình làm gì. Lực hút mạnh, sạch bóng cả lông chó."</p>
+            <div class="review-author">
+              <div class="review-avatar">LT</div>
               <div>
-                <div class="review-name">Nguyễn Thị Lan Anh</div>
-                <div class="review-role">Masteri Thảo Điền, TP.HCM • Đã mua AI X1</div>
+                <div class="review-name">Lê Thị Thanh</div>
+                <div class="review-meta">TP. Hồ Chí Minh · N4 Pro Robot</div>
               </div>
             </div>
           </div>
-
-          <!-- Review 2 -->
-          <div class="review-card">
+          <div class="review-card reveal">
             <div class="review-stars">★★★★★</div>
-            <p class="review-text">
-              "Mình là dân kỹ thuật phần mềm nên soi thuật toán rất kỹ. Cảm biến LiDAR 3D của máy quét bản đồ rất chính xác, tránh dây sạc điện thoại và dép đi trong nhà chuẩn không trượt phát nào. Rất đáng đồng tiền!"
-            </p>
-            <div class="review-author-box">
-              <div class="review-avatar" style="background: linear-gradient(135deg, #06B6D4 0%, #3B82F6 100%);">MD</div>
+            <p class="review-text">"Mình mua chiếc N4 Air để hút sofa và sàn gỗ. Pin dùng được hơn 50 phút, nhẹ và êm hơn mình nghĩ nhiều. Đèn LED xịn thật, soi ra bụi mịn rõ ràng."</p>
+            <div class="review-author">
+              <div class="review-avatar">MH</div>
               <div>
-                <div class="review-name">Trần Minh Đức</div>
-                <div class="review-role">Vinhomes Ocean Park, Hà Nội • Đã mua AI X1</div>
+                <div class="review-name">Minh Hoàng</div>
+                <div class="review-meta">Hà Nội · N4 Air Cordless</div>
               </div>
             </div>
           </div>
-
-          <!-- Review 3 -->
-          <div class="review-card">
+          <div class="review-card reveal">
             <div class="review-stars">★★★★★</div>
-            <p class="review-text">
-              "Thân máy mỏng chui lọt gầm giường với gầm sofa phòng khách lấy ra cả đống bụi mịn mà máy hút cầm tay không với tới được. Bố mẹ mình ở nhà cũng tự bấm nút dọn dẹp dễ dàng vì có giọng nói tiếng Việt."
-            </p>
-            <div class="review-author-box">
-              <div class="review-avatar" style="background: linear-gradient(135deg, #F59E0B 0%, #EF4444 100%);">HN</div>
+            <p class="review-text">"Bảo hành của N4 rất tốt. Máy bị lỗi nhỏ, gọi hotline là có nhân viên đến kiểm tra ngay ngày hôm sau. Chất lượng dịch vụ vượt xa kỳ vọng."</p>
+            <div class="review-author">
+              <div class="review-avatar">PK</div>
               <div>
-                <div class="review-name">Phạm Hồng Nhung</div>
-                <div class="review-role">Q. Bình Thạnh, TP.HCM • Đã mua PRO</div>
+                <div class="review-name">Phương Khanh</div>
+                <div class="review-meta">Đà Nẵng · N4 Pro Robot + Dock</div>
               </div>
             </div>
           </div>
@@ -349,70 +710,28 @@
       </div>
     </section>
 
-    <!-- ========================================================================
-         SECTION 7: WARRANTY & TRUST BADGES
-         ======================================================================== -->
-    <section class="section" style="background: #FFFFFF; border-top: 1px solid var(--border-light); border-bottom: 1px solid var(--border-light);">
+    <!-- ════════════════════════════════
+         CTA CUỐI TRANG
+    ════════════════════════════════ -->
+    <section class="cta-section">
       <div class="container">
-        <div class="trust-grid">
-          <div class="trust-card">
-            <div class="trust-icon">🛡️</div>
-            <h3 class="trust-title">18 Tháng Bảo Hành</h3>
-            <p class="trust-desc">Bảo hành điện tử chính hãng toàn quốc, linh kiện chuẩn 100%.</p>
-          </div>
-          <div class="trust-card">
-            <div class="trust-icon">🔄</div>
-            <h3 class="trust-title">1 Đổi 1 Trong 30 Ngày</h3>
-            <p class="trust-desc">Đổi mới thiết bị ngay lập tức nếu phát sinh lỗi từ nhà sản xuất.</p>
-          </div>
-          <div class="trust-card">
-            <div class="trust-icon">🏠</div>
-            <h3 class="trust-title">7 Ngày Dùng Thử</h3>
-            <p class="trust-desc">Trải nghiệm miễn phí tại nhà, hoàn tiền 100% nếu không hài lòng.</p>
-          </div>
-          <div class="trust-card">
-            <div class="trust-icon">👨‍🔧</div>
-            <h3 class="trust-title">Hỗ Trợ Kỹ Thuật 24/7</h3>
-            <p class="trust-desc">Đội ngũ kỹ sư hướng dẫn kết nối tận nhà và online 24/7.</p>
+        <div class="cta-box">
+          <h2>Bắt đầu hành trình nhà sạch hôm nay</h2>
+          <p>Nhận tư vấn miễn phí từ chuyên gia N4 Cleanova và tìm sản phẩm phù hợp nhất với không gian của bạn.</p>
+          <div class="cta-actions">
+            <a href="products.html" class="btn-cta-inverted">Xem sản phẩm ngay</a>
+            <a href="contact.html" class="btn-cta-ghost">Nhận tư vấn miễn phí</a>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- ========================================================================
-         SECTION 8: CTA BANNER
-         ======================================================================== -->
-    <section class="section" style="padding: 60px 0 100px;">
-      <div class="container">
-        <div class="cta-banner">
-          <h2>Đã đến lúc để robot làm việc.</h2>
-          <p>
-            Trả lại thời gian cho tình yêu và những khoảnh khắc quý giá. Khám phá ngay dòng robot hút bụi lau nhà thông minh Cleannova.
-          </p>
-          <div style="display: flex; gap: 16px; justify-content: center; flex-wrap: wrap;">
-            <a href="products.html" class="btn btn-cta btn-lg btn-sheen">
-              <span>Khám Phá Cleannova Ngay</span>
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
-                <line x1="5" y1="12" x2="19" y2="12"/>
-                <polyline points="12 5 19 12 12 19"/>
-              </svg>
-            </a>
-            <a href="contact.html" class="btn btn-dark btn-lg">
-              <span>Đăng Ký Tư Vấn Tận Nơi</span>
-            </a>
-          </div>
-        </div>
-      </div>
-    </section>
   </main>
 
-  <!-- Dynamic Footer Injection -->
+  <!-- Dynamic Footer -->
   <footer id="main-footer"></footer>
 
-  <!-- Floating AI Chatbot Container -->
-  <div id="chatbot-container"></div>
-
-  <!-- Toast Notification Container -->
+  <!-- Toast -->
   <div id="toast-container" class="toast-container" aria-live="polite"></div>
 
   <!-- Scripts -->
@@ -420,50 +739,57 @@
   <script src="js/app.js"></script>
   <script src="js/chatbot.js"></script>
   <script>
-    // Populate Featured Products on Homepage
+    // Render best sellers on homepage
     document.addEventListener('DOMContentLoaded', () => {
       const grid = document.getElementById('homepage-product-grid');
-      if (!grid) return;
+      if (!grid || typeof PRODUCTS === 'undefined') return;
 
-      const featured = PRODUCTS.slice(0, 3); // Top 3 flagship models
-      grid.innerHTML = featured.map(p => `
-        <div class="product-card card-hover-scale">
-          <div class="product-card-badge ${p.badgeType}">${p.badge}</div>
-          <div class="product-card-media img-zoom-container">
-            <a href="product-detail.html?id=${p.id}">
-              <img src="${p.image}" alt="${p.name}">
+      const top4 = PRODUCTS.slice(0, 4);
+      grid.innerHTML = top4.map(p => `
+        <div class="hp-card reveal">
+          <div class="hp-card-img">
+            ${p.badge ? `<div class="hp-card-badge${p.badge.includes('MỚI') ? ' badge-green' : ''}">${p.badge}</div>` : ''}
+            <a href="product-detail.html?id=${p.id}" style="display:block;width:100%;height:100%">
+              <img src="${p.image}" alt="${p.name}" loading="lazy">
             </a>
           </div>
-          <div class="product-card-body">
-            <div class="product-card-series">${p.series}</div>
-            <h3 class="product-card-title">
+          <div class="hp-card-body">
+            <div class="hp-card-cat">${p.categoryName || 'Sản phẩm'}</div>
+            <div class="hp-card-name">
               <a href="product-detail.html?id=${p.id}">${p.name}</a>
-            </h3>
-            <p class="product-card-tagline">${p.tagline}</p>
-
-            <div class="product-card-specs">
-              <span class="spec-pill">💨 ${p.suctionDisplay}</span>
-              <span class="spec-pill">🔋 ${p.battery} phút</span>
-              <span class="spec-pill">📐 ${p.area} m²</span>
             </div>
-
-            <div class="product-card-pricing">
-              <span class="current-price">${formatPrice(p.price)}</span>
-              <span class="old-price">${formatPrice(p.oldPrice)}</span>
-              <span class="discount-tag">-${p.discount}%</span>
+            <div class="hp-card-stars">
+              <span class="s">★★★★★</span>&nbsp;
+              <span style="font-weight:600;color:var(--text-primary)">${p.rating}</span>
+              <span>(${p.reviews} đánh giá)</span>
             </div>
-
-            <div class="product-card-actions">
-              <a href="product-detail.html?id=${p.id}" class="btn btn-secondary btn-sm" style="width: 100%;">
-                Xem Chi Tiết
-              </a>
-              <button onclick="addToCart(${p.id}, 1); showToast('Đã thêm ${p.name} vào giỏ hàng!', '🛍️');" class="btn btn-cta btn-sm" style="width: 100%;">
-                Mua Ngay
+            <div class="hp-card-pricing">
+              <div class="hp-price">${formatPrice(p.price)}</div>
+              ${p.oldPrice ? `<div class="hp-price-old">${formatPrice(p.oldPrice)}</div>` : ''}
+              ${p.discount ? `<div class="hp-discount">-${p.discount}%</div>` : ''}
+            </div>
+            <div class="hp-card-action">
+              <a href="product-detail.html?id=${p.id}" class="btn btn-primary btn-sm">Xem chi tiết</a>
+              <button
+                onclick="addToCart(${p.id}, 1); showToast('Đã thêm ${p.name} vào giỏ!', '🛍️');"
+                class="btn-add-hp"
+                aria-label="Thêm ${p.name} vào giỏ hàng">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+                  <circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/>
+                  <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/>
+                </svg>
               </button>
             </div>
           </div>
         </div>
       `).join('');
+
+      // Trigger scroll-reveal for statically rendered cards
+      setTimeout(() => {
+        document.querySelectorAll('.reveal').forEach(el => {
+          el.classList.add('revealed');
+        });
+      }, 150);
     });
   </script>
 </body>

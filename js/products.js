@@ -24,8 +24,7 @@ function initProductsPage() {
    1. RENDER PRODUCT CARDS
    --------------------------------------------------------- */
 function createProductCard(p) {
-  const isAccessory = p.category === 'accessories';
-  const detailUrl = isAccessory ? '#' : `product-detail.html?id=${p.id}`;
+  const detailUrl = `product-detail.html?id=${p.id}`;
 
   return `
     <div class="product-card card-hover-scale" data-id="${p.id}">
@@ -36,11 +35,11 @@ function createProductCard(p) {
         </a>
       </div>
       <div class="product-card-body">
-        <div class="product-card-series">${p.series || 'Phụ Kiện Chính Hãng'}</div>
+        <div class="product-card-series">${p.series || 'Thiết Bị N4'}</div>
         <h3 class="product-card-title">
           <a href="${detailUrl}">${p.name}</a>
         </h3>
-        <p class="product-card-tagline">${p.tagline || 'Phụ kiện thay thế chính hãng chuẩn Cleannova'}</p>
+        <p class="product-card-tagline">${p.tagline || 'Thiết bị vệ sinh cao cấp chuẩn N4'}</p>
 
         ${p.suctionDisplay ? `
           <div class="product-card-specs">
@@ -50,8 +49,8 @@ function createProductCard(p) {
           </div>
         ` : `
           <div class="product-card-specs">
-            <span class="spec-pill">✓ Tiêu chuẩn Cleannova</span>
-            <span class="spec-pill">✓ Đóng gói vô trùng</span>
+            <span class="spec-pill">✓ Tiêu chuẩn N4</span>
+            <span class="spec-pill">✓ Bảo hành chính hãng</span>
           </div>
         `}
 
@@ -62,16 +61,10 @@ function createProductCard(p) {
         </div>
 
         <div class="product-card-actions">
-          ${!isAccessory ? `
-            <a href="${detailUrl}" class="btn btn-secondary btn-sm" style="width: 100%;">
-              Chi Tiết
-            </a>
-          ` : `
-            <button onclick="addToCart(${p.id}, 1); showToast('Đã thêm ${p.name} vào giỏ hàng!', '🛍️');" class="btn btn-secondary btn-sm" style="width: 100%;">
-              Thêm Nhanh
-            </button>
-          `}
-          <button onclick="addToCart(${p.id}, 1); showToast('Đã thêm ${p.name} vào giỏ hàng!', '🛍️');" class="btn btn-cta btn-sm" style="width: 100%;">
+          <a href="${detailUrl}" class="btn btn-secondary btn-sm" style="width: 100%;">
+            Chi Tiết
+          </a>
+          <button onclick="addToCart(${p.id}, 1); showToast('Đã thêm ${p.name} vào giỏ hàng!', '🛍️');" class="btn btn-primary btn-sm" style="width: 100%;">
             Mua Ngay
           </button>
         </div>
@@ -139,18 +132,10 @@ function getCheckedValues(name) {
 }
 
 function applyFilters() {
-  let source = (currentCategory === 'accessories') 
-    ? [...ACCESSORIES] 
-    : (currentCategory === 'robots') 
-      ? [...PRODUCTS] 
-      : [...PRODUCTS, ...ACCESSORIES];
-
-  const priceFilters = getCheckedValues('price');
-  const suctionFilters = getCheckedValues('suction');
-  const featureFilters = getCheckedValues('feature');
-  const areaFilters = getCheckedValues('area');
-
-  let filtered = source;
+  let source = [...PRODUCTS];
+  if (currentCategory && currentCategory !== 'all') {
+    source = PRODUCTS.filter(p => p.category === currentCategory || (currentCategory === 'robots' && p.category === 'robot'));
+  }
 
   // Price filter
   if (priceFilters.length > 0) {
@@ -261,12 +246,12 @@ function initMobileFilter() {
 function parseURLParams() {
   const params = new URLSearchParams(window.location.search);
   const cat = params.get('category');
-  if (cat === 'accessories') {
-    currentCategory = 'accessories';
-    const accTab = document.querySelector('[data-category="accessories"]');
-    if (accTab) {
+  if (cat) {
+    currentCategory = cat;
+    const tab = document.querySelector(`[data-category="${cat}"]`);
+    if (tab) {
       document.querySelectorAll('.category-filter-tab').forEach(t => t.classList.remove('active'));
-      accTab.classList.add('active');
+      tab.classList.add('active');
     }
   }
 

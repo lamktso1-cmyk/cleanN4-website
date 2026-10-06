@@ -1,68 +1,133 @@
 /* ==========================================================================
-   CLEANNOVA DESIGN SYSTEM - TOKENS
-   Premium • Modern • Smart • Clean • Trustworthy
+   N4 CLEANOVA — DESIGN SYSTEM TOKENS (WHITE & GOLD LUXURY THEME)
+   Style: Clean · Elegant · Premium · Minimal · Trustworthy
+   Palette Distribution:
+     - 75–85%: Pure White / Soft White / Off-white / Ivory
+     - 10–15%: Very light grey / Silver grey
+     - 5–10%:  Champagne Gold / Soft Metallic Gold (Accents only)
+   Text: Dark Charcoal / Dark Grey for optimal readability
+   Fonts: DM Sans (headings) · Inter (body)
    ========================================================================== */
 
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=Inter:wght@400;500;600;700&display=swap');
+
 :root {
-  /* Brand Typography */
-  --font-heading: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-  --font-body: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  /* ─── Typography ─────────────────────────────────── */
+  --font-heading: 'DM Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --font-body:    'Inter',  -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
 
-  /* Surfaces & Backgrounds */
-  --bg-main: #F8FAFC;
-  --bg-surface: #FFFFFF;
-  --bg-subtle: #F1F5F9;
-  --bg-card: rgba(255, 255, 255, 0.85);
-  --bg-dark: #0B0F17;
-  --bg-dark-surface: #121824;
-  --bg-dark-card: rgba(18, 24, 36, 0.75);
+  /* ─── 75-85%: White & Off-White Surfaces ─────────── */
+  --bg-page:        #FAFAFA;
+  --bg-white:       #FFFFFF;
+  --bg-off:         #F8F8F7;
+  --bg-ivory:       #FAF8F4;
+  --bg-subtle:      #F3F3F5;
+  --bg-muted:       #EAEAEF;
+  --bg-surface:     #FFFFFF;
+  --bg-main:        #FAFAFA;
 
-  /* Primary Brand Accents (Mint / Emerald / Smart Home) */
-  --accent-mint: #10B981;
-  --accent-mint-light: #ECFDF5;
-  --accent-emerald: #059669;
-  --accent-cyan: #06B6D4;
-  --accent-cyan-light: #ECFEFF;
-  --accent-gold: #F59E0B;
-  --accent-danger: #EF4444;
+  /* ─── 10-15%: Silver & Very Light Gray ───────────── */
+  --silver-50:      #F5F5F7;
+  --silver-100:     #ECECEF;
+  --silver-200:     #DFE0E4;
+  --bg-dark:        #18181B;
+  --bg-dark-soft:   #27272A;
 
-  /* Text Colors */
-  --text-primary: #0F172A;
-  --text-secondary: #475569;
-  --text-muted: #94A3B8;
-  --text-inverted: #F8FAFC;
-  --text-inverted-muted: #94A3B8;
+  /* ─── 5-10%: Gold Accents (Refined & Balanced) ───── */
+  --gold:           #C5A059;        /* Champagne Gold */
+  --gold-light:     #E0C283;        /* Soft Light Gold */
+  --gold-dark:      #A68032;        /* Deeper Gold for high contrast text */
+  --gold-soft:      rgba(197, 160, 89, 0.08); /* Transparent subtle tint */
+  --gold-soft-hover:rgba(197, 160, 89, 0.15);
+  --gold-gradient:  linear-gradient(135deg, #D4AF37 0%, #C5A059 100%);
+  --gold-metallic:  linear-gradient(135deg, #E6CD97 0%, #C5A059 50%, #B89243 100%);
+  --gold-border:    rgba(197, 160, 89, 0.32);
+  --gold-border-sm: rgba(197, 160, 89, 0.20);
+  --gold-border-solid: #C5A059;
+  --gold-glow:      0 0 24px rgba(197, 160, 89, 0.14);
+  --gold-shadow:    0 8px 24px rgba(197, 160, 89, 0.22);
 
-  /* Borders & Dividers */
-  --border-light: rgba(226, 232, 240, 0.8);
-  --border-focus: #10B981;
-  --border-dark: rgba(255, 255, 255, 0.1);
-  --border-glow: rgba(16, 185, 129, 0.3);
+  /* Primary Brand Accent Aliases */
+  --accent:         #C5A059;
+  --accent-hover:   #B38E46;
+  --accent-soft:    rgba(197, 160, 89, 0.08);
+  --accent-warm:    #C5A059;
+  --accent-warm-lt: #FAF8F4;
+  --accent-gold:    #C5A059;
+  --accent-charcoal:#18181B;
+  --accent-green:   #347A57;        /* trust / eco checkmarks */
+  --accent-green-lt:#EEF6F1;
+  --accent-red:     #C0392B;        /* discount tag / alert */
+  --accent-red-lt:  #FDF0EE;
 
-  /* Elevation Shadows */
-  --shadow-sm: 0 1px 3px rgba(15, 23, 42, 0.05);
-  --shadow-md: 0 4px 16px -2px rgba(15, 23, 42, 0.08);
-  --shadow-lg: 0 12px 32px -4px rgba(15, 23, 42, 0.12);
-  --shadow-xl: 0 24px 48px -8px rgba(15, 23, 42, 0.16);
-  --shadow-mint-glow: 0 8px 30px rgba(16, 185, 129, 0.25);
-  --shadow-dark-card: 0 16px 36px rgba(0, 0, 0, 0.4);
+  /* ─── Typography Colors (Dark Charcoal for readability) */
+  --text-primary:   #18181B;        /* Deep Charcoal - High contrast */
+  --text-body:      #3F3F46;        /* Slate Charcoal - Body copy */
+  --text-muted:     #71717A;        /* Neutral Grey - Secondary labels */
+  --text-light:     #A1A1AA;        /* Soft Grey - Timestamps, dividers */
+  --text-inverted:  #FFFFFF;
+  --text-gold:      #A68032;        /* Gold for key text / prices */
 
-  /* Blur & Glassmorphism */
-  --glass-bg: rgba(255, 255, 255, 0.78);
-  --glass-bg-dark: rgba(11, 15, 23, 0.78);
-  --glass-blur: blur(16px);
-  --glass-border: 1px solid rgba(255, 255, 255, 0.6);
+  /* ─── Borders (Restrained & Elegant) ─────────────── */
+  --border-xs:      rgba(0, 0, 0, 0.05);
+  --border-sm:      rgba(0, 0, 0, 0.08);
+  --border:         rgba(0, 0, 0, 0.11);
+  --border-md:      rgba(0, 0, 0, 0.15);
+  --border-gold:    rgba(197, 160, 89, 0.30);
+  --border-gold-focus: #C5A059;
+  --border-dark:    rgba(255, 255, 255, 0.12);
 
-  /* Radius & Curves */
-  --radius-xs: 6px;
-  --radius-sm: 10px;
-  --radius-md: 16px;
-  --radius-lg: 24px;
-  --radius-xl: 32px;
-  --radius-pill: 9999px;
+  /* ─── Shadows (Soft & Luxurious) ─────────────────── */
+  --shadow-xs:      0 1px 3px rgba(0, 0, 0, 0.03);
+  --shadow-sm:      0 2px 8px rgba(0, 0, 0, 0.05);
+  --shadow-md:      0 4px 16px rgba(0, 0, 0, 0.06);
+  --shadow-lg:      0 8px 28px rgba(0, 0, 0, 0.08);
+  --shadow-xl:      0 16px 44px rgba(0, 0, 0, 0.10);
+  --shadow-hover:   0 10px 30px rgba(197, 160, 89, 0.14);
+  --shadow-gold-hover: 0 12px 36px rgba(197, 160, 89, 0.18);
 
-  /* Transitions & Easing */
-  --transition-fast: 0.18s cubic-bezier(0.16, 1, 0.3, 1);
-  --transition-normal: 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-  --transition-slow: 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+  /* ─── Border Radius ──────────────────────────────── */
+  --r-xs:  4px;
+  --r-sm:  8px;
+  --r-md:  12px;
+  --r-lg:  16px;
+  --r-xl:  20px;
+  --r-2xl: 28px;
+  --r-pill:9999px;
+
+  /* ─── Transitions (Refined & Smooth) ─────────────── */
+  --ease:       cubic-bezier(0.22, 0.61, 0.36, 1);
+  --ease-out:   cubic-bezier(0.16, 1, 0.3, 1);
+  --t-fast:     0.18s;
+  --t-base:     0.28s;
+  --t-slow:     0.45s;
+
+  /* ─── Spacing ────────────────────────────────────── */
+  --section-py: 88px;
+  --container:  1240px;
+
+  /* ─── Backwards-compat aliases ───────────────────── */
+  --font-heading-alt: var(--font-heading);
+  --accent-emerald: var(--accent-green);
+  --accent-mint:    var(--accent-green);
+  --accent-mint-light: var(--accent-green-lt);
+  --accent-cyan:    var(--gold);
+  --accent-danger:  var(--accent-red);
+  --text-secondary: var(--text-body);
+  --border-light:   var(--border-sm);
+  --border-focus:   var(--gold);
+  --border-glow:    rgba(197, 160, 89, 0.20);
+  --glass-bg:       rgba(255, 255, 255, 0.92);
+  --glass-blur:     blur(18px);
+  --glass-border:   1px solid rgba(197, 160, 89, 0.18);
+  --radius-xs:  var(--r-xs);
+  --radius-sm:  var(--r-sm);
+  --radius-md:  var(--r-md);
+  --radius-lg:  var(--r-lg);
+  --radius-xl:  var(--r-xl);
+  --radius-pill:var(--r-pill);
+  --shadow-dark-card: var(--shadow-xl);
+  --transition-fast:   0.18s cubic-bezier(0.22, 0.61, 0.36, 1);
+  --transition-normal: 0.28s cubic-bezier(0.22, 0.61, 0.36, 1);
+  --transition-slow:   0.45s cubic-bezier(0.22, 0.61, 0.36, 1);
 }

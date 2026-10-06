@@ -37,30 +37,33 @@
 
     .category-tabs-bar {
       display: flex;
-      gap: 12px;
+    .category-tabs-bar {
+      display: flex;
+      gap: 10px;
       margin-top: 24px;
       flex-wrap: wrap;
     }
     .category-filter-tab {
       background: #FFFFFF;
-      border: 1px solid var(--border-light);
-      padding: 8px 20px;
+      border: 1px solid var(--gold-border-sm);
+      padding: 8px 18px;
       border-radius: var(--radius-pill);
       font-size: 0.875rem;
       font-weight: 600;
-      color: var(--text-secondary);
+      color: var(--text-body);
       cursor: pointer;
-      transition: all var(--transition-fast);
+      transition: all var(--t-fast) var(--ease);
     }
     .category-filter-tab:hover {
-      border-color: #CBD5E1;
-      background: var(--bg-subtle);
+      border-color: var(--gold);
+      background: var(--gold-soft);
+      color: var(--gold-dark);
     }
     .category-filter-tab.active {
-      background: var(--text-primary);
+      background: var(--gold-gradient);
       color: #FFFFFF;
-      border-color: var(--text-primary);
-      box-shadow: var(--shadow-sm);
+      border-color: var(--gold);
+      box-shadow: 0 4px 14px rgba(197, 160, 89, 0.25);
     }
 
     .listing-layout {
@@ -200,15 +203,19 @@
       <div class="breadcrumb-nav">
         <a href="index.html">Trang chủ</a> / <span>Danh mục sản phẩm</span>
       </div>
-      <h1 style="font-size: 2.25rem; margin-bottom: 8px;">Robot Hút Bụi & Lau Nhà Thông Minh</h1>
+      <h1 style="font-size: 2.25rem; margin-bottom: 8px;">Thiết Bị Vệ Sinh & Làm Sạch N4 Cleanova</h1>
       <p style="color: var(--text-muted); font-size: 1.0625rem;">
-        Được trang bị công nghệ AI 3D tiên tiến nhất giúp không gian sống luôn tinh tươm mỗi ngày.
+        Hệ sinh thái robot thông minh, máy hút bụi, thiết bị lau rửa tự động và linh phụ kiện chuẩn hãng.
       </p>
 
       <div class="category-tabs-bar">
-        <button class="category-filter-tab active" data-category="all">Tất Cả Sản Phẩm (10)</button>
-        <button class="category-filter-tab" data-category="robots">Robot Thông Minh (6)</button>
-        <button class="category-filter-tab" data-category="accessories">Phụ Kiện Chính Hãng (4)</button>
+        <button class="category-filter-tab active" data-category="all">Tất Cả Sản Phẩm</button>
+        <button class="category-filter-tab" data-category="robot">🤖 Robot Hút Bụi</button>
+        <button class="category-filter-tab" data-category="cordless">🧹 Máy Hút Bụi</button>
+        <button class="category-filter-tab" data-category="cleaning">💧 Thiết Bị Vệ Sinh</button>
+        <button class="category-filter-tab" data-category="waste">🗑️ Thiết Bị Dọn Rác</button>
+        <button class="category-filter-tab" data-category="accessories">⚙️ Phụ Kiện</button>
+        <button class="category-filter-tab" data-category="parts">🔋 Linh Kiện</button>
       </div>
     </div>
   </section>
