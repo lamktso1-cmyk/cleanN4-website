@@ -270,7 +270,7 @@ function initSearch() {
         <img src="${p.image}" alt="${p.name}" class="search-result-img">
         <div>
           <div class="search-result-name">${p.name}</div>
-          <div class="search-result-price">${formatPrice(p.price)}</div>
+          <div class="search-result-price">${formatPriceHTML(p.price)}</div>
         </div>
       </a>
     `).join('') : `<div style="padding:20px;text-align:center;color:var(--text-muted)">Không tìm thấy kết quả cho "<b>${q}</b>"</div>`;
@@ -347,10 +347,6 @@ function showToast(message, icon = '✓') {
 /* ---------------------------------------------------------
    10. UTILITY: Format price to Vietnamese locale
    --------------------------------------------------------- */
-function formatPrice(num) {
-  if (typeof num !== 'number') return num;
-  return num.toLocaleString('vi-VN') + '₫';
-}
 
 /* ---------------------------------------------------------
    11. SUBTLE GOLD GLOW (Cursor-Follower Interaction)

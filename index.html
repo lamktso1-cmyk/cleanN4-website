@@ -696,8 +696,8 @@
             </div>
             ${p.reviews ? `<div class="hp-card-stars"><span class="s">★★★★★</span>&nbsp;<span style="font-weight:600;color:var(--text-primary)">${p.rating}</span><span>(${p.reviews} đánh giá)</span></div>` : ''}
             <div class="hp-card-pricing">
-              <div class="hp-price">${p.price ? formatPrice(p.price) : "Từ " + formatPrice(PRICE_RANGE.min) + " (dự kiến)"}</div>
-              ${p.oldPrice ? `<div class="hp-price-old">${formatPrice(p.oldPrice)}</div>` : ''}
+              <div class="hp-price">${p.price ? formatPriceHTML(p.price) : "Từ " + formatPriceHTML(PRICE_RANGE.min) + " (dự kiến)"}</div>
+              ${p.oldPrice ? `<div class="hp-price-old">${formatPriceHTML(p.oldPrice)}</div>` : ''}
               ${p.discount ? `<div class="hp-discount">-${p.discount}%</div>` : ''}
             </div>
             <div class="hp-card-action">

@@ -232,7 +232,7 @@
           order.paymentMethod === 'vietqr' ? 'Chuyển khoản ngân hàng VietQR' :
           order.paymentMethod === 'momo' ? 'Ví điện tử MoMo' :
           order.paymentMethod === 'vnpay' ? 'Cổng thanh toán VNPay' : 'Thanh toán khi nhận hàng (COD)';
-        document.getElementById('recap-total').textContent = formatPrice(order.finalTotal || 0);
+        document.getElementById('recap-total').innerHTML = formatPriceHTML(order.finalTotal || 0);
       }
     });
   </script>

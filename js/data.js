@@ -22,7 +22,7 @@ const CATEGORIES = [
 const PRODUCTS = [{
   id:1, slug:'robot-hut-bui-lau-nha-cleannova', name:'Robot hút bụi lau nhà thông minh CLEANNOVA',
   series:'CLEANNOVA', tagline:'Hút bụi & lau nhà | 8.000 Pa | AI 3D | Trạm sạc tự giặt, tự sấy',
-  price:9990000, priceStatus:'proposed', priceRange:PRICE_RANGE, oldPrice:0, discount:0, badge:'SẢN PHẨM CHÍNH', badgeType:'badge-gold',
+  price:10500000, priceStatus:'proposed', priceRange:PRICE_RANGE, oldPrice:0, discount:0, badge:'SẢN PHẨM CHÍNH', badgeType:'badge-gold',
   image:'assets/images/cat-robot.jpg', imageNote:'Ảnh minh họa concept, không phải ảnh sản phẩm thực.',
   gallery:['assets/images/cat-robot.jpg'], rating:0, reviews:0,
   suction:8000, suctionDisplay:'8.000 Pa', battery:0, area:0, noise:TBD, stock:null,
@@ -84,9 +84,14 @@ const PRODUCTS = [{
 const VOUCHERS = {};
 
 // 3. HELPER FUNCTIONS
+/* Giá hiển thị kiểu hóa đơn: "10.500.000 ₫" — ký hiệu ₫ nhỏ, chữ thường (không đậm) */
 function formatPrice(val) {
   if (typeof val !== 'number') return 'Liên hệ';
-  return val.toLocaleString('vi-VN') + 'đ';
+  return val.toLocaleString('vi-VN') + ' ₫';
+}
+function formatPriceHTML(val) {
+  if (typeof val !== 'number') return 'Liên hệ';
+  return val.toLocaleString('vi-VN') + '<span class="cur">₫</span>';
 }
 
 function getProductById(id) {

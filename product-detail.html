@@ -575,11 +575,11 @@
       document.getElementById('detail-stars').innerHTML = p.reviews ? renderStars(p.rating) : '';
       document.getElementById('detail-rating-text').textContent = p.reviews ? `${p.rating}/5` : '';
       document.getElementById('detail-reviews-count').textContent = p.reviews ? `(${p.reviews} đánh giá)` : 'Chưa có đánh giá';
-      document.getElementById('detail-price').textContent = formatPrice(p.price);
-      document.getElementById('mobile-sticky-price').textContent = formatPrice(p.price);
+      document.getElementById('detail-price').innerHTML = formatPriceHTML(p.price);
+      document.getElementById('mobile-sticky-price').innerHTML = formatPriceHTML(p.price);
 
       if (p.oldPrice) {
-        document.getElementById('detail-old-price').textContent = formatPrice(p.oldPrice);
+        document.getElementById('detail-old-price').innerHTML = formatPriceHTML(p.oldPrice);
         document.getElementById('detail-discount').textContent = `-${p.discount}%`;
       } else {
         document.getElementById('detail-old-price').style.display = 'none';

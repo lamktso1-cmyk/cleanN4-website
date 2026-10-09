@@ -15,3 +15,19 @@ img,svg,video{max-width:100%}
   .btn{max-width:100%;white-space:normal;text-align:center;padding-left:16px;padding-right:16px}
   .btn span{white-space:normal}
 }
+
+/* Giá kiểu hóa đơn: ký hiệu ₫ nhỏ, chữ thường, không đậm, không gạch */
+.cur{font-size:.62em;font-weight:400;font-style:normal;text-decoration:none;margin-left:.18em;letter-spacing:0;vertical-align:baseline;opacity:.9}
+
+/* Bộ chọn số lượng trong giỏ hàng */
+.qty-counter{display:inline-flex;align-items:center;border:1px solid #E9E5DC;border-radius:999px;background:#fff;padding:2px;gap:2px}
+.qty-counter .qty-btn{width:32px;height:32px;border:0;border-radius:50%;background:transparent;font-size:1.05rem;line-height:1;color:#252525;cursor:pointer;display:grid;place-items:center;transition:background .18s,color .18s}
+.qty-counter .qty-btn:hover{background:rgba(198,166,103,.16);color:#8E6F2A}
+.qty-counter .qty-btn:active{transform:scale(.94)}
+.qty-counter .qty-input{width:38px;height:32px;border:0;background:transparent;text-align:center;font:inherit;font-weight:600;color:#252525;padding:0;-moz-appearance:textfield;appearance:textfield;outline:0}
+.qty-counter .qty-input::-webkit-outer-spin-button,.qty-counter .qty-input::-webkit-inner-spin-button{-webkit-appearance:none;margin:0}
+.cart-item-qty{display:flex;justify-content:center}
+.cart-item-total{white-space:nowrap}
+.voucher-input-group{display:flex;gap:8px;align-items:stretch}
+.voucher-input-group input{flex:1;min-width:0;width:auto}
+.voucher-input-group .btn{flex:none;white-space:nowrap}

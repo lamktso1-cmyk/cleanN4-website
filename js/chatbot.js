@@ -172,7 +172,7 @@ function renderRecommendation() {
       <img src="${product.image}" alt="${product.name}">
       <div>
         <div style="font-weight: 700; color: #252525; font-size: 0.9375rem;">${product.name}</div>
-        <div style="font-weight: 800; color: #C6A667; font-size: 1.1rem; margin: 4px 0;">${product.price ? formatPrice(product.price) : 'Giá dự kiến ' + PRICE_RANGE.min.toLocaleString('vi-VN') + ' – ' + PRICE_RANGE.max.toLocaleString('vi-VN') + 'đ'}</div>
+        <div style="font-weight: 800; color: #C6A667; font-size: 1.1rem; margin: 4px 0;">${product.price ? formatPriceHTML(product.price) : 'Giá dự kiến ' + formatPrice(PRICE_RANGE.min) + ' – ' + formatPrice(PRICE_RANGE.max)}</div>
         <div style="font-size: 0.75rem; color: #64748B; margin-bottom: 8px;">${product.specsSummary}</div>
         <div style="display: flex; gap: 6px;">
           <a href="product-detail.html?id=${product.id}" class="btn btn-secondary btn-sm" style="flex: 1; padding: 6px;">
@@ -465,7 +465,7 @@ function answerQuestion(q) {
     if (list.length) return 'Phụ kiện và vật tư hiện có:\n' + list.map(x => '• ' + x.name + ' – ' + formatPrice(x.price) + ' (product-detail.html?id=' + x.id + ')').join('\n');
   }
   if (has('giá', 'bao nhiêu', 'tiền'))
-    return `Khoảng giá dự kiến là ${PRICE_RANGE.min.toLocaleString('vi-VN')} – ${PRICE_RANGE.max.toLocaleString('vi-VN')}đ. Đây chưa phải giá niêm yết chính thức, bạn vui lòng liên hệ để được báo giá.`;
+    return `Khoảng giá dự kiến là ${formatPrice(PRICE_RANGE.min)} – ${formatPrice(PRICE_RANGE.max)}. Đây chưa phải giá niêm yết chính thức, bạn vui lòng liên hệ để được báo giá.`;
   if (has('bảo hành')) return POLICIES.warranty + ' ' + POLICIES.support;
   if (has('đổi', 'trả')) return POLICIES.returns;
   if (has('hỗ trợ', 'kỹ thuật', 'sửa')) return POLICIES.support;

@@ -40,7 +40,7 @@ function renderCheckoutSummary() {
             </div>
           </div>
           <div style="font-weight: 700; font-size: 0.9375rem; color: var(--text-primary);">
-            ${formatPrice(p.price * item.quantity)}
+            ${formatPriceHTML(p.price * item.quantity)}
           </div>
         </div>
       `;
@@ -48,7 +48,7 @@ function renderCheckoutSummary() {
   }
 
   const subtotal = getCartTotal();
-  if (subtotalEl) subtotalEl.textContent = formatPrice(subtotal);
+  if (subtotalEl) subtotalEl.innerHTML = formatPriceHTML(subtotal);
 
   // Check saved session discount
   let discountAmount = 0;
@@ -61,13 +61,13 @@ function renderCheckoutSummary() {
 
   if (discountAmount > 0) {
     if (discountRow) discountRow.style.display = 'flex';
-    if (discountValEl) discountValEl.textContent = `-${formatPrice(discountAmount)}`;
+    if (discountValEl) discountValEl.innerHTML = `-${formatPriceHTML(discountAmount)}`;
   } else {
     if (discountRow) discountRow.style.display = 'none';
   }
 
   const finalTotal = Math.max(0, subtotal - discountAmount);
-  if (totalEl) totalEl.textContent = formatPrice(finalTotal);
+  if (totalEl) totalEl.innerHTML = formatPriceHTML(finalTotal);
 }
 
 function initPaymentMethods() {
@@ -76,6 +76,7 @@ function initPaymentMethods() {
 
   options.forEach(opt => {
     opt.addEventListener('click', () => {
+      if (opt.classList.contains('is-disabled')) { showToast('Cổng thanh toán này chưa mở. Vui lòng chọn thanh toán khi nhận hàng (COD).', 'ℹ️'); return; }
       options.forEach(o => o.classList.remove('selected'));
       opt.classList.add('selected');
 

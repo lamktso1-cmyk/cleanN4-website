@@ -41,7 +41,7 @@ function renderCart() {
               <a href="product-detail.html?id=${product.id}">${product.name}</a>
             </h3>
             <div style="font-size: 0.8125rem; color: #64748B;">Bảo hành 18 tháng chính hãng</div>
-            <div class="cart-item-unit-price">${formatPrice(product.price)}</div>
+            <div class="cart-item-unit-price">${formatPriceHTML(product.price)}</div>
           </div>
           <div class="cart-item-qty">
             <div class="qty-counter">
@@ -51,7 +51,7 @@ function renderCart() {
             </div>
           </div>
           <div class="cart-item-total">
-            ${formatPrice(rowTotal)}
+            ${formatPriceHTML(rowTotal)}
           </div>
           <button class="cart-item-remove-btn" onclick="deleteItem(${product.id})" title="Xóa khỏi giỏ hàng">
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -90,7 +90,7 @@ function updateSummary() {
   const discountValEl = document.getElementById('discount-val');
   const totalEl = document.getElementById('total-val');
 
-  if (subtotalEl) subtotalEl.textContent = formatPrice(subtotal);
+  if (subtotalEl) subtotalEl.innerHTML = formatPriceHTML(subtotal);
 
   let discountAmount = 0;
   if (appliedVoucher) {
@@ -101,13 +101,13 @@ function updateSummary() {
     }
 
     if (discountRow) discountRow.style.display = 'flex';
-    if (discountValEl) discountValEl.textContent = `-${formatPrice(discountAmount)}`;
+    if (discountValEl) discountValEl.innerHTML = `-${formatPriceHTML(discountAmount)}`;
   } else {
     if (discountRow) discountRow.style.display = 'none';
   }
 
   const finalTotal = Math.max(0, subtotal - discountAmount);
-  if (totalEl) totalEl.textContent = formatPrice(finalTotal);
+  if (totalEl) totalEl.innerHTML = formatPriceHTML(finalTotal);
 
   // Store in session for checkout
   sessionStorage.setItem('cleannova-order-summary', JSON.stringify({

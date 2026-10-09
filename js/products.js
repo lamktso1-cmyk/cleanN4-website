@@ -55,8 +55,8 @@ function createProductCard(p) {
         `}
 
         <div class="product-card-pricing">
-          <span class="current-price">${p.price ? formatPrice(p.price) : "Từ " + formatPrice(PRICE_RANGE.min) + " (dự kiến)"}</span>
-          ${p.oldPrice ? `<span class="old-price">${formatPrice(p.oldPrice)}</span>` : ''}
+          <span class="current-price">${p.price ? formatPriceHTML(p.price) : "Từ " + formatPriceHTML(PRICE_RANGE.min) + " (dự kiến)"}</span>
+          ${p.oldPrice ? `<span class="old-price">${formatPriceHTML(p.oldPrice)}</span>` : ''}
           ${p.discount ? `<span class="discount-tag">-${p.discount}%</span>` : ''}
         </div>
 

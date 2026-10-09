@@ -83,7 +83,7 @@ function initAdminDashboard() {
   const kpiSold = document.getElementById('kpi-sold');
   const kpiInv = document.getElementById('kpi-inventory');
 
-  if (kpiRev) kpiRev.textContent = formatPrice(ADMIN_DATA.kpi.revenueToday);
+  if (kpiRev) kpiRev.innerHTML = formatPriceHTML(ADMIN_DATA.kpi.revenueToday);
   if (kpiOrders) kpiOrders.textContent = ADMIN_DATA.kpi.ordersToday;
   if (kpiSold) kpiSold.textContent = ADMIN_DATA.kpi.itemsSold;
   if (kpiInv) kpiInv.textContent = ADMIN_DATA.kpi.inventoryCount;
@@ -126,7 +126,7 @@ function initAdminDashboard() {
         <td>${o.customer}</td>
         <td>${o.product}</td>
         <td>${o.date}</td>
-        <td><strong>${formatPrice(o.total)}</strong></td>
+        <td><strong>${formatPriceHTML(o.total)}</strong></td>
         <td><span class="status-pill status-${o.status}">${o.statusText}</span></td>
       </tr>
     `).join('');
@@ -141,7 +141,7 @@ function initAdminDashboard() {
         <td>${o.customer}</td>
         <td>${o.product}</td>
         <td>${o.date}</td>
-        <td><strong>${formatPrice(o.total)}</strong></td>
+        <td><strong>${formatPriceHTML(o.total)}</strong></td>
         <td><span class="status-pill status-${o.status}">${o.statusText}</span></td>
         <td>
           <button onclick="showToast('Đang cập nhật mã ${o.id}...', 'ℹ️')" class="btn btn-secondary btn-sm" style="padding: 4px 10px; font-size: 0.75rem;">
@@ -166,7 +166,7 @@ function initAdminDashboard() {
             </div>
           </div>
         </td>
-        <td><strong>${formatPrice(p.price)}</strong></td>
+        <td><strong>${formatPriceHTML(p.price)}</strong></td>
         <td>${p.suctionDisplay}</td>
         <td>${p.stock} máy</td>
         <td><span class="status-pill ${p.stock > 10 ? 'status-instock' : 'status-lowstock'}">${p.stock > 10 ? 'Còn hàng' : 'Sắp hết'}</span></td>
@@ -187,7 +187,7 @@ function initAdminDashboard() {
         <td><strong>${item.name}</strong></td>
         <td>${item.stock} cái</td>
         <td>${item.sold} cái</td>
-        <td>${formatPrice(item.price)}</td>
+        <td>${formatPriceHTML(item.price)}</td>
         <td>
           <span class="status-pill ${item.status === 'in-stock' ? 'status-instock' : 'status-lowstock'}">
             ${item.status === 'in-stock' ? 'Đảm bảo tồn kho' : 'Cảnh báo ít hàng'}
