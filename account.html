@@ -6,10 +6,10 @@
   <title>Tài Khoản Của Tôi | CLEANNOVA</title>
   <meta name="description" content="Quản lý thông tin tài khoản cá nhân, địa chỉ nhận hàng và lịch sử đơn đặt hàng CleanNova.">
 
-  <!-- Google Fonts -->
+  <!-- Google Fonts: Be Vietnam Pro & Inter (Chuẩn tiếng Việt cao cấp) -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400;1,600&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
   <link rel="stylesheet" href="css/tokens.css">
   <link rel="stylesheet" href="css/animations.css">
@@ -406,10 +406,7 @@
     async function loadMyOrders() {
       const container = document.getElementById('my-orders-list');
       try {
-        const res = await fetch('/api/orders/my-orders', {
-          headers: Auth.getHeaders(),
-          credentials: 'include'
-        });
+        const res = await Auth.apiFetch('/api/orders/my-orders');
         const data = await res.json();
 
         if (res.ok && data.success && data.orders && data.orders.length > 0) {

@@ -1,13 +1,30 @@
 /* ==========================================================================
-   CLEANNOVA - AUTH & RBAC CLIENT ENGINE
-   Secure session management • Server verification • Protected navigation
+   CLEANNOVA - AUTH & RBAC CLIENT ENGINE (ENHANCED RESILIENCE)
+   Smart API Base Discovery • JWT Management • Server Auth Verification
    ========================================================================== */
 
 const Auth = (function () {
   let currentUser = null;
   let isChecking = false;
 
-  // Lấy token từ localStorage (dùng làm Authorization Bearer header khi cần)
+  // Tự động nhận diện địa chỉ máy chủ API Backend (hỗ trợ cả port 3000, Live Server 5500, 8080 và file protocol)
+  function getApiBaseUrl() {
+    // 1. Nếu mở trang từ file:// protocol
+    if (window.location.protocol === 'file:') {
+      return 'http://localhost:3000';
+    }
+    // 2. Nếu mở trang từ localhost/127.0.0.1 nhưng ở port khác 3000 (như Live Server 5500, Vite 5173, etc.)
+    if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
+      if (window.location.port !== '3000' && window.location.port !== '') {
+        return 'http://localhost:3000';
+      }
+      return ''; // Chạy trực tiếp từ backend CleanNova port 3000
+    }
+    // 3. Môi trường production hosting cùng origin
+    return '';
+  }
+
+  // Lấy JWT token từ localStorage
   function getToken() {
     return localStorage.getItem('cleannova_jwt') || null;
   }
@@ -22,12 +39,43 @@ const Auth = (function () {
 
   // Header chuẩn khi gọi API
   function getHeaders() {
-    const headers = { 'Content-Type': 'application/json' };
+    const headers = {
+      'Content-Type': 'application/json',
+      'Accept': 'application/json'
+    };
     const token = getToken();
     if (token) {
       headers['Authorization'] = `Bearer ${token}`;
     }
     return headers;
+  }
+
+  // Wrapper gọi fetch an toàn có timeout và auto-prefix baseUrl
+  async function apiFetch(endpoint, options = {}) {
+    const base = getApiBaseUrl();
+    const url = endpoint.startsWith('http') ? endpoint : `${base}${endpoint}`;
+
+    const headers = {
+      ...getHeaders(),
+      ...(options.headers || {})
+    };
+
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => controller.abort(), 9000); // 9s timeout
+
+    try {
+      const response = await fetch(url, {
+        ...options,
+        headers,
+        credentials: 'include',
+        signal: controller.signal
+      });
+      clearTimeout(timeoutId);
+      return response;
+    } catch (err) {
+      clearTimeout(timeoutId);
+      throw err;
+    }
   }
 
   // Xác minh phiên đăng nhập trực tiếp từ Server Backend
@@ -37,11 +85,7 @@ const Auth = (function () {
 
     isChecking = true;
     try {
-      const res = await fetch('/api/auth/me', {
-        method: 'GET',
-        headers: getHeaders(),
-        credentials: 'include'
-      });
+      const res = await apiFetch('/api/auth/me', { method: 'GET' });
 
       if (res.ok) {
         const data = await res.json();
@@ -53,10 +97,9 @@ const Auth = (function () {
         }
       }
     } catch (err) {
-      console.warn('Auth check error:', err);
+      // Backend chưa sẵn sàng hoặc token hết hạn
     }
 
-    // Nếu server báo không có phiên hoặc lỗi token
     currentUser = null;
     sessionStorage.removeItem('cleannova_user');
     isChecking = false;
@@ -66,10 +109,8 @@ const Auth = (function () {
   // Đăng nhập bằng Email & Mật khẩu
   async function login(email, password) {
     try {
-      const res = await fetch('/api/auth/login', {
+      const res = await apiFetch('/api/auth/login', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        credentials: 'include',
         body: JSON.stringify({ email, password })
       });
 
@@ -80,20 +121,26 @@ const Auth = (function () {
         sessionStorage.setItem('cleannova_user', JSON.stringify(currentUser));
         return { success: true, user: data.user, message: data.message };
       } else {
-        return { success: false, message: data.message || 'Đăng nhập không thành công.' };
+        return { success: false, message: data.message || 'Email hoặc mật khẩu không chính xác.' };
       }
     } catch (err) {
-      return { success: false, message: 'Không thể kết nối đến máy chủ. Vui lòng kiểm tra mạng.' };
+      console.error('CleanNova Login Error:', err);
+      const isCross = window.location.port !== '3000' && window.location.protocol !== 'file:';
+      const hint = isCross
+        ? ' (Mẹo: Vui lòng đảm bảo backend CleanNova đang chạy tại http://localhost:3000)'
+        : '';
+      return {
+        success: false,
+        message: `Không thể kết nối đến máy chủ backend CleanNova${hint}. Vui lòng kiểm tra lệnh 'npm start'.`
+      };
     }
   }
 
   // Đăng ký tài khoản khách hàng mới
   async function register(userData) {
     try {
-      const res = await fetch('/api/auth/register', {
+      const res = await apiFetch('/api/auth/register', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        credentials: 'include',
         body: JSON.stringify(userData)
       });
 
@@ -107,17 +154,18 @@ const Auth = (function () {
         return { success: false, message: data.message || 'Đăng ký không thành công.' };
       }
     } catch (err) {
-      return { success: false, message: 'Lỗi kết nối máy chủ khi đăng ký.' };
+      return {
+        success: false,
+        message: 'Không thể kết nối đến máy chủ backend để tạo tài khoản. Vui lòng kiểm tra lệnh npm start.'
+      };
     }
   }
 
   // Đăng nhập bằng Facebook OAuth
   async function loginWithFacebook(fbAuthResponse) {
     try {
-      const res = await fetch('/api/auth/facebook', {
+      const res = await apiFetch('/api/auth/facebook', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        credentials: 'include',
         body: JSON.stringify(fbAuthResponse)
       });
 
@@ -131,18 +179,14 @@ const Auth = (function () {
         return { success: false, message: data.message || 'Đăng nhập Facebook không thành công.' };
       }
     } catch (err) {
-      return { success: false, message: 'Lỗi xác thực Facebook với máy chủ.' };
+      return { success: false, message: 'Lỗi kết nối máy chủ khi đăng nhập Facebook.' };
     }
   }
 
   // Đăng xuất an toàn
   async function logout() {
     try {
-      await fetch('/api/auth/logout', {
-        method: 'POST',
-        headers: getHeaders(),
-        credentials: 'include'
-      });
+      await apiFetch('/api/auth/logout', { method: 'POST' });
     } catch (e) {}
 
     currentUser = null;
@@ -154,10 +198,8 @@ const Auth = (function () {
   // Cập nhật thông tin cá nhân
   async function updateProfile(profileData) {
     try {
-      const res = await fetch('/api/auth/profile', {
+      const res = await apiFetch('/api/auth/profile', {
         method: 'PUT',
-        headers: getHeaders(),
-        credentials: 'include',
         body: JSON.stringify(profileData)
       });
       const data = await res.json();
@@ -168,22 +210,20 @@ const Auth = (function () {
       }
       return { success: false, message: data.message };
     } catch (e) {
-      return { success: false, message: 'Lỗi cập nhật hồ sơ.' };
+      return { success: false, message: 'Lỗi cập nhật hồ sơ cá nhân.' };
     }
   }
 
   // Đổi mật khẩu
   async function changePassword(old_password, new_password) {
     try {
-      const res = await fetch('/api/auth/change-password', {
+      const res = await apiFetch('/api/auth/change-password', {
         method: 'POST',
-        headers: getHeaders(),
-        credentials: 'include',
         body: JSON.stringify({ old_password, new_password })
       });
       return await res.json();
     } catch (e) {
-      return { success: false, message: 'Lỗi đổi mật khẩu.' };
+      return { success: false, message: 'Lỗi kết nối máy chủ khi đổi mật khẩu.' };
     }
   }
 
@@ -214,6 +254,8 @@ const Auth = (function () {
   }
 
   return {
+    getApiBaseUrl,
+    apiFetch,
     getToken,
     getHeaders,
     checkAuth,

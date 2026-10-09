@@ -6,10 +6,10 @@
   <title>Đăng Ký Tài Khoản | CLEANNOVA</title>
   <meta name="description" content="Tạo tài khoản CleanNova để tích điểm thành viên, theo dõi bảo hành 18 tháng và nhận ưu đãi độc quyền.">
 
-  <!-- Google Fonts -->
+  <!-- Google Fonts: Be Vietnam Pro & Inter (Chuẩn tiếng Việt sắc nét cao cấp) -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400;1,600&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
   <link rel="stylesheet" href="css/tokens.css">
   <link rel="stylesheet" href="css/animations.css">
@@ -17,23 +17,52 @@
   <link rel="stylesheet" href="css/mobile-fixes.css">
 
   <style>
+    body {
+      font-family: var(--font-body, 'Be Vietnam Pro', 'Inter', sans-serif);
+      color: var(--text-body, #171717);
+      background-color: var(--bg-page, #FAFAFA);
+    }
+
     .auth-page-wrapper {
-      min-height: calc(100vh - 160px);
+      min-height: calc(100vh - 150px);
       display: flex;
       align-items: center;
       justify-content: center;
-      padding: 40px 20px;
-      background: radial-gradient(circle at 50% 20%, rgba(198, 166, 103, 0.04) 0%, rgba(248, 250, 252, 1) 100%);
+      padding: 50px 20px;
+      position: relative;
+      overflow: hidden;
+      background: radial-gradient(circle at 50% 15%, rgba(197, 160, 89, 0.06) 0%, rgba(250, 250, 250, 1) 75%);
     }
+
+    .auth-ambient-orb {
+      position: absolute;
+      width: 480px;
+      height: 480px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(197, 160, 89, 0.08) 0%, rgba(197, 160, 89, 0) 70%);
+      pointer-events: none;
+      z-index: 0;
+      animation: ambientDrift 16s ease-in-out infinite alternate;
+    }
+    .auth-ambient-orb.orb-1 { top: -140px; right: -120px; }
+    .auth-ambient-orb.orb-2 { bottom: -180px; left: -140px; animation-delay: -8s; }
+
+    @keyframes ambientDrift {
+      0%   { transform: translate(0, 0) scale(1); opacity: 0.7; }
+      100% { transform: translate(30px, 20px) scale(1.08); opacity: 1; }
+    }
+
     .auth-card {
       background: #FFFFFF;
-      border: 1px solid var(--border-light);
-      border-radius: var(--radius-xl);
-      padding: 40px 36px;
-      max-width: 480px;
+      border: 1px solid rgba(226, 232, 240, 0.9);
+      border-radius: var(--radius-xl, 24px);
+      padding: 44px 38px;
+      max-width: 490px;
       width: 100%;
-      box-shadow: 0 20px 45px -15px rgba(0, 0, 0, 0.07);
+      box-shadow: 0 24px 50px -18px rgba(0, 0, 0, 0.07), 0 0 1px 1px rgba(197, 160, 89, 0.08);
       position: relative;
+      z-index: 1;
+      animation: authCardIn 0.65s cubic-bezier(0.16, 1, 0.3, 1) forwards;
     }
     .auth-card::before {
       content: '';
@@ -41,10 +70,16 @@
       top: 0;
       left: 0;
       right: 0;
-      height: 3px;
-      background: linear-gradient(90deg, var(--gold-primary), var(--gold-dark));
-      border-radius: var(--radius-xl) var(--radius-xl) 0 0;
+      height: 3.5px;
+      background: linear-gradient(90deg, #B58A34 0%, #D6B45C 50%, #B58A34 100%);
+      border-radius: 24px 24px 0 0;
     }
+
+    @keyframes authCardIn {
+      from { opacity: 0; transform: translateY(22px) scale(0.985); }
+      to   { opacity: 1; transform: translateY(0) scale(1); }
+    }
+
     .auth-header {
       text-align: center;
       margin-bottom: 28px;
@@ -52,20 +87,30 @@
     .auth-logo-center {
       display: inline-flex;
       align-items: center;
-      gap: 10px;
+      gap: 12px;
       margin-bottom: 16px;
       text-decoration: none;
+      transition: transform var(--transition-fast, 0.2s);
+    }
+    .auth-logo-center:hover {
+      transform: scale(1.02);
     }
     .auth-title {
-      font-size: 1.65rem;
+      font-family: var(--font-heading, 'Be Vietnam Pro', sans-serif);
+      font-size: 1.8rem;
       font-weight: 800;
-      color: var(--text-primary);
+      letter-spacing: -0.025em;
+      color: #171717;
       margin-bottom: 6px;
+      line-height: 1.25;
     }
     .auth-subtitle {
-      font-size: 0.9rem;
-      color: var(--text-muted);
+      font-size: 0.9375rem;
+      color: #6B7280;
+      font-weight: 400;
+      line-height: 1.5;
     }
+
     .form-group {
       margin-bottom: 18px;
       text-align: left;
@@ -74,25 +119,30 @@
       display: block;
       font-size: 0.875rem;
       font-weight: 600;
-      color: var(--text-primary);
+      color: #1F2937;
       margin-bottom: 8px;
+      letter-spacing: -0.01em;
     }
     .form-input {
       width: 100%;
       padding: 12px 16px;
-      border: 1.5px solid var(--border-light);
-      border-radius: var(--radius-md);
-      font-size: 0.9375rem;
+      border: 1.5px solid #E2E8F0;
+      border-radius: var(--radius-md, 12px);
+      font-size: 0.95rem;
       font-family: inherit;
-      color: var(--text-primary);
+      color: #171717;
       background: #FFFFFF;
-      transition: all var(--transition-fast);
+      transition: border-color 0.22s ease, box-shadow 0.22s ease;
       outline: none;
     }
     .form-input:focus {
-      border-color: var(--gold-primary);
-      box-shadow: 0 0 0 3px rgba(198, 166, 103, 0.15);
+      border-color: #B58A34;
+      box-shadow: 0 0 0 3.5px rgba(181, 138, 52, 0.14);
     }
+    .form-input::placeholder {
+      color: #94A3B8;
+    }
+
     .input-wrapper {
       position: relative;
     }
@@ -104,10 +154,16 @@
       background: none;
       border: none;
       cursor: pointer;
-      color: var(--text-muted);
-      padding: 4px;
-      font-size: 1.1rem;
+      color: #64748B;
+      padding: 5px;
+      font-size: 1.15rem;
+      border-radius: 6px;
     }
+    .toggle-pwd-btn:hover {
+      color: #171717;
+      background: rgba(0,0,0,0.04);
+    }
+
     .pwd-strength-bar {
       height: 4px;
       background: #E2E8F0;
@@ -122,28 +178,72 @@
       transition: all 0.3s;
     }
     .pwd-strength-text {
-      font-size: 0.75rem;
-      color: var(--text-muted);
-      margin-top: 4px;
+      font-size: 0.775rem;
+      color: #64748B;
+      margin-top: 5px;
       display: flex;
       justify-content: space-between;
     }
+
+    .btn-submit-luxury {
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      width: 100%;
+      padding: 13px 20px;
+      font-size: 0.975rem;
+      font-weight: 700;
+      letter-spacing: 0.01em;
+      border-radius: var(--radius-md, 12px);
+      border: none;
+      background: linear-gradient(135deg, #C6A667 0%, #B58A34 100%);
+      color: #FFFFFF;
+      cursor: pointer;
+      box-shadow: 0 4px 16px rgba(181, 138, 52, 0.28);
+      transition: all 0.24s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .btn-submit-luxury:hover {
+      transform: translateY(-1.5px);
+      box-shadow: 0 6px 20px rgba(181, 138, 52, 0.38);
+      background: linear-gradient(135deg, #D4AF37 0%, #B58A34 100%);
+    }
+    .btn-submit-luxury:disabled {
+      opacity: 0.75;
+      cursor: not-allowed;
+      transform: none;
+    }
+
+    .spinner-icon {
+      width: 18px;
+      height: 18px;
+      border: 2px solid rgba(255, 255, 255, 0.35);
+      border-top-color: #FFFFFF;
+      border-radius: 50%;
+      animation: spin 0.75s linear infinite;
+      display: none;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
     .divider-or {
       display: flex;
       align-items: center;
       text-align: center;
       margin: 22px 0;
-      color: var(--text-muted);
+      color: #94A3B8;
       font-size: 0.8125rem;
-      font-weight: 500;
+      font-weight: 600;
+      letter-spacing: 0.05em;
     }
     .divider-or::before, .divider-or::after {
       content: '';
       flex: 1;
-      border-bottom: 1px solid var(--border-light);
+      border-bottom: 1px solid #E2E8F0;
     }
-    .divider-or:not(:empty)::before { margin-right: 12px; }
-    .divider-or:not(:empty)::after { margin-left: 12px; }
+    .divider-or:not(:empty)::before { margin-right: 14px; }
+    .divider-or:not(:empty)::after  { margin-left: 14px; }
+
     .btn-facebook {
       background: #1877F2;
       color: #FFFFFF;
@@ -156,36 +256,39 @@
       font-weight: 600;
       font-size: 0.9375rem;
       padding: 12px 18px;
-      border-radius: var(--radius-md);
+      border-radius: var(--radius-md, 12px);
       cursor: pointer;
-      transition: all var(--transition-fast);
-      box-shadow: 0 2px 8px rgba(24, 119, 242, 0.25);
+      transition: all 0.2s;
+      box-shadow: 0 2px 8px rgba(24, 119, 242, 0.2);
     }
     .btn-facebook:hover {
       background: #166fe5;
       transform: translateY(-1px);
     }
+
     .auth-link {
-      color: var(--gold-dark);
+      color: #B58A34;
       text-decoration: none;
       font-weight: 600;
     }
     .auth-link:hover { text-decoration: underline; }
+
     .auth-alert {
-      padding: 12px 14px;
-      border-radius: var(--radius-md);
+      padding: 13px 16px;
+      border-radius: var(--radius-md, 12px);
       font-size: 0.875rem;
-      margin-bottom: 20px;
+      margin-bottom: 22px;
       display: none;
+      line-height: 1.5;
     }
     .auth-alert-danger {
-      background: rgba(239, 68, 68, 0.08);
-      border: 1px solid rgba(239, 68, 68, 0.25);
+      background: #FEF2F2;
+      border: 1px solid #FECACA;
       color: #DC2626;
     }
     .auth-alert-success {
-      background: rgba(16, 185, 129, 0.08);
-      border: 1px solid rgba(16, 185, 129, 0.25);
+      background: #ECFDF5;
+      border: 1px solid #A7F3D0;
       color: #059669;
     }
   </style>
@@ -196,19 +299,22 @@
   <header id="main-header"></header>
 
   <main class="auth-page-wrapper">
+    <div class="auth-ambient-orb orb-1"></div>
+    <div class="auth-ambient-orb orb-2"></div>
+
     <div class="auth-card">
       <div class="auth-header">
-        <a href="index.html" class="auth-logo-center" aria-label="CleanNova">
-          <div class="n4-logo-mark" style="width: 38px; height: 38px; font-size: 1.15rem;">
+        <a href="index.html" class="auth-logo-center" aria-label="N4 CleanNova">
+          <div class="n4-logo-mark" style="width: 40px; height: 40px; font-size: 1.2rem;">
             <span class="lm-n">N</span><span class="lm-4">4</span>
           </div>
           <div class="n4-logo-text" style="text-align: left;">
-            <span class="lt-brand" style="font-size: 1.15rem;">CLEANNOVA</span>
-            <span class="lt-sub" style="font-size: 0.65rem;">Nhà sạch, người nhàn</span>
+            <span class="lt-brand" style="font-size: 1.2rem;">CLEANNOVA</span>
+            <span class="lt-sub" style="font-size: 0.6875rem;">Nhà sạch, người nhàn</span>
           </div>
         </a>
         <h1 class="auth-title">Đăng ký tài khoản</h1>
-        <p class="auth-subtitle">Trở thành thành viên CleanNova để nhận trọn vẹn ưu đãi</p>
+        <p class="auth-subtitle">Trở thành thành viên CleanNova để nhận trọn vẹn ưu đãi và dịch vụ bảo hành 18 tháng</p>
       </div>
 
       <!-- Alert -->
@@ -250,12 +356,13 @@
           </div>
         </div>
 
-        <div class="form-group" style="font-size: 0.8125rem; color: var(--text-muted); line-height: 1.5;">
+        <div class="form-group" style="font-size: 0.8125rem; color: #64748B; line-height: 1.5;">
           Bằng việc đăng ký, bạn đồng ý với <a href="index.html" class="auth-link">Điều khoản dịch vụ</a> và <a href="index.html" class="auth-link">Chính sách bảo mật</a> của CleanNova.
         </div>
 
-        <button type="submit" id="submit-reg-btn" class="btn btn-primary btn-lg btn-block">
-          <span>Đăng Ký Tài Khoản</span>
+        <button type="submit" id="submit-reg-btn" class="btn-submit-luxury">
+          <span class="spinner-icon" id="reg-spinner"></span>
+          <span id="reg-btn-text">Đăng Ký Tài Khoản</span>
         </button>
       </form>
 
@@ -269,7 +376,7 @@
         <span>Đăng ký bằng Facebook</span>
       </button>
 
-      <div style="text-align: center; margin-top: 24px; font-size: 0.9rem; color: var(--text-secondary);">
+      <div style="text-align: center; margin-top: 24px; font-size: 0.9375rem; color: #4B5563;">
         Đã có tài khoản? <a href="login.html" class="auth-link" id="login-redirect-link">Đăng nhập tại đây</a>
       </div>
     </div>
@@ -327,7 +434,7 @@
       if (val.length === 0) {
         meterFill.style.width = '0%';
         meterLabel.textContent = 'Chưa nhập';
-        meterLabel.style.color = 'var(--text-muted)';
+        meterLabel.style.color = '#94A3B8';
       } else if (score <= 2) {
         meterFill.style.width = '33%';
         meterFill.style.backgroundColor = '#EF4444';
@@ -354,6 +461,8 @@
       const password = document.getElementById('reg-password').value;
       const confirmPwd = document.getElementById('reg-password-confirm').value;
       const submitBtn = document.getElementById('submit-reg-btn');
+      const spinner = document.getElementById('reg-spinner');
+      const btnText = document.getElementById('reg-btn-text');
 
       if (!name || !email || !password) {
         showAlert('Vui lòng điền đầy đủ các thông tin bắt buộc.');
@@ -376,7 +485,8 @@
       }
 
       submitBtn.disabled = true;
-      submitBtn.innerHTML = '<span>Đang tạo tài khoản...</span>';
+      spinner.style.display = 'inline-block';
+      btnText.textContent = 'Đang tạo tài khoản...';
 
       const result = await Auth.register({
         full_name: name,
@@ -394,15 +504,16 @@
           } else {
             window.location.href = 'index.html';
           }
-        }, 800);
+        }, 700);
       } else {
         showAlert(result.message || 'Đăng ký không thành công.');
         submitBtn.disabled = false;
-        submitBtn.innerHTML = '<span>Đăng Ký Tài Khoản</span>';
+        spinner.style.display = 'none';
+        btnText.textContent = 'Đăng Ký Tài Khoản';
       }
     });
 
-    // Facebook Register
+    // Facebook Register redirect
     document.getElementById('facebook-reg-btn').addEventListener('click', () => {
       document.getElementById('login-redirect-link').click();
     });

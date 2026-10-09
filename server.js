@@ -15,8 +15,15 @@ const seedData = require('./server/scripts/seed');
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-// Basic Middlewares
-app.use(cors({ origin: true, credentials: true }));
+// Robust CORS cho phép kết nối từ cả port 3000, Live Server (5500, 8080) và file protocol
+app.use(cors({
+  origin: (origin, callback) => {
+    callback(null, true);
+  },
+  credentials: true,
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With', 'Accept']
+}));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());

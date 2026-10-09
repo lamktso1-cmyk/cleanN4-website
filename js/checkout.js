@@ -187,10 +187,8 @@ function initCheckoutForm(currentUser) {
 
     try {
       // Gửi đơn hàng lên Backend Server để liên kết an toàn với user_id
-      const res = await fetch('/api/orders', {
+      const res = await Auth.apiFetch('/api/orders', {
         method: 'POST',
-        headers: Auth.getHeaders(),
-        credentials: 'include',
         body: JSON.stringify(orderPayload)
       });
 

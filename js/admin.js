@@ -89,10 +89,7 @@ function initAdminSidebar() {
 async function loadAdminData() {
   try {
     // 1. Tải KPI & thống kê thực tế từ server
-    const statsRes = await fetch('/api/admin/stats', {
-      headers: Auth.getHeaders(),
-      credentials: 'include'
-    });
+    const statsRes = await Auth.apiFetch('/api/admin/stats');
     if (statsRes.ok) {
       const statsJson = await statsRes.json();
       if (statsJson.success) {
@@ -101,10 +98,7 @@ async function loadAdminData() {
     }
 
     // 2. Tải toàn bộ đơn hàng hệ thống từ server
-    const ordersRes = await fetch('/api/admin/orders', {
-      headers: Auth.getHeaders(),
-      credentials: 'include'
-    });
+    const ordersRes = await Auth.apiFetch('/api/admin/orders');
     if (ordersRes.ok) {
       const ordersJson = await ordersRes.json();
       if (ordersJson.success) {
@@ -267,10 +261,8 @@ function renderDashboardUI() {
 // Cập nhật trạng thái đơn hàng trực tiếp lên Server Database
 async function updateOrderStatus(orderId, newStatus) {
   try {
-    const res = await fetch(`/api/admin/orders/${encodeURIComponent(orderId)}/status`, {
+    const res = await Auth.apiFetch(`/api/admin/orders/${encodeURIComponent(orderId)}/status`, {
       method: 'PUT',
-      headers: Auth.getHeaders(),
-      credentials: 'include',
       body: JSON.stringify({ status: newStatus })
     });
     const data = await res.json();
