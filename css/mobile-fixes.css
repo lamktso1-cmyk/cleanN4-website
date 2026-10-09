@@ -1,0 +1,17 @@
+/* Sửa tràn ngang trên màn hình nhỏ: cho phép phần tử con của lưới co lại */
+[class*="grid"]>*,[class*="layout"]>*,[class*="-wrap"]>*{min-width:0}
+img,svg,video{max-width:100%}
+.admin-main{min-width:0;max-width:100%}
+@media (max-width:768px){
+  .gallery-sticky{position:static}
+  .gallery-thumbs-row{overflow-x:auto}
+  .detail-info,.contact-form-card,.admin-topbar{max-width:100%;min-width:0}
+  .admin-topbar{flex-wrap:wrap;gap:12px}
+  .admin-card,.admin-table-wrap,[class*="table"]{max-width:100%}
+  .admin-card{overflow-x:auto}
+  h1,h2,h3,p{overflow-wrap:anywhere}
+}
+@media (max-width:480px){
+  .btn{max-width:100%;white-space:normal;text-align:center;padding-left:16px;padding-right:16px}
+  .btn span{white-space:normal}
+}

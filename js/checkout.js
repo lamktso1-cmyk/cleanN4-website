@@ -9,7 +9,8 @@ document.addEventListener('DOMContentLoaded', () => {
   initCheckoutForm();
 });
 
-let selectedPayment = 'vietqr';
+let selectedPayment = 'cod';
+let isSubmitting = false;
 
 function renderCheckoutSummary() {
   const cart = getCart();
@@ -35,11 +36,11 @@ function renderCheckoutSummary() {
             <img src="${p.image}" alt="${p.name}" style="width: 48px; height: 48px; border-radius: 8px; object-fit: cover; border: 1px solid var(--border-light);">
             <div>
               <div style="font-weight: 600; font-size: 0.9375rem; color: var(--text-primary);">${p.name}</div>
-              <div style="font-size: 0.75rem; color: var(--text-muted);">Số lượng: ${item.qty}</div>
+              <div style="font-size: 0.75rem; color: var(--text-muted);">Số lượng: ${item.quantity}</div>
             </div>
           </div>
           <div style="font-weight: 700; font-size: 0.9375rem; color: var(--text-primary);">
-            ${formatPrice(p.price * item.qty)}
+            ${formatPrice(p.price * item.quantity)}
           </div>
         </div>
       `;
@@ -103,6 +104,19 @@ function initCheckoutForm() {
     const city = document.getElementById('cust-city').value;
     const note = document.getElementById('cust-note').value.trim();
 
+    if (isSubmitting) return;
+    if (selectedPayment !== 'cod') {
+      showToast('Cổng thanh toán online chưa được cấu hình. Vui lòng chọn thanh toán khi nhận hàng (COD).', 'ℹ️');
+      return;
+    }
+    if (!/^(0|\+84)\d{9}$/.test(phone.replace(/[\s.-]/g, ''))) {
+      showToast('Số điện thoại chưa hợp lệ.', '⚠️');
+      return;
+    }
+    if (email && !/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)) {
+      showToast('Email chưa hợp lệ.', '⚠️');
+      return;
+    }
     if (!name || !phone || !address || !city) {
       showToast('Vui lòng điền đầy đủ các thông tin bắt buộc!', '⚠️');
       return;
@@ -119,6 +133,7 @@ function initCheckoutForm() {
 
     const finalTotal = Math.max(0, subtotal - discountAmount);
 
+    isSubmitting = true;
     const orderData = {
       orderId,
       customer: { name, phone, email, address, city, note },
@@ -133,6 +148,11 @@ function initCheckoutForm() {
 
     // Save order
     localStorage.setItem('cleannova-latest-order', JSON.stringify(orderData));
+    try {
+      const all = JSON.parse(localStorage.getItem('cleannova-orders') || '[]');
+      all.unshift(orderData);
+      localStorage.setItem('cleannova-orders', JSON.stringify(all));
+    } catch (e) {}
 
     // Clear cart
     saveCart([]);

@@ -38,10 +38,10 @@ function initChatbot() {
         <div style="display: flex; align-items: center; gap: 10px;">
           <div class="chatbot-avatar">✦</div>
           <div>
-            <div style="font-weight: 700; font-size: 0.9375rem; color: #FFFFFF;">CleanBot AI 3.0</div>
-            <div style="font-size: 0.75rem; color: #10B981; display: flex; align-items: center; gap: 6px;">
+            <div style="font-weight: 700; font-size: 0.9375rem; color: #FFFFFF;">Trợ lý CLEANNOVA</div>
+            <div style="font-size: 0.75rem; color: #C6A667; display: flex; align-items: center; gap: 6px;">
               <span class="pulse-dot"></span>
-              <span>Đang trực tuyến • Sẵn sàng tư vấn</span>
+              <span>Tư vấn tự động từ dữ liệu sản phẩm</span>
             </div>
           </div>
         </div>
@@ -65,6 +65,10 @@ function initChatbot() {
         </div>
       </div>
 
+      <form id="chatbot-form" style="display:flex;gap:6px;padding:8px 12px;border-top:1px solid #E9E5DC;">
+        <input id="chatbot-input" type="text" maxlength="200" autocomplete="off" placeholder="Nhập câu hỏi về sản phẩm..." aria-label="Câu hỏi" style="flex:1;border:1px solid #E9E5DC;border-radius:999px;padding:8px 14px;font:inherit;">
+        <button type="submit" class="chatbot-opt-btn" style="border-color:#C6A667;color:#B89550;">Gửi</button>
+      </form>
       <!-- Action Footer with Quick Options -->
       <div id="chatbot-options-bar" class="chatbot-options-stream">
         <!-- Options buttons -->
@@ -87,6 +91,16 @@ function initChatbot() {
     if (isHidden && Object.keys(userAnswers).length === 0) {
       startChatbotFlow();
     }
+  });
+
+  document.getElementById('chatbot-form').addEventListener('submit', (e) => {
+    e.preventDefault();
+    const inp = document.getElementById('chatbot-input');
+    const q = inp.value.trim();
+    if (!q) return;
+    inp.value = '';
+    appendUserMessage(q);
+    appendBotMessage(answerQuestion(q));
   });
 
   closeBtn.addEventListener('click', () => {
@@ -157,14 +171,14 @@ function renderRecommendation() {
     cardEl.innerHTML = `
       <img src="${product.image}" alt="${product.name}">
       <div>
-        <div style="font-weight: 700; color: #0F172A; font-size: 0.9375rem;">${product.name}</div>
-        <div style="font-weight: 800; color: #10B981; font-size: 1.1rem; margin: 4px 0;">${formatPrice(product.price)}</div>
-        <div style="font-size: 0.75rem; color: #64748B; margin-bottom: 8px;">💨 ${product.suctionDisplay} • 🔋 ${product.battery} phút</div>
+        <div style="font-weight: 700; color: #252525; font-size: 0.9375rem;">${product.name}</div>
+        <div style="font-weight: 800; color: #C6A667; font-size: 1.1rem; margin: 4px 0;">${product.price ? formatPrice(product.price) : 'Giá dự kiến ' + PRICE_RANGE.min.toLocaleString('vi-VN') + ' – ' + PRICE_RANGE.max.toLocaleString('vi-VN') + 'đ'}</div>
+        <div style="font-size: 0.75rem; color: #64748B; margin-bottom: 8px;">${product.specsSummary}</div>
         <div style="display: flex; gap: 6px;">
           <a href="product-detail.html?id=${product.id}" class="btn btn-secondary btn-sm" style="flex: 1; padding: 6px;">
             Xem Chi Tiết
           </a>
-          <button onclick="addToCart(${product.id}, 1); showToast('Đã thêm ${product.name} vào giỏ hàng!', '🛍️');" class="btn btn-cta btn-sm" style="flex: 1; padding: 6px;">
+          <button onclick="if (addToCart(${product.id}, 1)) showToast('Đã thêm vào giỏ hàng!', '🛍️');" class="btn btn-cta btn-sm" style="flex: 1; padding: 6px;">
             Mua Ngay
           </button>
         </div>
@@ -176,7 +190,7 @@ function renderRecommendation() {
     // Reset button
     const optionsBar = document.getElementById('chatbot-options-bar');
     optionsBar.innerHTML = `
-      <button class="chatbot-opt-btn" onclick="startChatbotFlow()" style="width: 100%; text-align: center; border-color: #10B981; color: #10B981;">
+      <button class="chatbot-opt-btn" onclick="startChatbotFlow()" style="width: 100%; text-align: center; border-color: #C6A667; color: #C6A667;">
         ↺ Bắt đầu tư vấn lại
       </button>
     `;
@@ -236,7 +250,7 @@ function injectChatbotStyles() {
     }
     .chatbot-fab-tooltip {
       background: #FFFFFF;
-      color: #0F172A;
+      color: #252525;
       font-weight: 700;
       font-size: 0.8125rem;
       padding: 6px 14px;
@@ -248,7 +262,7 @@ function injectChatbotStyles() {
       width: 56px;
       height: 56px;
       border-radius: 50%;
-      background: linear-gradient(135deg, #10B981 0%, #059669 100%);
+      background: linear-gradient(135deg, #C6A667 0%, #059669 100%);
       color: #FFFFFF;
       display: flex;
       align-items: center;
@@ -263,7 +277,7 @@ function injectChatbotStyles() {
       width: 14px;
       height: 14px;
       border-radius: 50%;
-      background: #10B981;
+      background: #C6A667;
       border: 2px solid #FFFFFF;
     }
 
@@ -297,7 +311,7 @@ function injectChatbotStyles() {
       width: 34px;
       height: 34px;
       border-radius: 50%;
-      background: linear-gradient(135deg, #10B981 0%, #06B6D4 100%);
+      background: linear-gradient(135deg, #C6A667 0%, #06B6D4 100%);
       color: #FFFFFF;
       display: flex;
       align-items: center;
@@ -340,14 +354,14 @@ function injectChatbotStyles() {
     .chatbot-msg.bot {
       align-self: flex-start;
       background: #FFFFFF;
-      color: #0F172A;
+      color: #252525;
       border: 1px solid rgba(226, 232, 240, 0.8);
       border-bottom-left-radius: 4px;
       box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
     }
     .chatbot-msg.user {
       align-self: flex-end;
-      background: #10B981;
+      background: #C6A667;
       color: #FFFFFF;
       border-bottom-right-radius: 4px;
     }
@@ -388,14 +402,14 @@ function injectChatbotStyles() {
       border-radius: 10px;
       font-size: 0.8125rem;
       font-weight: 600;
-      color: #0F172A;
+      color: #252525;
       cursor: pointer;
       text-align: left;
       transition: all 0.18s;
     }
     .chatbot-opt-btn:hover {
       background: #ECFDF5;
-      border-color: #10B981;
+      border-color: #C6A667;
       color: #059669;
     }
 
@@ -419,3 +433,64 @@ function injectChatbotStyles() {
   `;
   document.head.appendChild(style);
 }
+
+
+/* ---- Tri thức & luật tư vấn (đọc từ data.js, không bịa số liệu) ---- */
+const CHATBOT_FLOW = {
+  welcome: { message: 'Xin chào! Mình là trợ lý CLEANNOVA. Mình có thể giúp bạn chọn robot hút bụi, tìm hiểu tính năng hoặc giải đáp thắc mắc về sản phẩm nhé!' },
+  q1: { message: 'Nhà bạn thuộc loại nào?', options: [
+    { label: 'Căn hộ / chung cư', value: 'apartment', next: 'q2' },
+    { label: 'Nhà phố / nhà nhiều tầng', value: 'house', next: 'q2' },
+    { label: 'Chưa rõ diện tích', value: 'unknown', next: 'q2' } ] },
+  q2: { message: 'Nhà bạn có nuôi chó, mèo không?', options: [
+    { label: 'Có thú cưng', value: 'pet', next: 'q3' },
+    { label: 'Không', value: 'nopet', next: 'q3' } ] },
+  q3: { message: 'Ngân sách dự kiến của bạn?', options: [
+    { label: 'Dưới 8,5 triệu', value: 'low', next: 'result' },
+    { label: '8,5 – 15 triệu', value: 'mid', next: 'result' },
+    { label: 'Trên 15 triệu', value: 'high', next: 'result' } ] }
+};
+
+function getChatbotRecommendation() {
+  // Hiện chỉ có 1 sản phẩm đang bán trong hệ thống.
+  return PRODUCTS.find(p => !p.draft) || PRODUCTS[0];
+}
+
+function answerQuestion(q) {
+  const t = q.toLowerCase();
+  const p = getChatbotRecommendation();
+  const has = (...k) => k.some(x => t.includes(x));
+  if (has('phụ kiện', 'vật tư', 'túi', 'chổi', 'khăn', 'dung dịch', 'thay thế')) {
+    const list = PRODUCTS.filter(x => !x.draft && x.category !== 'robot' && typeof x.price === 'number');
+    if (list.length) return 'Phụ kiện và vật tư hiện có:\n' + list.map(x => '• ' + x.name + ' – ' + formatPrice(x.price) + ' (product-detail.html?id=' + x.id + ')').join('\n');
+  }
+  if (has('giá', 'bao nhiêu', 'tiền'))
+    return `Khoảng giá dự kiến là ${PRICE_RANGE.min.toLocaleString('vi-VN')} – ${PRICE_RANGE.max.toLocaleString('vi-VN')}đ. Đây chưa phải giá niêm yết chính thức, bạn vui lòng liên hệ để được báo giá.`;
+  if (has('bảo hành')) return POLICIES.warranty + ' ' + POLICIES.support;
+  if (has('đổi', 'trả')) return POLICIES.returns;
+  if (has('hỗ trợ', 'kỹ thuật', 'sửa')) return POLICIES.support;
+  if (has('giặt', 'sấy', 'giẻ', 'trạm', 'dock'))
+    return 'Có. Trạm sạc đa chức năng tự thu gom bụi, tự giặt và tự sấy giẻ lau, giúp hạn chế ẩm và mùi khó chịu.';
+  if (has('thú cưng', 'chó', 'mèo', 'lông'))
+    return 'Robot hỗ trợ làm sạch bụi mịn, tóc, lông thú cưng và vụn thức ăn, kèm bộ lọc HEPA giữ lại bụi mịn. Mình chưa có thông số riêng về khả năng chống quấn tóc nên không dám khẳng định thêm.';
+  if (has('hepa', 'lọc')) return 'Robot có bộ lọc HEPA giúp giữ lại bụi mịn.';
+  if (has('ai', 'vật cản', 'cảm biến'))
+    return 'Robot có nhận diện vật cản AI 3D, hỗ trợ tránh chướng ngại vật và tự quay về trạm sạc.';
+  if (has('pin', 'diện tích', 'kích thước', 'nặng', 'khối lượng', 'dung tích', 'bao lâu'))
+    return 'Thông số này hiện đang cập nhật, mình chưa có dữ liệu xác thực để trả lời. Bạn vui lòng liên hệ cửa hàng để được xác nhận.';
+  if (has('tính năng', 'có gì', 'tư vấn', 'chọn'))
+    return 'Điểm nổi bật: ' + p.features.join('; ') + '.\n\nXem chi tiết: product-detail.html?id=' + p.id;
+  return 'Mình chưa có thông tin xác thực cho câu hỏi này. Bạn thử hỏi về tính năng, giá dự kiến, bảo hành, đổi trả hoặc trạm sạc nhé, hoặc liên hệ cửa hàng để được hỗ trợ.';
+}
+
+/* Mở chatbot từ nơi khác (ví dụ nút "Hỏi trợ lý" ở trang chi tiết) và gửi câu hỏi */
+window.openChatbotWith = function (question) {
+  const win = document.getElementById('chatbot-window');
+  const fab = document.getElementById('chatbot-fab');
+  if (!win || !fab) return;
+  if (win.style.display !== 'flex') fab.click();
+  if (question) setTimeout(() => {
+    appendUserMessage(question);
+    appendBotMessage(answerQuestion(question));
+  }, 1700);
+};

@@ -3,6 +3,31 @@
    Sidebar injection • Dynamic tables • Revenue chart • Search & Filter
    ========================================================================== */
 
+/* ADMIN_DATA: tính từ đơn hàng thật lưu trong trình duyệt (không có số liệu giả).
+   Lưu ý: site tĩnh nên chỉ thấy đơn đặt trên cùng trình duyệt này. */
+const ADMIN_DATA = (function () {
+  let raw = [];
+  try { raw = JSON.parse(localStorage.getItem('cleannova-orders') || '[]'); } catch (e) {}
+  const orders = raw.map(o => ({
+    id: o.orderId, customer: o.customer ? o.customer.name : '', date: o.date,
+    product: (o.items || []).map(i => i.name + ' x' + i.quantity).join(', '),
+    total: o.finalTotal, status: 'processing', statusText: o.status || 'Đang xử lý'
+  }));
+  const sold = raw.reduce((s, o) => s + (o.items || []).reduce((n, i) => n + i.quantity, 0), 0);
+  return {
+    kpi: { revenueToday: raw.reduce((s, o) => s + (o.finalTotal || 0), 0), ordersToday: raw.length,
+           itemsSold: sold, inventoryCount: PRODUCTS.reduce((s, p) => s + (typeof p.stock === 'number' ? p.stock : 0), 0) },
+    revenueMonthly: (function () {
+      const m = {};
+      raw.forEach(o => { const p = String(o.date || '').split('/'); if (p.length === 3) { const k = p[1].padStart(2, '0') + '/' + p[2]; m[k] = (m[k] || 0) + (o.finalTotal || 0); } });
+      return Object.keys(m).sort((a, b) => a.split('/').reverse().join('').localeCompare(b.split('/').reverse().join('')))
+        .map(k => ({ month: k, value: Math.round(m[k] / 10000) / 100 }));
+    })(),
+    orders,
+    inventory: PRODUCTS.map(p => ({ name: p.name, stock: typeof p.stock === 'number' ? p.stock : 'Chưa nhập', sold: 0, price: p.price, status: 'in-stock' }))
+  };
+})();
+
 document.addEventListener('DOMContentLoaded', () => {
   initAdminSidebar();
   initAdminDashboard();
@@ -18,8 +43,8 @@ function initAdminSidebar() {
     <div>
       <div class="admin-sidebar-header">
         <a href="admin.html" class="admin-brand">
-          <div style="width: 28px; height: 28px; background: linear-gradient(135deg, #10B981 0%, #06B6D4 100%); border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 0.9rem;">✦</div>
-          <span>CLEAN<span style="color: #10B981;">NOVA</span></span>
+          <div style="width: 28px; height: 28px; background: linear-gradient(135deg, #C6A667 0%, #B89550 100%); border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 0.9rem;">✦</div>
+          <span>CLEAN<span style="color: #C6A667;">NOVA</span></span>
         </a>
       </div>
 
@@ -39,10 +64,6 @@ function initAdminSidebar() {
         <a href="admin-orders.html" class="admin-nav-item ${currentFile === 'admin-orders.html' ? 'active' : ''}">
           <span>📋</span>
           <span>Quản Lý Đơn Hàng</span>
-        </a>
-        <a href="user-flow.html" class="admin-nav-item ${currentFile === 'user-flow.html' ? 'active' : ''}">
-          <span>🔄</span>
-          <span>Sơ Đồ User Flow</span>
         </a>
       </nav>
     </div>
@@ -71,7 +92,11 @@ function initAdminDashboard() {
   const chartBox = document.getElementById('revenue-chart');
   if (chartBox) {
     const data = ADMIN_DATA.revenueMonthly;
-    const maxVal = Math.max(...data.map(d => d.value));
+    if (!data.length) {
+      chartBox.innerHTML = '<p style="padding:48px 12px;text-align:center;color:#707070;">Chưa có đơn hàng nào. Biểu đồ sẽ hiển thị khi có doanh thu thực tế.</p>';
+      return;
+    }
+    const maxVal = Math.max(...data.map(d => d.value)) || 1;
 
     chartBox.innerHTML = `
       <div class="admin-chart-stage">
@@ -87,7 +112,7 @@ function initAdminDashboard() {
       </div>
       <div style="display: flex; justify-content: space-between; margin-top: 14px; font-size: 0.8125rem; color: #64748B;">
         <span>✦ Đơn vị tính: Triệu VNĐ</span>
-        <span style="color: #10B981; font-weight: 700;">Tăng trưởng +34.2% so với cùng kỳ</span>
+        <span style="color: #C6A667; font-weight: 700;">Doanh thu thực tế từ đơn đã đặt</span>
       </div>
     `;
   }

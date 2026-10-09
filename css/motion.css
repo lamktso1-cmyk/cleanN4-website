@@ -1,0 +1,52 @@
+/* CLEANNOVA motion system: một nhịp thời gian & easing thống nhất */
+:root{--ease:cubic-bezier(.22,.7,.2,1);--t-fast:.18s;--t-base:.35s;--t-slow:.7s}
+/* Product card hover: nâng nhẹ, viền champagne, ánh vàng dịu */
+.hp-card,.product-card{transition:transform var(--t-base) var(--ease),box-shadow var(--t-base) var(--ease),border-color var(--t-base) var(--ease);position:relative}
+.hp-card:hover,.product-card:hover{transform:translateY(-6px);border-color:var(--gold);box-shadow:0 18px 40px -18px rgba(197,160,89,.55)}
+.hp-card .hp-card-img,.product-card .product-img{overflow:hidden;position:relative}
+.hp-card .hp-card-img::after{content:"";position:absolute;inset:auto 15% 8% 15%;height:40%;background:radial-gradient(closest-side,rgba(224,194,131,.45),transparent);opacity:0;transition:opacity var(--t-base) var(--ease);pointer-events:none}
+.hp-card:hover .hp-card-img::after{opacity:1}
+.hp-card .hp-card-img img{transition:transform var(--t-slow) var(--ease)}
+.hp-card:hover .hp-card-img img{transform:scale(1.04)}
+.btn{transition:transform var(--t-fast) var(--ease),box-shadow var(--t-fast) var(--ease),background-color var(--t-fast)}
+.btn:active{transform:scale(.97)}
+.cart-bump{animation:cartBump .5s var(--ease)}
+@keyframes cartBump{30%{transform:scale(1.25)}100%{transform:scale(1)}}
+:focus-visible{outline:2px solid var(--gold-dark);outline-offset:3px}
+
+/* Khối công nghệ */
+.nova-tech{padding:88px 0;background:var(--bg-page,#FAF9F6)}
+.nova-tech .wrap{max-width:1120px;margin:0 auto;padding:0 20px}
+.nova-tech h2{font-size:clamp(1.6rem,3vw,2.2rem);margin:0 0 8px;color:#252525}
+.nova-tech .lead{color:#707070;margin:0 0 36px;max-width:60ch}
+.nova-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:24px}
+.nova-panel{background:#fff;border:1px solid #E9E5DC;border-radius:20px;padding:24px;box-shadow:0 8px 30px -22px rgba(0,0,0,.25)}
+.nova-panel h3{margin:0 0 6px;font-size:1.125rem;color:#252525}
+.nova-panel p{margin:0 0 16px;color:#707070;font-size:.9375rem}
+.nova-note{font-size:.75rem;color:#707070;margin-top:10px}
+/* Before/after: bụi -> sạch */
+.ba{position:relative;border-radius:14px;overflow:hidden;aspect-ratio:4/3;background:#f3efe6}
+.ba img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.ba-dust{position:absolute;inset:0;pointer-events:none;clip-path:inset(0 0 0 var(--pos,50%));
+ background:radial-gradient(circle at 20% 30%,rgba(120,100,70,.35) 0 6px,transparent 7px),radial-gradient(circle at 60% 70%,rgba(120,100,70,.3) 0 9px,transparent 10px),radial-gradient(circle at 80% 25%,rgba(120,100,70,.3) 0 5px,transparent 6px),radial-gradient(circle at 40% 80%,rgba(120,100,70,.28) 0 7px,transparent 8px),linear-gradient(rgba(150,130,100,.28),rgba(150,130,100,.28));backdrop-filter:blur(1.5px) saturate(.7)}
+.ba-line{position:absolute;top:0;bottom:0;left:var(--pos,50%);width:2px;background:var(--gold);box-shadow:0 0 14px var(--gold-light)}
+.ba input{position:absolute;inset:0;width:100%;height:100%;opacity:0;cursor:ew-resize;margin:0}
+.ba-tag{position:absolute;bottom:10px;font-size:.75rem;background:rgba(255,255,255,.9);padding:3px 10px;border-radius:99px}
+/* SVG cảm biến */
+.sense svg{width:100%;height:auto;display:block;background:#FAF9F6;border-radius:14px}
+.sense .ray{stroke:var(--gold);stroke-width:1.2;fill:none;opacity:0;animation:ray 3.2s infinite var(--ease)}
+.sense .ray:nth-child(2){animation-delay:.25s}.sense .ray:nth-child(3){animation-delay:.5s}
+@keyframes ray{20%,60%{opacity:.9}100%{opacity:0}}
+.sense .obst{fill:#e7dcc4;stroke:var(--gold-dark);stroke-width:1.5;animation:obst 8s infinite}
+@keyframes obst{0%,35%{fill:#e7dcc4}45%,70%{fill:#f6d98f}100%{fill:#e7dcc4}}
+/* Trạm sạc 3 bước */
+.dock-steps{list-style:none;margin:0;padding:0;display:grid;gap:12px}
+.dock-steps li{display:flex;gap:12px;align-items:center;padding:12px 14px;border:1px solid #E9E5DC;border-radius:14px;animation:dockStep 9s infinite;background:#fff}
+.dock-steps li:nth-child(2){animation-delay:3s}.dock-steps li:nth-child(3){animation-delay:6s}
+.dock-steps .ic{width:38px;height:38px;border-radius:50%;display:grid;place-items:center;background:var(--gold-soft);font-size:1.1rem}
+@keyframes dockStep{0%,30%{border-color:var(--gold);box-shadow:0 8px 24px -14px rgba(197,160,89,.7);transform:translateX(4px)}36%,100%{border-color:#E9E5DC;box-shadow:none;transform:none}}
+.reveal{transition-duration:var(--t-slow)}
+@media (prefers-reduced-motion:reduce){
+ *,*::before,*::after{animation-duration:.001ms!important;animation-iteration-count:1!important;transition-duration:.001ms!important;scroll-behavior:auto!important}
+ .hp-card:hover{transform:none}
+}

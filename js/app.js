@@ -1,5 +1,5 @@
 /* ==========================================================================
-   N4 CLEANOVA — APPLICATION CORE ENGINE
+   N4 CLEANNOVA — APPLICATION CORE ENGINE
    Clean · Elegant · Professional Brand
    Header Injection · Footer · Mobile Drawer · Search · Scroll · Toast · Cart
    ========================================================================== */
@@ -51,13 +51,13 @@ function initHeader() {
       <div class="header-inner">
 
         <!-- Logo -->
-        <a href="index.html" class="n4-logo" aria-label="N4 Cleanova Trang chủ">
+        <a href="index.html" class="n4-logo" aria-label="N4 Cleannova Trang chủ">
           <div class="n4-logo-mark">
             <span class="lm-n">N</span><span class="lm-4">4</span>
           </div>
           <div class="n4-logo-text">
-            <span class="lt-brand">CLEANOVA</span>
-            <span class="lt-sub">Smart Clean • Better Life</span>
+            <span class="lt-brand">CLEANNOVA</span>
+            <span class="lt-sub">Nhà sạch, người nhàn</span>
           </div>
         </a>
 
@@ -121,14 +121,14 @@ function initFooter() {
               <span class="lm-n">N</span><span class="lm-4">4</span>
             </div>
             <div class="n4-logo-text">
-              <span class="lt-brand">CLEANOVA</span>
-              <span class="lt-sub">Smart Clean • Better Life</span>
+              <span class="lt-brand">CLEANNOVA</span>
+              <span class="lt-sub">Nhà sạch, người nhàn</span>
             </div>
           </a>
-          <p>Thương hiệu robot hút bụi và thiết bị vệ sinh thông minh. Đem công nghệ phục vụ không gian sống sạch hoàn hảo.</p>
+          <p>Đem lại sự tự do cho đôi tay – trả lại thời gian cho yêu thương.</p>
           <div class="footer-live">
             <span class="pulse-dot"></span>
-            <span>Hỗ trợ 24/7 đang hoạt động</span>
+            <span>Phản hồi hỗ trợ dự kiến trong 24 giờ</span>
           </div>
         </div>
 
@@ -136,11 +136,9 @@ function initFooter() {
         <div>
           <div class="footer-col-title">Dòng sản phẩm</div>
           <ul class="footer-links">
-            <li><a href="product-detail.html?id=1">Robot hút bụi N4 Pro</a></li>
-            <li><a href="product-detail.html?id=2">Máy hút bụi cầm tay N4 Air</a></li>
-            <li><a href="product-detail.html?id=5">Robot N4 Ultra AI</a></li>
-            <li><a href="product-detail.html?id=6">Robot N4 Lite</a></li>
-            <li><a href="products.html?category=accessories">Phụ kiện chính hãng</a></li>
+            <li><a href="product-detail.html?id=1">Robot hút bụi lau nhà CLEANNOVA</a></li>
+            <li><a href="products.html?category=accessories">Phụ kiện &amp; vật tư thay thế</a></li>
+            <li><a href="products.html?category=solution">Dung dịch vệ sinh</a></li>
           </ul>
         </div>
 
@@ -148,10 +146,9 @@ function initFooter() {
         <div>
           <div class="footer-col-title">Thông tin</div>
           <ul class="footer-links">
-            <li><a href="index.html#why-n4">Về N4 Cleanova</a></li>
+            <li><a href="index.html#why-n4">Về CLEANNOVA</a></li>
             <li><a href="index.html#categories">Danh mục sản phẩm</a></li>
-            <li><a href="index.html#reviews">Đánh giá khách hàng</a></li>
-            <li><a href="admin.html">Cổng quản trị</a></li>
+                        <li><a href="contact.html">Liên hệ</a></li>
           </ul>
         </div>
 
@@ -159,18 +156,16 @@ function initFooter() {
         <div>
           <div class="footer-col-title">Hỗ trợ & Chính sách</div>
           <ul class="footer-links">
-            <li><a href="contact.html">Hotline: 1900 8899</a></li>
-            <li><a href="contact.html">Bảo hành 12 tháng</a></li>
-            <li><a href="contact.html">Đổi trả trong 30 ngày</a></li>
-            <li><a href="contact.html">Dùng thử 7 ngày miễn phí</a></li>
-            <li><a href="contact.html">Kết nối ứng dụng N4</a></li>
-          </ul>
+            <li><a href="contact.html">Hỗ trợ kỹ thuật tại nhà</a></li>
+            <li><a href="contact.html">Bảo hành 18 tháng</a></li>
+            <li><a href="contact.html">Đổi sản phẩm trong 30 ngày</a></li>
+                      </ul>
         </div>
 
       </div>
 
       <div class="footer-bottom">
-        <span>© 2026 N4 Cleanova. All rights reserved.</span>
+        <span>© 2026 CLEANNOVA. Bảo lưu mọi quyền.</span>
         <div class="footer-bottom-links">
           <a href="#">Chính sách bảo mật</a>
           <a href="#">Điều khoản dịch vụ</a>
@@ -196,7 +191,7 @@ function initMobileDrawer() {
   drawer.innerHTML = `
     <div>
       <div style="display:flex;justify-content:space-between;align-items:center;padding-bottom:20px;border-bottom:1px solid var(--border-xs);">
-        <span style="font-family:var(--font-heading);font-size:1.125rem;font-weight:700;color:var(--text-primary)">N4 Cleanova</span>
+        <span style="font-family:var(--font-heading);font-size:1.125rem;font-weight:700;color:var(--text-primary)">CLEANNOVA</span>
         <button id="drawer-close" style="background:none;border:none;font-size:1.375rem;color:var(--text-muted);cursor:pointer;padding:0 4px;">✕</button>
       </div>
       <nav class="drawer-links">

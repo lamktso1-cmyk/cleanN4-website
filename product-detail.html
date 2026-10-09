@@ -3,8 +3,12 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Chi Tiết Sản Phẩm | CLEANNOVA</title>
-  <meta name="description" content="Chi tiết robot hút bụi lau nhà thông minh Cleannova. Thông số kỹ thuật, công nghệ AI 3D, chính sách bảo hành 18 tháng và dùng thử 7 ngày miễn phí.">
+  <title>Chi tiết sản phẩm | CLEANNOVA</title>
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Chi tiết sản phẩm | CLEANNOVA">
+  <meta property="og:description" content="Chi tiết robot hút bụi lau nhà thông minh CLEANNOVA: AI 3D, lọc HEPA, trạm sạc tự giặt sấy giẻ, bảo hành 18 tháng.">
+  <meta property="og:locale" content="vi_VN">
+  <meta name="description" content="Chi tiết robot hút bụi lau nhà thông minh CLEANNOVA: AI 3D, lọc HEPA, trạm sạc tự giặt sấy giẻ, bảo hành 18 tháng.">
 
   <!-- Google Fonts: Plus Jakarta Sans & Inter -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -349,6 +353,8 @@
       }
     }
   </style>
+    <link rel="stylesheet" href="css/mobile-fixes.css">
+  <link rel="stylesheet" href="css/motion.css">
 </head>
 <body>
 
@@ -391,7 +397,7 @@
           <span style="font-weight: 600;" id="detail-rating-text">4.9/5</span>
           <span style="color: var(--text-muted);" id="detail-reviews-count">(312 đánh giá)</span>
           <span style="color: var(--border-light);">•</span>
-          <span style="color: var(--gold-dark); font-weight: 600;">Còn hàng (Sẵn sàng giao)</span>
+          <span style="color: var(--gold-dark); font-weight: 600;">Đang nhận đặt hàng</span>
         </div>
 
         <!-- Price Box -->
@@ -400,9 +406,6 @@
             <span class="detail-curr-price" id="detail-price">8.990.000₫</span>
             <span class="detail-old-price" id="detail-old-price">10.990.000₫</span>
             <span class="discount-tag" id="detail-discount">-18%</span>
-          </div>
-          <div class="detail-installment">
-            <span>💳 Trả góp 0% chỉ từ 749.000₫/tháng qua thẻ tín dụng hoặc MoMo</span>
           </div>
         </div>
 
@@ -433,20 +436,20 @@
               <input type="number" class="qty-input" id="qty-input" value="1" min="1" max="10" readonly>
               <button class="qty-btn" id="qty-plus">+</button>
             </div>
-            <span style="font-size: 0.8125rem; color: var(--text-muted);">(Tối đa 10 máy/đơn)</span>
+            
           </div>
 
           <div style="display: grid; grid-template-columns: 1.2fr 0.8fr; gap: 12px;">
             <button id="buy-now-btn" class="btn btn-primary btn-lg" style="width: 100%;">
-              <span>MUA NGAY – TRẢ GÓP 0%</span>
+              <span>MUA NGAY</span>
             </button>
             <button id="add-to-cart-btn" class="btn btn-secondary btn-lg" style="width: 100%;">
               <span>Thêm Vào Giỏ</span>
             </button>
           </div>
 
-          <button id="try-at-home-btn" class="btn btn-outline btn-lg" style="width: 100%;">
-            <span>🏠 Đăng Ký Dùng Thử 7 Ngày Miễn Phí Tại Nhà</span>
+          <button id="ask-ai-btn" class="btn btn-outline btn-lg" style="width: 100%;" type="button">
+            <span>💬 Hỏi trợ lý CLEANNOVA về sản phẩm này</span>
           </button>
         </div>
 
@@ -454,18 +457,18 @@
         <div class="detail-trust-row">
           <div>
             <div style="font-size: 1.25rem; margin-bottom: 4px;">🚚</div>
-            <strong>Giao Hỏa Tốc</strong>
-            <p>Miễn phí toàn quốc</p>
+            <strong>Giao hàng</strong>
+            <p>Thông tin vận chuyển khi đặt hàng</p>
           </div>
           <div>
             <div style="font-size: 1.25rem; margin-bottom: 4px;">🔄</div>
-            <strong>1 Đổi 1 Trong 30 Ngày</strong>
-            <p>Nếu có lỗi kỹ thuật</p>
+            <strong>Đổi sản phẩm trong 30 ngày</strong>
+            <p>Theo điều kiện áp dụng</p>
           </div>
           <div>
             <div style="font-size: 1.25rem; margin-bottom: 4px;">🛡️</div>
             <strong>18 Tháng Bảo Hành</strong>
-            <p>Hỗ trợ kỹ thuật 24/7</p>
+            <p>Hỗ trợ kỹ thuật tại nhà</p>
           </div>
         </div>
       </div>
@@ -488,77 +491,25 @@
       <div class="value-grid">
         <div class="value-card">
           <div class="value-card-icon">1</div>
-          <h3 class="value-card-title">Quét & Lập Bản Đồ 3D</h3>
-          <p class="value-card-desc">Cảm biến LiDAR 360° quét toàn diện căn hộ, chia khu vực phòng khách, phòng ngủ và nhận diện chất liệu sàn.</p>
+          <h3 class="value-card-title">Nhận diện vật cản AI 3D</h3>
+          <p class="value-card-desc">Robot nhận diện vật cản, hỗ trợ tránh chướng ngại vật và tự quay về trạm sạc.</p>
         </div>
         <div class="value-card">
           <div class="value-card-icon">2</div>
-          <h3 class="value-card-title">Hút Bụi & Lau Áp Lực</h3>
-          <p class="value-card-desc">Động cơ hút mạnh mẽ hút sạch bụi mịn trong khi 2 đĩa lau xoay ấn lực 10N đánh bay các vết bẩn cứng đầu.</p>
+          <h3 class="value-card-title">Hút bụi & lau nhà</h3>
+          <p class="value-card-desc">Công suất hút khoảng 8.000 Pa, làm sạch bụi mịn, tóc, lông thú cưng và vụn thức ăn. Bộ lọc HEPA giữ lại bụi mịn.</p>
         </div>
         <div class="value-card">
           <div class="value-card-icon">3</div>
-          <h3 class="value-card-title">Tự Động Gom Rác 60 Ngày</h3>
-          <p class="value-card-desc">Robot quay về dock sạc, hệ thống hút kín chuyển toàn bộ rác sang túi chứa kháng khuẩn không gây bụi bẩn ra không khí.</p>
+          <h3 class="value-card-title">Tự thu gom bụi</h3>
+          <p class="value-card-desc">Trạm sạc đa chức năng tự động thu gom bụi sau khi robot hoàn thành.</p>
         </div>
         <div class="value-card">
           <div class="value-card-icon">4</div>
-          <h3 class="value-card-title">Giặt & Sấy Nóng 80°C</h3>
-          <p class="value-card-desc">Trạm sạc tự động bơm nước nóng giặt sạch giẻ và sấy khô bằng khí nhiệt 80°C, sẵn sàng cho phiên dọn dẹp tiếp theo.</p>
+          <h3 class="value-card-title">Tự giặt & sấy giẻ lau</h3>
+          <p class="value-card-desc">Trạm sạc tự giặt và sấy giẻ lau, giúp hạn chế tình trạng ẩm và mùi khó chịu.</p>
         </div>
       </div>
-    </div>
-  </section>
-
-  <!-- ========================================================================
-       SECTION: COMPARISON TABLE (CLEANNOVA VS ROBOT THÔNG THƯỜNG)
-       ======================================================================== -->
-  <section class="comparison-section">
-    <div class="container">
-      <div class="section-header">
-        <div class="section-tag">So Sánh Đẳng Cấp</div>
-        <h2 class="section-title">Cleannova vs Robot Thông Thường</h2>
-        <p class="section-subtitle">
-          Sự khác biệt vượt bậc trong công nghệ mang lại giá trị sử dụng thảnh thơi vượt trội.
-        </p>
-      </div>
-
-      <table class="comparison-table">
-        <thead>
-          <tr>
-            <th>Tiêu chí so sánh</th>
-            <th class="cleannova-col">✦ CLEANNOVA AI SERIES</th>
-            <th>Robot giá rẻ thông thường</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td><strong>Khả năng né vật cản</strong></td>
-            <td class="cleannova-col">AI 3D Structured Light né chuẩn từng sợi dây cáp & đồ chơi nhỏ</td>
-            <td>Dùng thanh cản va đập thụ động, dễ kẹt vào gầm bàn ghế</td>
-          </tr>
-          <tr>
-            <td><strong>Trạm sạc tự động</strong></td>
-            <td class="cleannova-col">All-in-One: Tự đổ rác 60 ngày + Tự giặt sấy nóng 80°C tiệt trùng</td>
-            <td>Chỉ có đế sạc thông thường, phải tự giặt giẻ và đổ rác hàng ngày</td>
-          </tr>
-          <tr>
-            <td><strong>Lực hút áp suất</strong></td>
-            <td class="cleannova-col">8.000 – 15.000 Pa (Hút sạch sâu sợi thảm)</td>
-            <td>1.500 – 3.000 Pa (Chỉ hút được bụi nhẹ bề mặt)</td>
-          </tr>
-          <tr>
-            <td><strong>Khả năng lọc không khí</strong></td>
-            <td class="cleannova-col">HEPA H13/H14 kháng khuẩn 99.97% mạt bụi và vi khuẩn</td>
-            <td>Lưới lọc bọt biển đơn giản, dễ làm bụi mịn phát tán lại phòng</td>
-          </tr>
-          <tr>
-            <td><strong>Chính sách hậu mãi</strong></td>
-            <td class="cleannova-col">Bảo hành 18 tháng • 1 đổi 1 30 ngày • Kỹ sư hỗ trợ tận nhà</td>
-            <td>Bảo hành 6 tháng, khách hàng tự mang đi sửa chữa xa xôi</td>
-          </tr>
-        </tbody>
-      </table>
     </div>
   </section>
 
@@ -621,15 +572,15 @@
       document.getElementById('detail-name').textContent = p.name;
       document.getElementById('detail-series').textContent = p.series || 'Cleannova Series';
       document.getElementById('detail-badge').textContent = p.badge || 'CHÍNH HÃNG';
-      document.getElementById('detail-stars').innerHTML = renderStars(p.rating || 5);
-      document.getElementById('detail-rating-text').textContent = `${p.rating || 5}/5`;
-      document.getElementById('detail-reviews-count').textContent = `(${p.reviews || 100} đánh giá)`;
+      document.getElementById('detail-stars').innerHTML = p.reviews ? renderStars(p.rating) : '';
+      document.getElementById('detail-rating-text').textContent = p.reviews ? `${p.rating}/5` : '';
+      document.getElementById('detail-reviews-count').textContent = p.reviews ? `(${p.reviews} đánh giá)` : 'Chưa có đánh giá';
       document.getElementById('detail-price').textContent = formatPrice(p.price);
       document.getElementById('mobile-sticky-price').textContent = formatPrice(p.price);
 
       if (p.oldPrice) {
         document.getElementById('detail-old-price').textContent = formatPrice(p.oldPrice);
-        document.getElementById('detail-discount').textContent = `-${p.discount || 15}%`;
+        document.getElementById('detail-discount').textContent = `-${p.discount}%`;
       } else {
         document.getElementById('detail-old-price').style.display = 'none';
         document.getElementById('detail-discount').style.display = 'none';
@@ -641,6 +592,8 @@
       const mainImg = document.getElementById('main-product-img');
       mainImg.src = p.image;
       mainImg.alt = p.name;
+      const old = document.getElementById('img-note'); if (old) old.remove();
+      if (p.imageNote) { const n = document.createElement('p'); n.id = 'img-note'; n.style.cssText = 'font-size:.75rem;color:#707070;margin:8px 4px 0'; n.textContent = p.imageNote; document.getElementById('gallery-thumbs').insertAdjacentElement('afterend', n); }
 
       const galleryImages = p.gallery || [p.image];
       const thumbsContainer = document.getElementById('gallery-thumbs');
@@ -661,18 +614,18 @@
           </div>
           <div class="detail-spec-card">
             <div class="detail-spec-icon">🔋</div>
-            <div class="detail-spec-val">${p.battery} Phút</div>
+            <div class="detail-spec-val">${p.battery ? p.battery + ' Phút' : 'Đang cập nhật'}</div>
             <div class="detail-spec-lbl">Pin Sạc</div>
           </div>
           <div class="detail-spec-card">
             <div class="detail-spec-icon">📐</div>
-            <div class="detail-spec-val">${p.area} m²</div>
+            <div class="detail-spec-val">${p.area ? p.area + ' m²' : 'Đang cập nhật'}</div>
             <div class="detail-spec-lbl">Diện Tích</div>
           </div>
           <div class="detail-spec-card">
             <div class="detail-spec-icon">♨️</div>
-            <div class="detail-spec-val">80°C</div>
-            <div class="detail-spec-lbl">Sấy Nóng</div>
+            <div class="detail-spec-val">AI 3D</div>
+            <div class="detail-spec-lbl">Nhận Diện Vật Cản</div>
           </div>
         `;
       } else {
@@ -719,13 +672,11 @@
       });
 
       const handleAdd = () => {
-        addToCart(p.id, qty);
-        showToast(`Đã thêm ${qty} x ${p.name} vào giỏ hàng!`, '🛍️');
+        if (addToCart(p.id, qty) !== false) showToast(`Đã thêm ${qty} x ${p.name} vào giỏ hàng!`, '🛍️');
       };
 
       const handleBuy = () => {
-        addToCart(p.id, qty);
-        window.location.href = 'checkout.html';
+        if (addToCart(p.id, qty) !== false) window.location.href = 'checkout.html';
       };
 
       document.getElementById('add-to-cart-btn').addEventListener('click', handleAdd);
@@ -733,10 +684,11 @@
       document.getElementById('mobile-add-cart').addEventListener('click', handleAdd);
       document.getElementById('mobile-buy-now').addEventListener('click', handleBuy);
 
-      document.getElementById('try-at-home-btn').addEventListener('click', () => {
-        showToast('Đã ghi nhận yêu cầu dùng thử! Nhân viên sẽ liên hệ trong 15 phút.', '🏠');
+      document.getElementById('ask-ai-btn').addEventListener('click', () => {
+        if (typeof openChatbotWith === 'function') openChatbotWith('Tư vấn về ' + p.name);
       });
     }
   </script>
+  <script src="js/motion.js" defer></script>
 </body>
 </html>

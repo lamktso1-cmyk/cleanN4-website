@@ -29,7 +29,7 @@ function renderCart() {
     cartItemsContainer.innerHTML = cart.map(item => {
       const product = getProductById(item.id);
       if (!product) return '';
-      const rowTotal = product.price * item.qty;
+      const rowTotal = product.price * item.quantity;
 
       return `
         <div class="cart-item-row" data-id="${product.id}">
@@ -46,7 +46,7 @@ function renderCart() {
           <div class="cart-item-qty">
             <div class="qty-counter">
               <button class="qty-btn" onclick="modifyQty(${product.id}, -1)">−</button>
-              <input type="number" class="qty-input" value="${item.qty}" readonly>
+              <input type="number" class="qty-input" value="${item.quantity}" readonly>
               <button class="qty-btn" onclick="modifyQty(${product.id}, 1)">+</button>
             </div>
           </div>
@@ -71,8 +71,8 @@ function modifyQty(productId, delta) {
   const cart = getCart();
   const item = cart.find(i => i.id === Number(productId));
   if (item) {
-    const newQty = item.qty + delta;
-    updateCartQty(productId, newQty);
+    const newQty = item.quantity + delta;
+    updateCartQuantity(productId, newQty);
     renderCart();
   }
 }

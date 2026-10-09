@@ -1,0 +1,53 @@
+
+
+  <!-- ========================================================================
+       SECTION: COMPARISON TABLE (CLEANNOVA VS ROBOT THÔNG THƯỜNG)
+       ======================================================================== -->
+  <section class="comparison-section">
+    <div class="container">
+      <div class="section-header">
+        <div class="section-tag">So Sánh Đẳng Cấp</div>
+        <h2 class="section-title">Cleannova vs Robot Thông Thường</h2>
+        <p class="section-subtitle">
+          Sự khác biệt vượt bậc trong công nghệ mang lại giá trị sử dụng thảnh thơi vượt trội.
+        </p>
+      </div>
+
+      <table class="comparison-table">
+        <thead>
+          <tr>
+            <th>Tiêu chí so sánh</th>
+            <th class="cleannova-col">✦ CLEANNOVA AI SERIES</th>
+            <th>Robot giá rẻ thông thường</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Khả năng né vật cản</strong></td>
+            <td class="cleannova-col">AI 3D Structured Light né chuẩn từng sợi dây cáp & đồ chơi nhỏ</td>
+            <td>Dùng thanh cản va đập thụ động, dễ kẹt vào gầm bàn ghế</td>
+          </tr>
+          <tr>
+            <td><strong>Trạm sạc tự động</strong></td>
+            <td class="cleannova-col">All-in-One: Tự đổ rác 60 ngày + Tự giặt sấy nóng 80°C tiệt trùng</td>
+            <td>Chỉ có đế sạc thông thường, phải tự giặt giẻ và đổ rác hàng ngày</td>
+          </tr>
+          <tr>
+            <td><strong>Lực hút áp suất</strong></td>
+            <td class="cleannova-col">Khoảng 8.000 Pa</td>
+            <td>1.500 – 3.000 Pa (Chỉ hút được bụi nhẹ bề mặt)</td>
+          </tr>
+          <tr>
+            <td><strong>Khả năng lọc không khí</strong></td>
+            <td class="cleannova-col">Bộ lọc HEPA giữ lại bụi mịn</td>
+            <td>Lưới lọc bọt biển đơn giản, dễ làm bụi mịn phát tán lại phòng</td>
+          </tr>
+          <tr>
+            <td><strong>Chính sách hậu mãi</strong></td>
+            <td class="cleannova-col">Bảo hành 18 tháng • 1 đổi 1 30 ngày • Kỹ sư hỗ trợ tận nhà</td>
+            <td>Bảo hành 6 tháng, khách hàng tự mang đi sửa chữa xa xôi</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>

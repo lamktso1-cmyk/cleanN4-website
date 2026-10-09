@@ -41,11 +41,11 @@ function createProductCard(p) {
         </h3>
         <p class="product-card-tagline">${p.tagline || 'Thiết bị vệ sinh cao cấp chuẩn N4'}</p>
 
-        ${p.suctionDisplay ? `
+        ${(p.suction && p.suctionDisplay) ? `
           <div class="product-card-specs">
             <span class="spec-pill">💨 ${p.suctionDisplay}</span>
-            <span class="spec-pill">🔋 ${p.battery} phút</span>
-            <span class="spec-pill">📐 ${p.area} m²</span>
+            ${p.battery ? `<span class="spec-pill">🔋 ${p.battery} phút</span>` : ''}
+            ${p.area ? `<span class="spec-pill">📐 ${p.area} m²</span>` : ''}
           </div>
         ` : `
           <div class="product-card-specs">
@@ -55,7 +55,7 @@ function createProductCard(p) {
         `}
 
         <div class="product-card-pricing">
-          <span class="current-price">${formatPrice(p.price)}</span>
+          <span class="current-price">${p.price ? formatPrice(p.price) : "Từ " + formatPrice(PRICE_RANGE.min) + " (dự kiến)"}</span>
           ${p.oldPrice ? `<span class="old-price">${formatPrice(p.oldPrice)}</span>` : ''}
           ${p.discount ? `<span class="discount-tag">-${p.discount}%</span>` : ''}
         </div>
@@ -111,87 +111,54 @@ function initCategoryTabs() {
    3. MULTI-CRITERIA FILTERING
    --------------------------------------------------------- */
 function initFilters() {
-  const applyBtn = document.getElementById('apply-filter');
-  const clearBtn = document.getElementById('clear-filter');
+  const sidebar = document.getElementById('filter-sidebar');
+  if (!sidebar) return;
+  let timer;
+  sidebar.addEventListener('change', applyFilters);
+  const search = document.getElementById('filter-search');
+  if (search) search.addEventListener('input', () => { clearTimeout(timer); timer = setTimeout(applyFilters, 180); });
+  const apply = document.getElementById('apply-filter');
+  if (apply) apply.addEventListener('click', () => { applyFilters(); closeMobileFilter(); });
+  const clear = document.getElementById('clear-filter');
+  if (clear) clear.addEventListener('click', resetFilters);
+}
 
-  if (applyBtn) applyBtn.addEventListener('click', applyFilters);
-  if (clearBtn) {
-    clearBtn.addEventListener('click', () => {
-      document.querySelectorAll('.filter-sidebar input[type=checkbox]').forEach(cb => cb.checked = false);
-      applyFilters();
-    });
-  }
+function resetFilters() {
+  document.querySelectorAll('#filter-sidebar input[type=checkbox]').forEach(cb => cb.checked = false);
+  const search = document.getElementById('filter-search');
+  if (search) search.value = '';
+  applyFilters();
+}
 
-  document.querySelectorAll('.filter-sidebar input[type=checkbox]').forEach(cb => {
-    cb.addEventListener('change', applyFilters);
-  });
+function resetAll() {
+  currentCategory = 'all';
+  document.querySelectorAll('.category-filter-tab').forEach(t => t.classList.toggle('active', (t.dataset.category || 'all') === 'all'));
+  resetFilters();
 }
 
 function getCheckedValues(name) {
-  return Array.from(document.querySelectorAll(`input[name="${name}"]:checked`)).map(cb => cb.value);
+  return Array.from(document.querySelectorAll(`#filter-sidebar input[name="${name}"]:checked`)).map(cb => cb.value);
 }
 
 function applyFilters() {
-  let source = [...PRODUCTS];
-  if (currentCategory && currentCategory !== 'all') {
-    source = PRODUCTS.filter(p => p.category === currentCategory || (currentCategory === 'robots' && p.category === 'robot'));
-  }
+  const q = ((document.getElementById('filter-search') || {}).value || '').trim().toLowerCase();
+  const feats = getCheckedValues('feature');
+  const pricedOnly = !!(document.getElementById('filter-priced') || {}).checked;
 
-  // Price filter
-  if (priceFilters.length > 0) {
-    filtered = filtered.filter(p => {
-      return priceFilters.some(f => {
-        if (f === 'under5') return p.price < 5000000;
-        if (f === '5to10') return p.price >= 5000000 && p.price <= 10000000;
-        if (f === '10to15') return p.price > 10000000 && p.price <= 15000000;
-        if (f === 'over15') return p.price > 15000000;
-        return false;
-      });
-    });
-  }
+  let list = PRODUCTS.filter(p => !p.draft);
+  if (currentCategory && currentCategory !== 'all') list = list.filter(p => p.category === currentCategory);
+  if (q) list = list.filter(p => [p.name, p.tagline, p.description, p.categoryName].join(' ').toLowerCase().includes(q));
+  // Chọn nhiều tính năng = sản phẩm phải có đủ các tính năng đó
+  if (feats.length) list = list.filter(p => feats.every(k => (p.features || []).some(f => f.toLowerCase().includes(k.toLowerCase()))));
+  if (pricedOnly) list = list.filter(p => typeof p.price === 'number');
 
-  // Suction filter (only applies to robots)
-  if (suctionFilters.length > 0) {
-    filtered = filtered.filter(p => {
-      if (!p.suction) return false;
-      return suctionFilters.some(f => {
-        if (f === 'under5000') return p.suction <= 5000;
-        if (f === '5000to10000') return p.suction > 5000 && p.suction <= 10000;
-        if (f === 'over10000') return p.suction > 10000;
-        return false;
-      });
-    });
-  }
-
-  // Feature filter
-  if (featureFilters.length > 0) {
-    filtered = filtered.filter(p => {
-      if (!p.features) return false;
-      return featureFilters.some(keyword => 
-        p.features.some(f => f.toLowerCase().includes(keyword.toLowerCase()))
-      );
-    });
-  }
-
-  // Area filter
-  if (areaFilters.length > 0) {
-    filtered = filtered.filter(p => {
-      if (!p.area) return false;
-      return areaFilters.some(f => {
-        if (f === 'under200') return p.area <= 200;
-        if (f === '200to350') return p.area > 200 && p.area <= 350;
-        if (f === 'over350') return p.area > 350;
-        return false;
-      });
-    });
-  }
-
-  // Sorting
   const sortSelect = document.getElementById('sort-select');
-  const sortBy = sortSelect ? sortSelect.value : 'popular';
-  filtered = sortProductsArray(filtered, sortBy);
+  list = sortProductsArray(list, sortSelect ? sortSelect.value : 'newest');
+  renderProducts(list);
 
-  renderProducts(filtered);
+  const active = feats.length + (q ? 1 : 0) + (pricedOnly ? 1 : 0);
+  const clear = document.getElementById('clear-filter');
+  if (clear) { clear.hidden = active === 0; clear.textContent = active ? `Xóa lọc (${active})` : 'Xóa lọc'; }
 }
 
 /* ---------------------------------------------------------
@@ -205,17 +172,32 @@ function initSort() {
 }
 
 function sortProductsArray(products, sortBy) {
+  const byPrice = (a, b, dir) => {
+    const x = typeof a.price === 'number' ? a.price : null, y = typeof b.price === 'number' ? b.price : null;
+    if (x === null && y === null) return 0;
+    if (x === null) return 1;      // chưa có giá luôn xếp cuối
+    if (y === null) return -1;
+    return dir * (x - y);
+  };
   switch (sortBy) {
-    case 'price-asc': return products.sort((a, b) => a.price - b.price);
-    case 'price-desc': return products.sort((a, b) => b.price - a.price);
-    case 'rating': return products.sort((a, b) => (b.rating || 0) - (a.rating || 0));
-    default: return products.sort((a, b) => (b.reviews || 0) - (a.reviews || 0));
+    case 'price-asc': return products.sort((a, b) => byPrice(a, b, 1));
+    case 'price-desc': return products.sort((a, b) => byPrice(a, b, -1));
+    case 'name': return products.sort((a, b) => a.name.localeCompare(b.name, 'vi'));
+    default: return products.sort((a, b) => b.id - a.id);
   }
 }
 
 /* ---------------------------------------------------------
    5. MOBILE FILTER DRAWER
    --------------------------------------------------------- */
+function closeMobileFilter() {
+  const sidebar = document.getElementById('filter-sidebar');
+  const overlay = document.getElementById('filter-overlay');
+  if (sidebar) sidebar.classList.remove('open');
+  if (overlay) overlay.classList.remove('active');
+  document.body.style.overflow = '';
+}
+
 function initMobileFilter() {
   const btn = document.getElementById('mobile-filter-btn');
   const sidebar = document.getElementById('filter-sidebar');
@@ -230,7 +212,8 @@ function initMobileFilter() {
     });
   }
 
-  const close = () => {
+  const close = closeMobileFilter;
+  const _unused = () => {
     if (sidebar) sidebar.classList.remove('open');
     if (overlay) overlay.classList.remove('active');
     document.body.style.overflow = '';
@@ -255,11 +238,9 @@ function parseURLParams() {
     }
   }
 
-  const badge = params.get('badge');
-  if (badge) {
-    const cb = document.querySelector('input[name="feature"][value="Tự đổ rác"]');
-    if (cb) cb.checked = true;
-  }
+  const q = params.get('q');
+  const search = document.getElementById('filter-search');
+  if (q && search) search.value = q;
 
   applyFilters();
 }

@@ -1,0 +1,45 @@
+
+    <section class="reviews-section" id="reviews">
+      <div class="container">
+        <div class="section-header center">
+          <div class="section-label">— Khách hàng nói gì</div>
+          <h2 class="section-title">Hơn 2.400 đánh giá 5 sao</h2>
+          <p class="section-subtitle">Người dùng thực tế tin dùng N4 Cleanova — đây là chia sẻ của họ.</p>
+        </div>
+        <div class="reviews-grid">
+          <div class="review-card reveal">
+            <div class="review-stars">★★★★★</div>
+            <p class="review-text">"Con robot này thật sự thay đổi cuộc sống của mình. Nhà hai tầng mà nó tự biết hút hết không cần mình làm gì. Lực hút mạnh, sạch bóng cả lông chó."</p>
+            <div class="review-author">
+              <div class="review-avatar">LT</div>
+              <div>
+                <div class="review-name">Lê Thị Thanh</div>
+                <div class="review-meta">TP. Hồ Chí Minh · N4 Pro Robot</div>
+              </div>
+            </div>
+          </div>
+          <div class="review-card reveal">
+            <div class="review-stars">★★★★★</div>
+            <p class="review-text">"Mình mua chiếc N4 Air để hút sofa và sàn gỗ. Pin dùng được hơn 50 phút, nhẹ và êm hơn mình nghĩ nhiều. Đèn LED xịn thật, soi ra bụi mịn rõ ràng."</p>
+            <div class="review-author">
+              <div class="review-avatar">MH</div>
+              <div>
+                <div class="review-name">Minh Hoàng</div>
+                <div class="review-meta">Hà Nội · N4 Air Cordless</div>
+              </div>
+            </div>
+          </div>
+          <div class="review-card reveal">
+            <div class="review-stars">★★★★★</div>
+            <p class="review-text">"Bảo hành của N4 rất tốt. Máy bị lỗi nhỏ, gọi hotline là có nhân viên đến kiểm tra ngay ngày hôm sau. Chất lượng dịch vụ vượt xa kỳ vọng."</p>
+            <div class="review-author">
+              <div class="review-avatar">PK</div>
+              <div>
+                <div class="review-name">Phương Khanh</div>
+                <div class="review-meta">Đà Nẵng · N4 Pro Robot + Dock</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>

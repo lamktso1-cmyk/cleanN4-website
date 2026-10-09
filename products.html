@@ -3,8 +3,12 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Danh Sách Robot Hút Bụi Thông Minh | CLEANNOVA</title>
-  <meta name="description" content="Khám phá toàn bộ dòng sản phẩm robot hút bụi lau nhà thông minh Cleannova. Bộ lọc đa tiêu chí, giá ưu đãi, trả góp 0%, dùng thử 7 ngày miễn phí.">
+  <title>Robot hút bụi lau nhà thông minh | CLEANNOVA</title>
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Robot hút bụi lau nhà thông minh | CLEANNOVA">
+  <meta property="og:description" content="Xem robot hút bụi lau nhà thông minh CLEANNOVA: lọc, tìm kiếm và sắp xếp theo nhu cầu. Bảo hành 18 tháng, đổi sản phẩm trong 30 ngày theo điều kiện áp dụng.">
+  <meta property="og:locale" content="vi_VN">
+  <meta name="description" content="Xem robot hút bụi lau nhà thông minh CLEANNOVA: lọc, tìm kiếm và sắp xếp theo nhu cầu. Bảo hành 18 tháng, đổi sản phẩm trong 30 ngày theo điều kiện áp dụng.">
 
   <!-- Google Fonts: Plus Jakarta Sans & Inter -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -35,8 +39,6 @@
       color: var(--accent-emerald);
     }
 
-    .category-tabs-bar {
-      display: flex;
     .category-tabs-bar {
       display: flex;
       gap: 10px;
@@ -191,6 +193,9 @@
       }
     }
   </style>
+  <link rel="stylesheet" href="css/filters.css">
+    <link rel="stylesheet" href="css/mobile-fixes.css">
+  <link rel="stylesheet" href="css/motion.css">
 </head>
 <body>
 
@@ -203,19 +208,16 @@
       <div class="breadcrumb-nav">
         <a href="index.html">Trang chủ</a> / <span>Danh mục sản phẩm</span>
       </div>
-      <h1 style="font-size: 2.25rem; margin-bottom: 8px;">Thiết Bị Vệ Sinh & Làm Sạch N4 Cleanova</h1>
+      <h1 style="font-size: 2.25rem; margin-bottom: 8px;">Robot hút bụi lau nhà thông minh CLEANNOVA</h1>
       <p style="color: var(--text-muted); font-size: 1.0625rem;">
-        Hệ sinh thái robot thông minh, máy hút bụi, thiết bị lau rửa tự động và linh phụ kiện chuẩn hãng.
+        Hút bụi, lau nhà, tự giặt và sấy giẻ lau – để nhà sạch, người nhàn.
       </p>
 
       <div class="category-tabs-bar">
         <button class="category-filter-tab active" data-category="all">Tất Cả Sản Phẩm</button>
         <button class="category-filter-tab" data-category="robot">🤖 Robot Hút Bụi</button>
-        <button class="category-filter-tab" data-category="cordless">🧹 Máy Hút Bụi</button>
-        <button class="category-filter-tab" data-category="cleaning">💧 Thiết Bị Vệ Sinh</button>
-        <button class="category-filter-tab" data-category="waste">🗑️ Thiết Bị Dọn Rác</button>
         <button class="category-filter-tab" data-category="accessories">⚙️ Phụ Kiện</button>
-        <button class="category-filter-tab" data-category="parts">🔋 Linh Kiện</button>
+        <button class="category-filter-tab" data-category="solution">💧 Dung Dịch</button>
       </div>
     </div>
   </section>
@@ -224,52 +226,37 @@
   <main class="container">
     <div class="listing-layout">
       <!-- Filter Sidebar -->
-      <aside class="filter-sidebar" id="filter-sidebar">
-        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
-          <h3 style="font-size: 1.15rem; margin: 0;">Bộ Lọc Tìm Kiếm</h3>
-          <button id="clear-filter" style="background: none; border: none; font-size: 0.8125rem; color: var(--accent-emerald); font-weight: 600; cursor: pointer;">
-            Xóa Lọc
-          </button>
+      <aside class="filter-sidebar" id="filter-sidebar" aria-label="Bộ lọc sản phẩm">
+        <div class="filter-head">
+          <h2 class="filter-title">Bộ lọc</h2>
+          <button type="button" id="clear-filter" class="filter-clear" hidden>Xóa lọc</button>
+          <button type="button" id="filter-close" class="filter-close" aria-label="Đóng bộ lọc">✕</button>
         </div>
 
-        <!-- Filter 1: Mức giá -->
         <div class="filter-group">
-          <div class="filter-group-title">Khoảng Giá</div>
-          <label class="filter-option"><input type="checkbox" name="price" value="under5"> Dưới 5 Triệu</label>
-          <label class="filter-option"><input type="checkbox" name="price" value="5to10"> 5 – 10 Triệu (Phổ biến)</label>
-          <label class="filter-option"><input type="checkbox" name="price" value="10to15"> 10 – 15 Triệu (Flagship)</label>
-          <label class="filter-option"><input type="checkbox" name="price" value="over15"> Trên 15 Triệu (Prestige)</label>
+          <label class="filter-group-title" for="filter-search">Tìm kiếm</label>
+          <div class="filter-search">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+            <input type="search" id="filter-search" placeholder="Tên sản phẩm, tính năng..." autocomplete="off" maxlength="60">
+          </div>
         </div>
 
-        <!-- Filter 2: Lực hút -->
-        <div class="filter-group">
-          <div class="filter-group-title">Lực Hút Áp Suất</div>
-          <label class="filter-option"><input type="checkbox" name="suction" value="under5000"> Đến 5.000 Pa</label>
-          <label class="filter-option"><input type="checkbox" name="suction" value="5000to10000"> 5.000 – 10.000 Pa (Mạnh)</label>
-          <label class="filter-option"><input type="checkbox" name="suction" value="over10000"> Trên 10.000 Pa (Siêu bão)</label>
-        </div>
+        <fieldset class="filter-group">
+          <legend class="filter-group-title">Tính năng</legend>
+          <label class="filter-option"><input type="checkbox" name="feature" value="AI 3D"><span>Nhận diện vật cản AI 3D</span></label>
+          <label class="filter-option"><input type="checkbox" name="feature" value="giặt"><span>Tự giặt giẻ lau</span></label>
+          <label class="filter-option"><input type="checkbox" name="feature" value="thu gom"><span>Tự thu gom bụi</span></label>
+          <label class="filter-option"><input type="checkbox" name="feature" value="HEPA"><span>Bộ lọc HEPA</span></label>
+          <label class="filter-option"><input type="checkbox" name="feature" value="lông thú cưng"><span>Làm sạch lông thú cưng</span></label>
+        </fieldset>
 
-        <!-- Filter 3: Tính năng đặc quyền -->
-        <div class="filter-group">
-          <div class="filter-group-title">Tính Năng Đặc Tuyển</div>
-          <label class="filter-option"><input type="checkbox" name="feature" value="AI 3D"> AI 3D Né Vật Cản</label>
-          <label class="filter-option"><input type="checkbox" name="feature" value="đổ rác"> Tự Động Đổ Rác</label>
-          <label class="filter-option"><input type="checkbox" name="feature" value="giặt"> Tự Giặt & Sấy Giẻ</label>
-          <label class="filter-option"><input type="checkbox" name="feature" value="HEPA"> Lọc HEPA Kháng Khuẩn</label>
-          <label class="filter-option"><input type="checkbox" name="feature" value="lông"> Chuyên Lông Thú Cưng</label>
-        </div>
+        <fieldset class="filter-group">
+          <legend class="filter-group-title">Mua hàng</legend>
+          <label class="filter-option"><input type="checkbox" id="filter-priced"><span>Đã có giá niêm yết</span></label>
+        </fieldset>
 
-        <!-- Filter 4: Diện tích sàn -->
-        <div class="filter-group">
-          <div class="filter-group-title">Diện Tích Làm Sạch</div>
-          <label class="filter-option"><input type="checkbox" name="area" value="under200"> Dưới 200 m²</label>
-          <label class="filter-option"><input type="checkbox" name="area" value="200to350"> 200 – 350 m²</label>
-          <label class="filter-option"><input type="checkbox" name="area" value="over350"> Trên 350 m² (Đa tầng)</label>
-        </div>
-
-        <button id="apply-filter" class="btn btn-primary btn-block" style="margin-top: 10px;">
-          Áp Dụng Bộ Lọc
-        </button>
+        <p class="filter-note">Bộ lọc theo giá, lực hút và diện tích sẽ được bổ sung khi thông số sản phẩm được công bố đầy đủ.</p>
+        <button id="apply-filter" class="btn btn-primary btn-block filter-apply" type="button">Xem kết quả</button>
       </aside>
 
       <!-- Products Grid & Toolbar -->
@@ -278,13 +265,13 @@
           <div class="listing-count" id="products-count">Đang tải sản phẩm...</div>
           <div class="sort-control">
             <span style="font-size: 0.875rem; color: var(--text-muted);">Sắp xếp theo:</span>
-            <select class="sort-select" id="sort-select">
-              <option value="popular">Phổ biến nhất</option>
-              <option value="price-asc">Giá: Thấp đến Cao</option>
-              <option value="price-desc">Giá: Cao đến Thấp</option>
-              <option value="rating">Đánh giá cao nhất</option>
+            <select class="sort-select" id="sort-select" aria-label="Sắp xếp sản phẩm">
+              <option value="newest">Mới nhất</option>
+              <option value="price-asc">Giá: Thấp đến cao</option>
+              <option value="price-desc">Giá: Cao đến thấp</option>
+              <option value="name">Tên: A → Z</option>
             </select>
-            <button id="mobile-filter-btn" class="btn btn-secondary btn-sm" style="display: none;">
+            <button id="mobile-filter-btn" class="btn btn-secondary btn-sm" type="button">
               Bộ lọc
             </button>
           </div>
@@ -300,10 +287,10 @@
           <div style="font-size: 3rem; margin-bottom: 16px;">🔍</div>
           <h3 style="font-size: 1.5rem; margin-bottom: 8px;">Không tìm thấy sản phẩm phù hợp</h3>
           <p style="color: var(--text-muted); margin-bottom: 24px;">
-            Hãy thử nới lỏng các tiêu chí bộ lọc về mức giá hoặc tính năng.
+            Hãy thử đổi từ khóa, bỏ bớt tính năng đã chọn hoặc xem tất cả sản phẩm. Nhóm sản phẩm này có thể đang được cập nhật.
           </p>
-          <button onclick="document.querySelectorAll('.filter-sidebar input[type=checkbox]').forEach(cb => cb.checked = false); applyFilters();" class="btn btn-secondary">
-            Xóa Toàn Bộ Bộ Lọc
+          <button type="button" onclick="resetAll()" class="btn btn-secondary">
+            Xóa bộ lọc và xem tất cả
           </button>
         </div>
       </section>
@@ -326,5 +313,6 @@
   <script src="js/app.js"></script>
   <script src="js/products.js"></script>
   <script src="js/chatbot.js"></script>
+  <script src="js/motion.js" defer></script>
 </body>
 </html>
