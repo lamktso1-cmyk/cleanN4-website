@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Đăng Ký Tài Khoản | CLEANNOVA</title>
+  <meta name="description" content="Tạo tài khoản CleanNova để tích điểm thành viên, theo dõi bảo hành 18 tháng và nhận ưu đãi độc quyền.">
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="css/tokens.css">
+  <link rel="stylesheet" href="css/animations.css">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/mobile-fixes.css">
+
+  <style>
+    .auth-page-wrapper {
+      min-height: calc(100vh - 160px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 40px 20px;
+      background: radial-gradient(circle at 50% 20%, rgba(198, 166, 103, 0.04) 0%, rgba(248, 250, 252, 1) 100%);
+    }
+    .auth-card {
+      background: #FFFFFF;
+      border: 1px solid var(--border-light);
+      border-radius: var(--radius-xl);
+      padding: 40px 36px;
+      max-width: 480px;
+      width: 100%;
+      box-shadow: 0 20px 45px -15px rgba(0, 0, 0, 0.07);
+      position: relative;
+    }
+    .auth-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, var(--gold-primary), var(--gold-dark));
+      border-radius: var(--radius-xl) var(--radius-xl) 0 0;
+    }
+    .auth-header {
+      text-align: center;
+      margin-bottom: 28px;
+    }
+    .auth-logo-center {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 16px;
+      text-decoration: none;
+    }
+    .auth-title {
+      font-size: 1.65rem;
+      font-weight: 800;
+      color: var(--text-primary);
+      margin-bottom: 6px;
+    }
+    .auth-subtitle {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+    }
+    .form-group {
+      margin-bottom: 18px;
+      text-align: left;
+    }
+    .form-label {
+      display: block;
+      font-size: 0.875rem;
+      font-weight: 600;
+      color: var(--text-primary);
+      margin-bottom: 8px;
+    }
+    .form-input {
+      width: 100%;
+      padding: 12px 16px;
+      border: 1.5px solid var(--border-light);
+      border-radius: var(--radius-md);
+      font-size: 0.9375rem;
+      font-family: inherit;
+      color: var(--text-primary);
+      background: #FFFFFF;
+      transition: all var(--transition-fast);
+      outline: none;
+    }
+    .form-input:focus {
+      border-color: var(--gold-primary);
+      box-shadow: 0 0 0 3px rgba(198, 166, 103, 0.15);
+    }
+    .input-wrapper {
+      position: relative;
+    }
+    .toggle-pwd-btn {
+      position: absolute;
+      right: 12px;
+      top: 50%;
+      transform: translateY(-50%);
+      background: none;
+      border: none;
+      cursor: pointer;
+      color: var(--text-muted);
+      padding: 4px;
+      font-size: 1.1rem;
+    }
+    .pwd-strength-bar {
+      height: 4px;
+      background: #E2E8F0;
+      border-radius: 2px;
+      margin-top: 8px;
+      overflow: hidden;
+      display: flex;
+    }
+    .pwd-strength-fill {
+      height: 100%;
+      width: 0%;
+      transition: all 0.3s;
+    }
+    .pwd-strength-text {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      margin-top: 4px;
+      display: flex;
+      justify-content: space-between;
+    }
+    .divider-or {
+      display: flex;
+      align-items: center;
+      text-align: center;
+      margin: 22px 0;
+      color: var(--text-muted);
+      font-size: 0.8125rem;
+      font-weight: 500;
+    }
+    .divider-or::before, .divider-or::after {
+      content: '';
+      flex: 1;
+      border-bottom: 1px solid var(--border-light);
+    }
+    .divider-or:not(:empty)::before { margin-right: 12px; }
+    .divider-or:not(:empty)::after { margin-left: 12px; }
+    .btn-facebook {
+      background: #1877F2;
+      color: #FFFFFF;
+      border: none;
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      font-weight: 600;
+      font-size: 0.9375rem;
+      padding: 12px 18px;
+      border-radius: var(--radius-md);
+      cursor: pointer;
+      transition: all var(--transition-fast);
+      box-shadow: 0 2px 8px rgba(24, 119, 242, 0.25);
+    }
+    .btn-facebook:hover {
+      background: #166fe5;
+      transform: translateY(-1px);
+    }
+    .auth-link {
+      color: var(--gold-dark);
+      text-decoration: none;
+      font-weight: 600;
+    }
+    .auth-link:hover { text-decoration: underline; }
+    .auth-alert {
+      padding: 12px 14px;
+      border-radius: var(--radius-md);
+      font-size: 0.875rem;
+      margin-bottom: 20px;
+      display: none;
+    }
+    .auth-alert-danger {
+      background: rgba(239, 68, 68, 0.08);
+      border: 1px solid rgba(239, 68, 68, 0.25);
+      color: #DC2626;
+    }
+    .auth-alert-success {
+      background: rgba(16, 185, 129, 0.08);
+      border: 1px solid rgba(16, 185, 129, 0.25);
+      color: #059669;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Dynamic Header Injection -->
+  <header id="main-header"></header>
+
+  <main class="auth-page-wrapper">
+    <div class="auth-card">
+      <div class="auth-header">
+        <a href="index.html" class="auth-logo-center" aria-label="CleanNova">
+          <div class="n4-logo-mark" style="width: 38px; height: 38px; font-size: 1.15rem;">
+            <span class="lm-n">N</span><span class="lm-4">4</span>
+          </div>
+          <div class="n4-logo-text" style="text-align: left;">
+            <span class="lt-brand" style="font-size: 1.15rem;">CLEANNOVA</span>
+            <span class="lt-sub" style="font-size: 0.65rem;">Nhà sạch, người nhàn</span>
+          </div>
+        </a>
+        <h1 class="auth-title">Đăng ký tài khoản</h1>
+        <p class="auth-subtitle">Trở thành thành viên CleanNova để nhận trọn vẹn ưu đãi</p>
+      </div>
+
+      <!-- Alert -->
+      <div id="auth-alert" class="auth-alert"></div>
+
+      <!-- Form Đăng Ký -->
+      <form id="register-form">
+        <div class="form-group">
+          <label class="form-label" for="reg-name">Họ và tên *</label>
+          <input type="text" id="reg-name" class="form-input" placeholder="Nguyễn Văn A" required>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="reg-email">Địa chỉ Email *</label>
+          <input type="email" id="reg-email" class="form-input" placeholder="tenban@vidu.com" required>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="reg-password">Mật khẩu *</label>
+          <div class="input-wrapper">
+            <input type="password" id="reg-password" class="form-input" placeholder="Tối thiểu 6 ký tự" required autocomplete="new-password">
+            <button type="button" class="toggle-pwd-btn" id="toggle-reg-pwd">👁️</button>
+          </div>
+          <!-- Độ mạnh mật khẩu -->
+          <div class="pwd-strength-bar">
+            <div id="pwd-meter" class="pwd-strength-fill"></div>
+          </div>
+          <div class="pwd-strength-text">
+            <span>Độ mạnh mật khẩu:</span>
+            <span id="pwd-meter-label" style="font-weight: 600;">Chưa nhập</span>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="reg-password-confirm">Xác nhận mật khẩu *</label>
+          <div class="input-wrapper">
+            <input type="password" id="reg-password-confirm" class="form-input" placeholder="Nhập lại mật khẩu" required autocomplete="new-password">
+            <button type="button" class="toggle-pwd-btn" id="toggle-reg-confirm-pwd">👁️</button>
+          </div>
+        </div>
+
+        <div class="form-group" style="font-size: 0.8125rem; color: var(--text-muted); line-height: 1.5;">
+          Bằng việc đăng ký, bạn đồng ý với <a href="index.html" class="auth-link">Điều khoản dịch vụ</a> và <a href="index.html" class="auth-link">Chính sách bảo mật</a> của CleanNova.
+        </div>
+
+        <button type="submit" id="submit-reg-btn" class="btn btn-primary btn-lg btn-block">
+          <span>Đăng Ký Tài Khoản</span>
+        </button>
+      </form>
+
+      <div class="divider-or">HOẶC</div>
+
+      <!-- Đăng ký bằng Facebook -->
+      <button type="button" class="btn-facebook" id="facebook-reg-btn">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+          <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
+        </svg>
+        <span>Đăng ký bằng Facebook</span>
+      </button>
+
+      <div style="text-align: center; margin-top: 24px; font-size: 0.9rem; color: var(--text-secondary);">
+        Đã có tài khoản? <a href="login.html" class="auth-link" id="login-redirect-link">Đăng nhập tại đây</a>
+      </div>
+    </div>
+  </main>
+
+  <footer id="main-footer"></footer>
+  <div id="toast-container" class="toast-container"></div>
+
+  <!-- Scripts -->
+  <script src="js/data.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/app.js"></script>
+
+  <script>
+    const urlParams = new URLSearchParams(window.location.search);
+    const redirectTarget = urlParams.get('redirect');
+
+    if (redirectTarget) {
+      document.getElementById('login-redirect-link').href = `login.html?redirect=${encodeURIComponent(redirectTarget)}`;
+    }
+
+    const alertBox = document.getElementById('auth-alert');
+    function showAlert(msg, type = 'danger') {
+      alertBox.textContent = msg;
+      alertBox.className = `auth-alert auth-alert-${type}`;
+      alertBox.style.display = 'block';
+    }
+
+    // Toggle hiện/ẩn mật khẩu
+    function bindToggle(inputId, btnId) {
+      const input = document.getElementById(inputId);
+      const btn = document.getElementById(btnId);
+      btn.addEventListener('click', () => {
+        input.type = input.type === 'password' ? 'text' : 'password';
+        btn.textContent = input.type === 'password' ? '👁️' : '🙈';
+      });
+    }
+    bindToggle('reg-password', 'toggle-reg-pwd');
+    bindToggle('reg-password-confirm', 'toggle-reg-confirm-pwd');
+
+    // Đo độ mạnh mật khẩu
+    const pwdInput = document.getElementById('reg-password');
+    const meterFill = document.getElementById('pwd-meter');
+    const meterLabel = document.getElementById('pwd-meter-label');
+
+    pwdInput.addEventListener('input', () => {
+      const val = pwdInput.value;
+      let score = 0;
+      if (val.length >= 6) score++;
+      if (val.length >= 10) score++;
+      if (/[A-Z]/.test(val)) score++;
+      if (/[0-9]/.test(val)) score++;
+      if (/[^A-Za-z0-9]/.test(val)) score++;
+
+      if (val.length === 0) {
+        meterFill.style.width = '0%';
+        meterLabel.textContent = 'Chưa nhập';
+        meterLabel.style.color = 'var(--text-muted)';
+      } else if (score <= 2) {
+        meterFill.style.width = '33%';
+        meterFill.style.backgroundColor = '#EF4444';
+        meterLabel.textContent = 'Yếu';
+        meterLabel.style.color = '#EF4444';
+      } else if (score <= 4) {
+        meterFill.style.width = '66%';
+        meterFill.style.backgroundColor = '#F59E0B';
+        meterLabel.textContent = 'Trung bình';
+        meterLabel.style.color = '#F59E0B';
+      } else {
+        meterFill.style.width = '100%';
+        meterFill.style.backgroundColor = '#10B981';
+        meterLabel.textContent = 'Mạnh';
+        meterLabel.style.color = '#10B981';
+      }
+    });
+
+    // Xử lý gửi đăng ký
+    document.getElementById('register-form').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const name = document.getElementById('reg-name').value.trim();
+      const email = document.getElementById('reg-email').value.trim();
+      const password = document.getElementById('reg-password').value;
+      const confirmPwd = document.getElementById('reg-password-confirm').value;
+      const submitBtn = document.getElementById('submit-reg-btn');
+
+      if (!name || !email || !password) {
+        showAlert('Vui lòng điền đầy đủ các thông tin bắt buộc.');
+        return;
+      }
+
+      if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+        showAlert('Định dạng email không hợp lệ.');
+        return;
+      }
+
+      if (password.length < 6) {
+        showAlert('Mật khẩu phải có tối thiểu 6 ký tự.');
+        return;
+      }
+
+      if (password !== confirmPwd) {
+        showAlert('Mật khẩu xác nhận không khớp với mật khẩu đã nhập.');
+        return;
+      }
+
+      submitBtn.disabled = true;
+      submitBtn.innerHTML = '<span>Đang tạo tài khoản...</span>';
+
+      const result = await Auth.register({
+        full_name: name,
+        email,
+        password
+      });
+
+      if (result.success) {
+        showAlert(result.message || 'Đăng ký thành công! Đang chuyển tiếp...', 'success');
+        showToast('Đăng ký tài khoản thành công!', '🎉');
+
+        setTimeout(() => {
+          if (redirectTarget) {
+            window.location.href = redirectTarget;
+          } else {
+            window.location.href = 'index.html';
+          }
+        }, 800);
+      } else {
+        showAlert(result.message || 'Đăng ký không thành công.');
+        submitBtn.disabled = false;
+        submitBtn.innerHTML = '<span>Đăng Ký Tài Khoản</span>';
+      }
+    });
+
+    // Facebook Register
+    document.getElementById('facebook-reg-btn').addEventListener('click', () => {
+      document.getElementById('login-redirect-link').click();
+    });
+  </script>
+</body>
+</html>

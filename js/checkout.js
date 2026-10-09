@@ -1,16 +1,42 @@
 /* ==========================================================================
-   CLEANNOVA - CHECKOUT ENGINE
-   Payment methods selection • VietQR preview • Order submission & storage
+   CLEANNOVA - CHECKOUT ENGINE (RBAC & SECURE ORDERS)
+   Payment methods selection • User prefill • Server-verified Order Creation
    ========================================================================== */
 
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded', async () => {
+  // 1. Kiểm tra bắt buộc đăng nhập đối với trang Thanh toán
+  const user = await Auth.checkAuth();
+  if (!user) {
+    window.location.href = `login.html?redirect=checkout.html&msg=${encodeURIComponent('Vui lòng đăng nhập tài khoản trước khi hoàn tất đặt hàng.')}`;
+    return;
+  }
+
+  // 2. Tự động điền thông tin khách hàng từ hồ sơ tài khoản
+  prefillCustomerInfo(user);
+
+  // 3. Render tóm tắt đơn hàng & khởi tạo phương thức thanh toán
   renderCheckoutSummary();
   initPaymentMethods();
-  initCheckoutForm();
+  initCheckoutForm(user);
 });
 
 let selectedPayment = 'cod';
 let isSubmitting = false;
+
+function prefillCustomerInfo(user) {
+  if (!user) return;
+  const nameEl = document.getElementById('cust-name');
+  const emailEl = document.getElementById('cust-email');
+  const phoneEl = document.getElementById('cust-phone');
+  const addressEl = document.getElementById('cust-address');
+  const cityEl = document.getElementById('cust-city');
+
+  if (nameEl && !nameEl.value) nameEl.value = user.full_name || '';
+  if (emailEl && !emailEl.value) emailEl.value = user.email || '';
+  if (phoneEl && !phoneEl.value) phoneEl.value = user.phone || '';
+  if (addressEl && !addressEl.value) addressEl.value = user.address || '';
+  if (cityEl && user.city) cityEl.value = user.city;
+}
 
 function renderCheckoutSummary() {
   const cart = getCart();
@@ -76,7 +102,10 @@ function initPaymentMethods() {
 
   options.forEach(opt => {
     opt.addEventListener('click', () => {
-      if (opt.classList.contains('is-disabled')) { showToast('Cổng thanh toán này chưa mở. Vui lòng chọn thanh toán khi nhận hàng (COD).', 'ℹ️'); return; }
+      if (opt.classList.contains('is-disabled')) {
+        showToast('Cổng thanh toán này chưa mở. Vui lòng chọn thanh toán khi nhận hàng (COD).', 'ℹ️');
+        return;
+      }
       options.forEach(o => o.classList.remove('selected'));
       opt.classList.add('selected');
 
@@ -91,11 +120,11 @@ function initPaymentMethods() {
   });
 }
 
-function initCheckoutForm() {
+function initCheckoutForm(currentUser) {
   const form = document.getElementById('checkout-form');
   if (!form) return;
 
-  form.addEventListener('submit', (e) => {
+  form.addEventListener('submit', async (e) => {
     e.preventDefault();
 
     const name = document.getElementById('cust-name').value.trim();
@@ -106,6 +135,7 @@ function initCheckoutForm() {
     const note = document.getElementById('cust-note').value.trim();
 
     if (isSubmitting) return;
+
     if (selectedPayment !== 'cod') {
       showToast('Cổng thanh toán online chưa được cấu hình. Vui lòng chọn thanh toán khi nhận hàng (COD).', 'ℹ️');
       return;
@@ -123,8 +153,13 @@ function initCheckoutForm() {
       return;
     }
 
-    const orderId = '#CN-' + new Date().getFullYear() + '-' + Math.floor(1000 + Math.random() * 9000);
     const cart = getCart();
+    if (!cart || cart.length === 0) {
+      showToast('Giỏ hàng trống!', '⚠️');
+      window.location.href = 'cart.html';
+      return;
+    }
+
     const subtotal = getCartTotal();
     let discountAmount = 0;
     try {
@@ -135,35 +170,62 @@ function initCheckoutForm() {
     const finalTotal = Math.max(0, subtotal - discountAmount);
 
     isSubmitting = true;
-    const orderData = {
-      orderId,
+    const submitBtn = form.querySelector('button[type="submit"]');
+    if (submitBtn) {
+      submitBtn.disabled = true;
+      submitBtn.innerHTML = '<span>Đang tạo đơn hàng...</span>';
+    }
+
+    const orderPayload = {
       customer: { name, phone, email, address, city, note },
       items: cart,
       subtotal,
       discountAmount,
       finalTotal,
-      paymentMethod: selectedPayment,
-      date: new Date().toLocaleDateString('vi-VN'),
-      status: 'Đang xử lý'
+      paymentMethod: selectedPayment
     };
 
-    // Save order
-    localStorage.setItem('cleannova-latest-order', JSON.stringify(orderData));
     try {
-      const all = JSON.parse(localStorage.getItem('cleannova-orders') || '[]');
-      all.unshift(orderData);
-      localStorage.setItem('cleannova-orders', JSON.stringify(all));
-    } catch (e) {}
+      // Gửi đơn hàng lên Backend Server để liên kết an toàn với user_id
+      const res = await fetch('/api/orders', {
+        method: 'POST',
+        headers: Auth.getHeaders(),
+        credentials: 'include',
+        body: JSON.stringify(orderPayload)
+      });
 
-    // Clear cart
-    saveCart([]);
-    updateCartBadge();
-    sessionStorage.removeItem('cleannova-order-summary');
+      const data = await res.json();
 
-    showToast('Đặt hàng thành công! Đang chuyển tiếp...', '🎉');
+      if (res.ok && data.success && data.order) {
+        // Lưu tạm đơn hàng mới nhất vào localStorage cho success.html đọc
+        localStorage.setItem('cleannova-latest-order', JSON.stringify(data.order));
 
-    setTimeout(() => {
-      window.location.href = `success.html?orderId=${encodeURIComponent(orderId)}`;
-    }, 900);
+        // Xóa giỏ hàng sau khi đặt thành công
+        saveCart([]);
+        updateCartBadge();
+        sessionStorage.removeItem('cleannova-order-summary');
+
+        showToast('Đặt hàng thành công! Đang chuyển tiếp...', '🎉');
+
+        setTimeout(() => {
+          window.location.href = `success.html?orderId=${encodeURIComponent(data.order.orderId)}`;
+        }, 800);
+      } else {
+        showToast(data.message || 'Lỗi khi tạo đơn hàng. Vui lòng thử lại.', '⚠️');
+        isSubmitting = false;
+        if (submitBtn) {
+          submitBtn.disabled = false;
+          submitBtn.innerHTML = '<span>Xác Nhận Đặt Hàng</span>';
+        }
+      }
+    } catch (err) {
+      console.error('Order creation error:', err);
+      showToast('Lỗi kết nối máy chủ khi tạo đơn hàng.', '⚠️');
+      isSubmitting = false;
+      if (submitBtn) {
+        submitBtn.disabled = false;
+        submitBtn.innerHTML = '<span>Xác Nhận Đặt Hàng</span>';
+      }
+    }
   });
 }

@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Đăng Nhập Tài Khoản | CLEANNOVA</title>
+  <meta name="description" content="Đăng nhập tài khoản CleanNova để quản lý đơn hàng, theo dõi bảo hành và trải nghiệm mua sắm robot hút bụi thông minh.">
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="css/tokens.css">
+  <link rel="stylesheet" href="css/animations.css">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/mobile-fixes.css">
+
+  <style>
+    .auth-page-wrapper {
+      min-height: calc(100vh - 160px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 40px 20px;
+      background: radial-gradient(circle at 50% 20%, rgba(198, 166, 103, 0.04) 0%, rgba(248, 250, 252, 1) 100%);
+    }
+    .auth-card {
+      background: #FFFFFF;
+      border: 1px solid var(--border-light);
+      border-radius: var(--radius-xl);
+      padding: 40px 36px;
+      max-width: 460px;
+      width: 100%;
+      box-shadow: 0 20px 45px -15px rgba(0, 0, 0, 0.07);
+      position: relative;
+    }
+    .auth-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, var(--gold-primary), var(--gold-dark));
+      border-radius: var(--radius-xl) var(--radius-xl) 0 0;
+    }
+    .auth-header {
+      text-align: center;
+      margin-bottom: 28px;
+    }
+    .auth-logo-center {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 16px;
+      text-decoration: none;
+    }
+    .auth-title {
+      font-size: 1.65rem;
+      font-weight: 800;
+      color: var(--text-primary);
+      margin-bottom: 6px;
+    }
+    .auth-subtitle {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+    }
+    .form-group {
+      margin-bottom: 20px;
+      text-align: left;
+    }
+    .form-label {
+      display: block;
+      font-size: 0.875rem;
+      font-weight: 600;
+      color: var(--text-primary);
+      margin-bottom: 8px;
+    }
+    .input-wrapper {
+      position: relative;
+    }
+    .form-input {
+      width: 100%;
+      padding: 12px 16px;
+      border: 1.5px solid var(--border-light);
+      border-radius: var(--radius-md);
+      font-size: 0.9375rem;
+      font-family: inherit;
+      color: var(--text-primary);
+      background: #FFFFFF;
+      transition: all var(--transition-fast);
+      outline: none;
+    }
+    .form-input:focus {
+      border-color: var(--gold-primary);
+      box-shadow: 0 0 0 3px rgba(198, 166, 103, 0.15);
+    }
+    .toggle-pwd-btn {
+      position: absolute;
+      right: 12px;
+      top: 50%;
+      transform: translateY(-50%);
+      background: none;
+      border: none;
+      cursor: pointer;
+      color: var(--text-muted);
+      padding: 4px;
+      display: flex;
+      align-items: center;
+      font-size: 1.1rem;
+    }
+    .toggle-pwd-btn:hover {
+      color: var(--text-primary);
+    }
+    .auth-extra-links {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 24px;
+      font-size: 0.85rem;
+    }
+    .auth-link {
+      color: var(--gold-dark);
+      text-decoration: none;
+      font-weight: 600;
+      transition: color var(--transition-fast);
+    }
+    .auth-link:hover {
+      text-decoration: underline;
+    }
+    .divider-or {
+      display: flex;
+      align-items: center;
+      text-align: center;
+      margin: 24px 0;
+      color: var(--text-muted);
+      font-size: 0.8125rem;
+      font-weight: 500;
+    }
+    .divider-or::before, .divider-or::after {
+      content: '';
+      flex: 1;
+      border-bottom: 1px solid var(--border-light);
+    }
+    .divider-or:not(:empty)::before {
+      margin-right: 12px;
+    }
+    .divider-or:not(:empty)::after {
+      margin-left: 12px;
+    }
+    .btn-facebook {
+      background: #1877F2;
+      color: #FFFFFF;
+      border: none;
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      font-weight: 600;
+      font-size: 0.9375rem;
+      padding: 12px 18px;
+      border-radius: var(--radius-md);
+      cursor: pointer;
+      transition: all var(--transition-fast);
+      box-shadow: 0 2px 8px rgba(24, 119, 242, 0.25);
+    }
+    .btn-facebook:hover {
+      background: #166fe5;
+      transform: translateY(-1px);
+      box-shadow: 0 4px 12px rgba(24, 119, 242, 0.35);
+    }
+    .auth-alert {
+      padding: 12px 14px;
+      border-radius: var(--radius-md);
+      font-size: 0.875rem;
+      margin-bottom: 20px;
+      display: none;
+      animation: fadeIn 0.25s ease-out;
+    }
+    .auth-alert-danger {
+      background: rgba(239, 68, 68, 0.08);
+      border: 1px solid rgba(239, 68, 68, 0.25);
+      color: #DC2626;
+    }
+    .auth-alert-info {
+      background: rgba(198, 166, 103, 0.1);
+      border: 1px solid rgba(198, 166, 103, 0.3);
+      color: var(--gold-dark);
+    }
+    .demo-accounts-box {
+      margin-top: 28px;
+      background: #F8FAFC;
+      border: 1px dashed var(--border-light);
+      border-radius: var(--radius-md);
+      padding: 16px;
+      font-size: 0.8125rem;
+    }
+    .demo-account-chip {
+      display: inline-block;
+      padding: 5px 10px;
+      background: #FFFFFF;
+      border: 1px solid var(--border-light);
+      border-radius: 6px;
+      cursor: pointer;
+      margin: 4px 3px 0 0;
+      font-size: 0.775rem;
+      transition: all 0.2s;
+    }
+    .demo-account-chip:hover {
+      border-color: var(--gold-primary);
+      background: rgba(198, 166, 103, 0.08);
+      color: var(--gold-dark);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Dynamic Header Injection -->
+  <header id="main-header"></header>
+
+  <main class="auth-page-wrapper">
+    <div class="auth-card">
+      <div class="auth-header">
+        <a href="index.html" class="auth-logo-center" aria-label="CleanNova">
+          <div class="n4-logo-mark" style="width: 38px; height: 38px; font-size: 1.15rem;">
+            <span class="lm-n">N</span><span class="lm-4">4</span>
+          </div>
+          <div class="n4-logo-text" style="text-align: left;">
+            <span class="lt-brand" style="font-size: 1.15rem;">CLEANNOVA</span>
+            <span class="lt-sub" style="font-size: 0.65rem;">Nhà sạch, người nhàn</span>
+          </div>
+        </a>
+        <h1 class="auth-title">Chào mừng trở lại</h1>
+        <p class="auth-subtitle">Đăng nhập tài khoản để tiếp tục trải nghiệm</p>
+      </div>
+
+      <!-- Alert Box -->
+      <div id="auth-alert" class="auth-alert"></div>
+
+      <!-- Form Đăng nhập -->
+      <form id="login-form">
+        <div class="form-group">
+          <label class="form-label" for="login-email">Địa chỉ Email</label>
+          <div class="input-wrapper">
+            <input type="email" id="login-email" class="form-input" placeholder="tenban@vidu.com" required autocomplete="email">
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="login-password">Mật khẩu</label>
+          <div class="input-wrapper">
+            <input type="password" id="login-password" class="form-input" placeholder="••••••••" required autocomplete="current-password">
+            <button type="button" class="toggle-pwd-btn" id="toggle-pwd-btn" aria-label="Hiện/ẩn mật khẩu">👁️</button>
+          </div>
+        </div>
+
+        <div class="auth-extra-links">
+          <label style="display: flex; align-items: center; gap: 6px; cursor: pointer; color: var(--text-secondary);">
+            <input type="checkbox" id="remember-me" style="accent-color: var(--gold-primary);"> Ghi nhớ phiên đăng nhập
+          </label>
+          <a href="forgot-password.html" class="auth-link">Quên mật khẩu?</a>
+        </div>
+
+        <button type="submit" id="submit-login-btn" class="btn btn-primary btn-lg btn-block">
+          <span>Đăng Nhập</span>
+        </button>
+      </form>
+
+      <div class="divider-or">HOẶC TIẾP TỤC VỚI</div>
+
+      <!-- Đăng nhập bằng Facebook -->
+      <button type="button" class="btn-facebook" id="facebook-login-btn">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+          <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
+        </svg>
+        <span>Tiếp tục với Facebook</span>
+      </button>
+
+      <div style="text-align: center; margin-top: 24px; font-size: 0.9rem; color: var(--text-secondary);">
+        Chưa có tài khoản? <a href="register.html" class="auth-link" id="register-redirect-link">Đăng ký ngay</a>
+      </div>
+
+      <!-- Quick Demo Accounts (Dành cho việc kiểm thử & chấm đồ án) -->
+      <div class="demo-accounts-box">
+        <div style="font-weight: 700; color: var(--text-primary); margin-bottom: 6px; display: flex; align-items: center; justify-content: space-between;">
+          <span>✦ Tài khoản Demo kiểm thử:</span>
+          <span style="font-size: 0.7rem; color: var(--gold-dark); font-weight: 600;">(Bấm để điền nhanh)</span>
+        </div>
+        <div>
+          <button type="button" class="demo-account-chip" onclick="fillDemo('admin@cleannova.test', 'admin123')">
+            👑 <strong>Admin</strong> (admin123)
+          </button>
+          <button type="button" class="demo-account-chip" onclick="fillDemo('customer1@cleannova.test', 'CustomerDemo@2026')">
+            🛒 <strong>Customer 1</strong> (Minh Anh)
+          </button>
+          <button type="button" class="demo-account-chip" onclick="fillDemo('customer2@cleannova.test', 'CustomerDemo@2026')">
+            🛒 <strong>Customer 2</strong> (Hoàng Nam)
+          </button>
+          <button type="button" class="demo-account-chip" onclick="fillDemo('customer3@cleannova.test', 'CustomerDemo@2026')">
+            🛒 <strong>Customer 3</strong> (Thanh Hà)
+          </button>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <footer id="main-footer"></footer>
+  <div id="toast-container" class="toast-container"></div>
+
+  <!-- Scripts -->
+  <script src="js/data.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/app.js"></script>
+
+  <script>
+    // Lấy query param redirect và thông báo nếu có
+    const urlParams = new URLSearchParams(window.location.search);
+    const redirectTarget = urlParams.get('redirect');
+    const incomingMsg = urlParams.get('msg');
+
+    const alertBox = document.getElementById('auth-alert');
+    if (incomingMsg) {
+      alertBox.textContent = incomingMsg;
+      alertBox.className = 'auth-alert auth-alert-info';
+      alertBox.style.display = 'block';
+    }
+
+    // Cập nhật link đăng ký giữ param redirect
+    if (redirectTarget) {
+      document.getElementById('register-redirect-link').href = `register.html?redirect=${encodeURIComponent(redirectTarget)}`;
+    }
+
+    // Toggle ẩn/hiện mật khẩu
+    const pwdInput = document.getElementById('login-password');
+    const toggleBtn = document.getElementById('toggle-pwd-btn');
+    toggleBtn.addEventListener('click', () => {
+      if (pwdInput.type === 'password') {
+        pwdInput.type = 'text';
+        toggleBtn.textContent = '🙈';
+      } else {
+        pwdInput.type = 'password';
+        toggleBtn.textContent = '👁️';
+      }
+    });
+
+    // Hàm điền nhanh tài khoản demo
+    function fillDemo(email, pwd) {
+      document.getElementById('login-email').value = email;
+      document.getElementById('login-password').value = pwd;
+      showAlert(`Đã điền tài khoản: ${email}`, 'info');
+    }
+
+    function showAlert(msg, type = 'danger') {
+      alertBox.textContent = msg;
+      alertBox.className = `auth-alert auth-alert-${type}`;
+      alertBox.style.display = 'block';
+    }
+
+    // Xử lý gửi biểu mẫu đăng nhập
+    document.getElementById('login-form').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const email = document.getElementById('login-email').value.trim();
+      const password = document.getElementById('login-password').value;
+      const submitBtn = document.getElementById('submit-login-btn');
+
+      if (!email || !password) {
+        showAlert('Vui lòng điền đầy đủ email và mật khẩu.');
+        return;
+      }
+
+      submitBtn.disabled = true;
+      submitBtn.innerHTML = '<span>Đang xác thực...</span>';
+
+      const result = await Auth.login(email, password);
+
+      if (result.success) {
+        showToast(result.message || 'Đăng nhập thành công!', '✓');
+
+        setTimeout(() => {
+          if (redirectTarget) {
+            window.location.href = redirectTarget;
+          } else if (result.user && result.user.role === 'admin') {
+            window.location.href = 'admin.html';
+          } else {
+            window.location.href = 'index.html';
+          }
+        }, 700);
+      } else {
+        showAlert(result.message || 'Email hoặc mật khẩu không chính xác.');
+        submitBtn.disabled = false;
+        submitBtn.innerHTML = '<span>Đăng Nhập</span>';
+      }
+    });
+
+    // Xử lý Facebook Login
+    document.getElementById('facebook-login-btn').addEventListener('click', async () => {
+      // Kiểm tra xem Facebook SDK có sẵn không
+      if (typeof FB !== 'undefined') {
+        FB.login(async function(response) {
+          if (response.authResponse) {
+            FB.api('/me', { fields: 'name,email,picture' }, async function(userData) {
+              const res = await Auth.loginWithFacebook({
+                accessToken: response.authResponse.accessToken,
+                userID: response.authResponse.userID,
+                email: userData.email,
+                name: userData.name,
+                picture: userData.picture
+              });
+              if (res.success) {
+                showToast('Đăng nhập Facebook thành công!', '🎉');
+                setTimeout(() => {
+                  window.location.href = redirectTarget || 'index.html';
+                }, 700);
+              } else {
+                showAlert(res.message);
+              }
+            });
+          } else {
+            showAlert('Đăng nhập bằng Facebook đã bị hủy.');
+          }
+        }, { scope: 'public_profile,email' });
+      } else {
+        // Hướng dẫn cấu hình Facebook App ID theo yêu cầu đề bài
+        const proceedMock = confirm('Chưa cấu hình Facebook App ID chính thức trong môi trường này.\n\nBạn có muốn dùng chế độ khách hàng Facebook kiểm thử tự động không?');
+        if (proceedMock) {
+          const res = await Auth.loginWithFacebook({
+            accessToken: 'mock_demo_fb_token_2026',
+            userID: 'fb_1029384756',
+            name: 'Khách Hàng Facebook Demo',
+            email: 'facebook.customer@demo.cleannova.vn'
+          });
+          if (res.success) {
+            showToast('Đăng nhập Facebook thành công!', '🎉');
+            setTimeout(() => {
+              window.location.href = redirectTarget || 'index.html';
+            }, 700);
+          }
+        }
+      }
+    });
+  </script>
+</body>
+</html>
