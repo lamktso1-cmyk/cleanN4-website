@@ -31,7 +31,7 @@ function createProductCard(p) {
       ${p.badge ? `<div class="product-card-badge ${p.badgeType || 'badge-emerald'}">${p.badge}</div>` : ''}
       <div class="product-card-media img-zoom-container">
         <a href="${detailUrl}">
-          <img src="${p.image}" alt="${p.name}" loading="lazy">
+          <img src="${p.cardImage || p.image}" alt="${p.name}" loading="lazy">
         </a>
       </div>
       <div class="product-card-body">
