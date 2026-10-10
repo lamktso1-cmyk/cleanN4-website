@@ -153,26 +153,4 @@ function initVoucher() {
       updateSummary();
     }
   });
-
-  // Xử lý nút Tiến Hành Thanh Toán
-  const checkoutBtn = document.getElementById('proceed-checkout-btn');
-  if (checkoutBtn) {
-    checkoutBtn.addEventListener('click', async (e) => {
-      e.preventDefault();
-      const cart = getCart();
-      if (!cart || cart.length === 0) {
-        showToast('Giỏ hàng của bạn đang trống!', '⚠️');
-        return;
-      }
-
-      // Kiểm tra trạng thái đăng nhập từ server
-      const user = (typeof Auth !== 'undefined') ? await Auth.checkAuth() : null;
-      if (!user) {
-        window.location.href = `login.html?redirect=checkout.html&msg=${encodeURIComponent('Vui lòng đăng nhập tài khoản để tiến hành đặt hàng.')}`;
-      } else {
-        window.location.href = 'checkout.html';
-      }
-    });
-  }
 }
-

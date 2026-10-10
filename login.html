@@ -3,576 +3,122 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Đăng Nhập Tài Khoản | CLEANNOVA</title>
-  <meta name="description" content="Đăng nhập tài khoản CleanNova để quản lý đơn hàng, theo dõi bảo hành 18 tháng và trải nghiệm mua sắm robot hút bụi thông minh.">
-
-  <!-- Google Fonts: Be Vietnam Pro & Inter (Chuẩn tiếng Việt sắc nét cao cấp) -->
+  <title>Đăng nhập | CLEANNOVA</title>
+  <meta name="description" content="Đăng nhập CLEANNOVA bằng tài khoản demo.">
+  <link rel="icon" type="image/svg+xml" href="assets/logo/favicon.svg">
+  <link rel="icon" type="image/png" sizes="32x32" href="assets/logo/favicon-32.png">
+  <link rel="apple-touch-icon" href="assets/logo/apple-touch-icon.png">
+  <meta name="theme-color" content="#FAF8F4">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400;1,600&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-
+  <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@300;400;500;600;700&family=Manrope:wght@600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/tokens.css">
   <link rel="stylesheet" href="css/animations.css">
   <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/responsive.css">
   <link rel="stylesheet" href="css/mobile-fixes.css">
-
-  <style>
-    /* ==========================================================================
-       CLEANNOVA LUXURY AUTH TYPOGRAPHY & MOTION SYSTEM
-       ========================================================================== */
-    body {
-      font-family: var(--font-body, 'Be Vietnam Pro', 'Inter', sans-serif);
-      color: var(--text-body, #171717);
-      background-color: var(--bg-page, #FAFAFA);
-    }
-
-    .auth-page-wrapper {
-      min-height: calc(100vh - 150px);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 50px 20px;
-      position: relative;
-      overflow: hidden;
-      background: radial-gradient(circle at 50% 15%, rgba(197, 160, 89, 0.06) 0%, rgba(250, 250, 250, 1) 75%);
-    }
-
-    /* Ambient Luxury Light Orbs */
-    .auth-ambient-orb {
-      position: absolute;
-      width: 480px;
-      height: 480px;
-      border-radius: 50%;
-      background: radial-gradient(circle, rgba(197, 160, 89, 0.08) 0%, rgba(197, 160, 89, 0) 70%);
-      pointer-events: none;
-      z-index: 0;
-      animation: ambientDrift 16s ease-in-out infinite alternate;
-    }
-    .auth-ambient-orb.orb-1 { top: -140px; right: -120px; }
-    .auth-ambient-orb.orb-2 { bottom: -180px; left: -140px; animation-delay: -8s; }
-
-    @keyframes ambientDrift {
-      0%   { transform: translate(0, 0) scale(1); opacity: 0.7; }
-      100% { transform: translate(30px, 20px) scale(1.08); opacity: 1; }
-    }
-
-    /* Card Box */
-    .auth-card {
-      background: #FFFFFF;
-      border: 1px solid rgba(226, 232, 240, 0.9);
-      border-radius: var(--radius-xl, 24px);
-      padding: 44px 38px;
-      max-width: 470px;
-      width: 100%;
-      box-shadow: 0 24px 50px -18px rgba(0, 0, 0, 0.07), 0 0 1px 1px rgba(197, 160, 89, 0.08);
-      position: relative;
-      z-index: 1;
-      animation: authCardIn 0.65s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-    }
-    .auth-card::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      height: 3.5px;
-      background: linear-gradient(90deg, #B58A34 0%, #D6B45C 50%, #B58A34 100%);
-      border-radius: 24px 24px 0 0;
-    }
-
-    @keyframes authCardIn {
-      from { opacity: 0; transform: translateY(22px) scale(0.985); }
-      to   { opacity: 1; transform: translateY(0) scale(1); }
-    }
-
-    .auth-header {
-      text-align: center;
-      margin-bottom: 30px;
-    }
-    .auth-logo-center {
-      display: inline-flex;
-      align-items: center;
-      gap: 12px;
-      margin-bottom: 18px;
-      text-decoration: none;
-      transition: transform var(--transition-fast, 0.2s);
-    }
-    .auth-logo-center:hover {
-      transform: scale(1.02);
-    }
-    .n4-logo-mark {
-      transition: box-shadow 0.3s ease;
-    }
-    .auth-logo-center:hover .n4-logo-mark {
-      box-shadow: 0 0 16px rgba(197, 160, 89, 0.4);
-    }
-
-    .auth-title {
-      font-family: var(--font-heading, 'Be Vietnam Pro', sans-serif);
-      font-size: 1.8rem;
-      font-weight: 800;
-      letter-spacing: -0.025em;
-      color: #171717;
-      margin-bottom: 6px;
-      line-height: 1.25;
-    }
-    .auth-subtitle {
-      font-size: 0.9375rem;
-      color: #6B7280;
-      font-weight: 400;
-      line-height: 1.5;
-    }
-
-    /* Form Elements */
-    .form-group {
-      margin-bottom: 20px;
-      text-align: left;
-    }
-    .form-label {
-      display: block;
-      font-size: 0.875rem;
-      font-weight: 600;
-      color: #1F2937;
-      margin-bottom: 8px;
-      letter-spacing: -0.01em;
-    }
-    .input-wrapper {
-      position: relative;
-    }
-    .form-input {
-      width: 100%;
-      padding: 13px 16px;
-      border: 1.5px solid #E2E8F0;
-      border-radius: var(--radius-md, 12px);
-      font-size: 0.95rem;
-      font-family: inherit;
-      color: #171717;
-      background: #FFFFFF;
-      transition: border-color 0.22s ease, box-shadow 0.22s ease;
-      outline: none;
-    }
-    .form-input:focus {
-      border-color: #B58A34;
-      box-shadow: 0 0 0 3.5px rgba(181, 138, 52, 0.14);
-    }
-    .form-input::placeholder {
-      color: #94A3B8;
-      font-weight: 400;
-    }
-
-    .toggle-pwd-btn {
-      position: absolute;
-      right: 12px;
-      top: 50%;
-      transform: translateY(-50%);
-      background: none;
-      border: none;
-      cursor: pointer;
-      color: #64748B;
-      padding: 6px;
-      display: flex;
-      align-items: center;
-      font-size: 1.15rem;
-      border-radius: 6px;
-      transition: color 0.18s, background-color 0.18s;
-    }
-    .toggle-pwd-btn:hover {
-      color: #171717;
-      background-color: rgba(0, 0, 0, 0.04);
-    }
-
-    .auth-extra-links {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 24px;
-      font-size: 0.875rem;
-    }
-    .auth-link {
-      color: #B58A34;
-      text-decoration: none;
-      font-weight: 600;
-      transition: color 0.18s;
-    }
-    .auth-link:hover {
-      color: #8C671D;
-      text-decoration: underline;
-    }
-
-    /* Submit Button with Loading Spinner */
-    .btn-submit-luxury {
-      position: relative;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 10px;
-      width: 100%;
-      padding: 13px 20px;
-      font-size: 0.975rem;
-      font-weight: 700;
-      letter-spacing: 0.01em;
-      border-radius: var(--radius-md, 12px);
-      border: none;
-      background: linear-gradient(135deg, #C6A667 0%, #B58A34 100%);
-      color: #FFFFFF;
-      cursor: pointer;
-      box-shadow: 0 4px 16px rgba(181, 138, 52, 0.28);
-      transition: all 0.24s cubic-bezier(0.16, 1, 0.3, 1);
-    }
-    .btn-submit-luxury:hover {
-      transform: translateY(-1.5px);
-      box-shadow: 0 6px 20px rgba(181, 138, 52, 0.38);
-      background: linear-gradient(135deg, #D4AF37 0%, #B58A34 100%);
-    }
-    .btn-submit-luxury:active {
-      transform: translateY(0.5px);
-    }
-    .btn-submit-luxury:disabled {
-      opacity: 0.75;
-      cursor: not-allowed;
-      transform: none;
-    }
-
-    .spinner-icon {
-      width: 18px;
-      height: 18px;
-      border: 2px solid rgba(255, 255, 255, 0.35);
-      border-top-color: #FFFFFF;
-      border-radius: 50%;
-      animation: spin 0.75s linear infinite;
-      display: none;
-    }
-    @keyframes spin {
-      to { transform: rotate(360deg); }
-    }
-
-    .divider-or {
-      display: flex;
-      align-items: center;
-      text-align: center;
-      margin: 24px 0;
-      color: #94A3B8;
-      font-size: 0.8125rem;
-      font-weight: 600;
-      letter-spacing: 0.05em;
-    }
-    .divider-or::before, .divider-or::after {
-      content: '';
-      flex: 1;
-      border-bottom: 1px solid #E2E8F0;
-    }
-    .divider-or:not(:empty)::before { margin-right: 14px; }
-    .divider-or:not(:empty)::after  { margin-left: 14px; }
-
-    .btn-facebook {
-      background: #1877F2;
-      color: #FFFFFF;
-      border: none;
-      width: 100%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 10px;
-      font-weight: 600;
-      font-size: 0.9375rem;
-      padding: 12px 18px;
-      border-radius: var(--radius-md, 12px);
-      cursor: pointer;
-      transition: all 0.2s ease;
-      box-shadow: 0 2px 8px rgba(24, 119, 242, 0.2);
-    }
-    .btn-facebook:hover {
-      background: #166fe5;
-      transform: translateY(-1px);
-      box-shadow: 0 4px 12px rgba(24, 119, 242, 0.3);
-    }
-
-    /* Alert Message */
-    .auth-alert {
-      padding: 13px 16px;
-      border-radius: var(--radius-md, 12px);
-      font-size: 0.875rem;
-      margin-bottom: 22px;
-      display: none;
-      animation: alertSlideDown 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-      line-height: 1.5;
-    }
-    @keyframes alertSlideDown {
-      from { opacity: 0; transform: translateY(-8px); }
-      to   { opacity: 1; transform: translateY(0); }
-    }
-    .auth-alert-danger {
-      background: #FEF2F2;
-      border: 1px solid #FECACA;
-      color: #DC2626;
-    }
-    .auth-alert-info {
-      background: #FDFBF7;
-      border: 1px solid #EEDFBE;
-      color: #926F1E;
-    }
-
-    /* Demo Chips Box */
-    .demo-accounts-box {
-      margin-top: 26px;
-      background: #F8FAFC;
-      border: 1px dashed #CBD5E1;
-      border-radius: var(--radius-md, 12px);
-      padding: 16px;
-      font-size: 0.8125rem;
-      text-align: left;
-    }
-    .demo-account-chip {
-      display: inline-block;
-      padding: 5px 11px;
-      background: #FFFFFF;
-      border: 1px solid #E2E8F0;
-      border-radius: 6px;
-      cursor: pointer;
-      margin: 4px 3px 0 0;
-      font-size: 0.775rem;
-      transition: all 0.18s;
-      font-family: inherit;
-    }
-    .demo-account-chip:hover {
-      border-color: #B58A34;
-      background: rgba(181, 138, 52, 0.08);
-      color: #8C671D;
-      transform: translateY(-1px);
-    }
-  </style>
+  <link rel="stylesheet" href="css/motion.css">
+  <link rel="stylesheet" href="css/luxe.css">
+  <link rel="stylesheet" href="css/luxe-pro.css">
+  <link rel="stylesheet" href="css/decor.css">
 </head>
-<body>
-
-  <!-- Dynamic Header Injection -->
+<body class="login-page">
   <header id="main-header"></header>
 
-  <main class="auth-page-wrapper">
-    <div class="auth-ambient-orb orb-1"></div>
-    <div class="auth-ambient-orb orb-2"></div>
+  <main class="login-stage">
+    <!-- decor -->
+    <svg class="login-arc" viewBox="0 0 800 800" aria-hidden="true">
+      <circle cx="400" cy="400" r="260" /><circle cx="400" cy="400" r="340" /><circle cx="400" cy="400" r="420" />
+    </svg>
+    <span class="login-sweep" aria-hidden="true"></span>
 
-    <div class="auth-card">
-      <div class="auth-header">
-        <a href="index.html" class="auth-logo-center" aria-label="N4 CleanNova">
-          <div class="n4-logo-mark" style="width: 40px; height: 40px; font-size: 1.2rem;">
-            <span class="lm-n">N</span><span class="lm-4">4</span>
-          </div>
-          <div class="n4-logo-text" style="text-align: left;">
-            <span class="lt-brand" style="font-size: 1.2rem;">CLEANNOVA</span>
-            <span class="lt-sub" style="font-size: 0.6875rem;">Nhà sạch, người nhàn</span>
-          </div>
-        </a>
-        <h1 class="auth-title">Chào mừng trở lại</h1>
-        <p class="auth-subtitle">Đăng nhập tài khoản để tiếp tục trải nghiệm công nghệ CleanNova</p>
+    <section class="login-card" aria-labelledby="login-title">
+      <div class="login-brand">
+        <a href="index.html" class="login-logo" aria-label="CLEANNOVA"><img src="assets/logo/cleannova-mark.svg" alt="" width="120" height="120"><span class="lt-brand"><b>CLEAN</b><i>NOVA</i></span><span class="lt-sub">Robotic Vacuum Cleaner</span></a>
       </div>
+      <h1 id="login-title">Chào mừng trở lại</h1>
+      <p class="login-sub">Đăng nhập để tiếp tục với CLEANNOVA</p>
 
-      <!-- Alert Box -->
-      <div id="auth-alert" class="auth-alert"></div>
+      <div class="login-alert" id="login-alert" role="alert" hidden></div>
 
-      <!-- Form Đăng nhập -->
-      <form id="login-form">
-        <div class="form-group">
-          <label class="form-label" for="login-email">Địa chỉ Email</label>
-          <div class="input-wrapper">
-            <input type="email" id="login-email" class="form-input" placeholder="tenban@vidu.com" required autocomplete="email">
+      <form id="login-form" novalidate>
+        <label class="lf-field">
+          <span>Tên đăng nhập</span>
+          <input id="lf-user" type="text" autocomplete="username" placeholder="admin hoặc user" autofocus>
+        </label>
+        <label class="lf-field">
+          <span>Mật khẩu</span>
+          <div class="lf-pass">
+            <input id="lf-pass" type="password" autocomplete="current-password" placeholder="Nhập mật khẩu">
+            <button type="button" id="lf-eye" aria-label="Hiện mật khẩu">👁</button>
           </div>
-        </div>
-
-        <div class="form-group">
-          <label class="form-label" for="login-password">Mật khẩu</label>
-          <div class="input-wrapper">
-            <input type="password" id="login-password" class="form-input" placeholder="••••••••" required autocomplete="current-password">
-            <button type="button" class="toggle-pwd-btn" id="toggle-pwd-btn" aria-label="Hiện/ẩn mật khẩu">👁️</button>
-          </div>
-        </div>
-
-        <div class="auth-extra-links">
-          <label style="display: flex; align-items: center; gap: 7px; cursor: pointer; color: #4B5563;">
-            <input type="checkbox" id="remember-me" style="accent-color: #B58A34; width: 15px; height: 15px;"> Ghi nhớ đăng nhập
-          </label>
-          <a href="forgot-password.html" class="auth-link">Quên mật khẩu?</a>
-        </div>
-
-        <button type="submit" id="submit-login-btn" class="btn-submit-luxury">
-          <span class="spinner-icon" id="login-spinner"></span>
-          <span id="login-btn-text">Đăng Nhập</span>
-        </button>
+        </label>
+        <button type="submit" class="btn btn-primary btn-lg btn-block btn-shimmer" id="lf-submit">Đăng nhập</button>
       </form>
 
-      <div class="divider-or">HOẶC TIẾP TỤC VỚI</div>
-
-      <!-- Đăng nhập bằng Facebook -->
-      <button type="button" class="btn-facebook" id="facebook-login-btn">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
-          <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
-        </svg>
-        <span>Tiếp tục với Facebook</span>
-      </button>
-
-      <div style="text-align: center; margin-top: 24px; font-size: 0.9375rem; color: #4B5563;">
-        Chưa có tài khoản? <a href="register.html" class="auth-link" id="register-redirect-link">Đăng ký ngay</a>
-      </div>
-
-      <!-- Quick Demo Accounts (Dành cho kiểm thử & chấm đồ án) -->
-      <div class="demo-accounts-box">
-        <div style="font-weight: 700; color: #171717; margin-bottom: 6px; display: flex; align-items: center; justify-content: space-between;">
-          <span>✦ Tài khoản Demo kiểm thử:</span>
-          <span style="font-size: 0.725rem; color: #B58A34; font-weight: 600;">(Bấm để điền nhanh)</span>
-        </div>
-        <div>
-          <button type="button" class="demo-account-chip" onclick="fillDemo('admin@cleannova.test', 'admin123')">
-            👑 <strong>Admin</strong> (admin123)
+      <div class="demo-box">
+        <div class="demo-title">Tài khoản demo <small>· bấm để điền nhanh</small></div>
+        <div class="demo-list">
+          <button type="button" class="demo-chip" data-u="admin" data-p="123456">
+            <span class="demo-ic">👑</span>
+            <span><strong>Admin</strong><small>admin / 123456 · vào trang quản trị</small></span>
           </button>
-          <button type="button" class="demo-account-chip" onclick="fillDemo('customer1@cleannova.test', 'CustomerDemo@2026')">
-            🛒 <strong>Customer 1</strong> (Minh Anh)
-          </button>
-          <button type="button" class="demo-account-chip" onclick="fillDemo('customer2@cleannova.test', 'CustomerDemo@2026')">
-            🛒 <strong>Customer 2</strong> (Hoàng Nam)
-          </button>
-          <button type="button" class="demo-account-chip" onclick="fillDemo('customer3@cleannova.test', 'CustomerDemo@2026')">
-            🛒 <strong>Customer 3</strong> (Thanh Hà)
+          <button type="button" class="demo-chip" data-u="user" data-p="123456">
+            <span class="demo-ic">🙂</span>
+            <span><strong>Khách hàng</strong><small>user / 123456 · mua sắm</small></span>
           </button>
         </div>
       </div>
-    </div>
+      <a href="index.html" class="login-back">← Về trang chủ</a>
+    </section>
   </main>
 
-  <footer id="main-footer"></footer>
-  <div id="toast-container" class="toast-container"></div>
-
-  <!-- Scripts -->
+  <div id="toast-container" class="toast-container" aria-live="polite"></div>
   <script src="js/data.js"></script>
   <script src="js/auth.js"></script>
   <script src="js/app.js"></script>
-
   <script>
-    // Lấy query param redirect và thông báo nếu có
-    const urlParams = new URLSearchParams(window.location.search);
-    const redirectTarget = urlParams.get('redirect');
-    const incomingMsg = urlParams.get('msg');
+    (function () {
+      const params = new URLSearchParams(location.search);
+      const next = params.get('next');
+      const safeNext = f => (f && /^[\w-]+\.html$/.test(f)) ? f : null;
+      const form = document.getElementById('login-form');
+      const alertBox = document.getElementById('login-alert');
+      const card = document.querySelector('.login-card');
+      const uEl = document.getElementById('lf-user'), pEl = document.getElementById('lf-pass');
 
-    const alertBox = document.getElementById('auth-alert');
-    if (incomingMsg) {
-      alertBox.textContent = incomingMsg;
-      alertBox.className = 'auth-alert auth-alert-info';
-      alertBox.style.display = 'block';
-    }
+      const existing = getSession();
+      if (existing && !params.get('denied')) { location.replace(safeNext(next) || existing.home); return; }
+      if (params.get('denied')) showError('Tài khoản hiện tại không có quyền vào khu vực quản trị. Hãy đăng nhập bằng tài khoản Admin.');
 
-    // Cập nhật link đăng ký giữ param redirect
-    if (redirectTarget) {
-      document.getElementById('register-redirect-link').href = `register.html?redirect=${encodeURIComponent(redirectTarget)}`;
-    }
-
-    // Toggle ẩn/hiện mật khẩu
-    const pwdInput = document.getElementById('login-password');
-    const toggleBtn = document.getElementById('toggle-pwd-btn');
-    toggleBtn.addEventListener('click', () => {
-      if (pwdInput.type === 'password') {
-        pwdInput.type = 'text';
-        toggleBtn.textContent = '🙈';
-      } else {
-        pwdInput.type = 'password';
-        toggleBtn.textContent = '👁️';
+      function showError(msg) {
+        alertBox.textContent = msg; alertBox.hidden = false;
+        card.classList.remove('shake'); void card.offsetWidth; card.classList.add('shake');
       }
-    });
-
-    // Hàm điền nhanh tài khoản demo
-    function fillDemo(email, pwd) {
-      document.getElementById('login-email').value = email;
-      document.getElementById('login-password').value = pwd;
-      showAlert(`Đã chọn tài khoản: ${email}`, 'info');
-    }
-
-    function showAlert(msg, type = 'danger') {
-      alertBox.innerHTML = msg;
-      alertBox.className = `auth-alert auth-alert-${type}`;
-      alertBox.style.display = 'block';
-    }
-
-    // Xử lý gửi biểu mẫu đăng nhập
-    document.getElementById('login-form').addEventListener('submit', async (e) => {
-      e.preventDefault();
-      const email = document.getElementById('login-email').value.trim();
-      const password = document.getElementById('login-password').value;
-      const submitBtn = document.getElementById('submit-login-btn');
-      const spinner = document.getElementById('login-spinner');
-      const btnText = document.getElementById('login-btn-text');
-
-      if (!email || !password) {
-        showAlert('Vui lòng điền đầy đủ email và mật khẩu.');
-        return;
-      }
-
-      submitBtn.disabled = true;
-      spinner.style.display = 'inline-block';
-      btnText.textContent = 'Đang xác thực...';
-
-      const result = await Auth.login(email, password);
-
-      if (result.success) {
-        showToast(result.message || 'Đăng nhập thành công!', '✓');
-
-        setTimeout(() => {
-          if (redirectTarget) {
-            window.location.href = redirectTarget;
-          } else if (result.user && result.user.role === 'admin') {
-            window.location.href = 'admin.html';
-          } else {
-            window.location.href = 'index.html';
-          }
-        }, 600);
-      } else {
-        showAlert(result.message || 'Email hoặc mật khẩu không chính xác.');
-        submitBtn.disabled = false;
-        spinner.style.display = 'none';
-        btnText.textContent = 'Đăng Nhập';
-      }
-    });
-
-    // Xử lý Facebook Login
-    document.getElementById('facebook-login-btn').addEventListener('click', async () => {
-      if (typeof FB !== 'undefined') {
-        FB.login(async function(response) {
-          if (response.authResponse) {
-            FB.api('/me', { fields: 'name,email,picture' }, async function(userData) {
-              const res = await Auth.loginWithFacebook({
-                accessToken: response.authResponse.accessToken,
-                userID: response.authResponse.userID,
-                email: userData.email,
-                name: userData.name,
-                picture: userData.picture
-              });
-              if (res.success) {
-                showToast('Đăng nhập Facebook thành công!', '🎉');
-                setTimeout(() => {
-                  window.location.href = redirectTarget || 'index.html';
-                }, 600);
-              } else {
-                showAlert(res.message);
-              }
-            });
-          } else {
-            showAlert('Đăng nhập bằng Facebook đã bị hủy.');
-          }
-        }, { scope: 'public_profile,email' });
-      } else {
-        const proceedMock = confirm('Chưa cấu hình Facebook App ID chính thức trong môi trường này.\n\nBạn có muốn dùng chế độ khách hàng Facebook kiểm thử tự động không?');
-        if (proceedMock) {
-          const res = await Auth.loginWithFacebook({
-            accessToken: 'mock_demo_fb_token_2026',
-            userID: 'fb_1029384756',
-            name: 'Khách Hàng Facebook Demo',
-            email: 'facebook.customer@demo.cleannova.vn'
-          });
-          if (res.success) {
-            showToast('Đăng nhập Facebook thành công!', '🎉');
-            setTimeout(() => {
-              window.location.href = redirectTarget || 'index.html';
-            }, 600);
-          }
-        }
-      }
-    });
+      document.querySelectorAll('.demo-chip').forEach(b => b.addEventListener('click', () => {
+        uEl.value = b.dataset.u; pEl.value = b.dataset.p; alertBox.hidden = true;
+        document.querySelectorAll('.demo-chip').forEach(x => x.classList.toggle('picked', x === b));
+      }));
+      document.getElementById('lf-eye').addEventListener('click', () => {
+        pEl.type = pEl.type === 'password' ? 'text' : 'password';
+      });
+      form.addEventListener('submit', e => {
+        e.preventDefault();
+        if (!uEl.value.trim() || !pEl.value) return showError('Vui lòng nhập tên đăng nhập và mật khẩu.');
+        const s = login(uEl.value, pEl.value);
+        if (!s) return showError('Tên đăng nhập hoặc mật khẩu chưa đúng. Hãy thử tài khoản demo bên dưới nhé.');
+        alertBox.hidden = true;
+        const btn = document.getElementById('lf-submit');
+        btn.classList.add('loading'); btn.disabled = true; btn.textContent = 'Đang đăng nhập…';
+        showToast('Xin chào, ' + s.name + '!', '✦');
+        // admin luôn vào khu quản trị; user vào trang đã yêu cầu hoặc trang chủ
+        const dest = s.role === 'admin' ? (safeNext(next) && next.startsWith('admin') ? next : s.home) : (safeNext(next) && !next.startsWith('admin') ? next : s.home);
+        setTimeout(() => { location.href = dest; }, 750);
+      });
+    })();
   </script>
+  <script src="js/luxe.js" defer></script>
+  <script src="js/luxe-pro.js" defer></script>
+  <script src="js/decor.js" defer></script>
 </body>
 </html>

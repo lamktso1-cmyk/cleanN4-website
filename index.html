@@ -11,9 +11,13 @@
   <meta name="description" content="CLEANNOVA – Nhà sạch, người nhàn. Robot hút bụi lau nhà thông minh, nhận diện vật cản AI 3D, trạm sạc tự giặt và sấy giẻ lau. Bảo hành 18 tháng.">
 
   <!-- Preload fonts -->
+  <link rel="icon" type="image/svg+xml" href="assets/logo/favicon.svg">
+  <link rel="icon" type="image/png" sizes="32x32" href="assets/logo/favicon-32.png">
+  <link rel="apple-touch-icon" href="assets/logo/apple-touch-icon.png">
+  <meta name="theme-color" content="#FAF8F4">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600;9..40,700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@300;400;500;600;700&family=Manrope:wght@600;700;800&display=swap" rel="stylesheet">
 
   <!-- Design System -->
   <link rel="stylesheet" href="css/tokens.css">
@@ -367,17 +371,17 @@
   </style>
     <link rel="stylesheet" href="css/mobile-fixes.css">
   <link rel="stylesheet" href="css/motion.css">
+  <link rel="stylesheet" href="css/luxe.css">
+  <link rel="stylesheet" href="css/luxe-pro.css">
+  <link rel="stylesheet" href="css/decor.css">
 </head>
 <body>
 
   <!-- ════════════════════════════════
        INTRO SPLASH
   ════════════════════════════════ -->
-  <div id="n4-intro-splash" class="intro-screen" role="dialog" aria-label="Giới thiệu N4 Cleannova">
-    <div class="intro-logo-mark">
-      <span class="intro-n">N</span>
-      <span class="intro-4">4</span>
-    </div>
+  <div id="n4-intro-splash" class="intro-screen" role="dialog" aria-label="Giới thiệu CLEANNOVA">
+    <div class="intro-logo-mark"><img src="assets/logo/cleannova-mark.svg" alt="" width="120" height="120"><span class="intro-word"><b>CLEAN</b><i>NOVA</i></span></div>
     <div class="intro-bar"></div>
     <div class="intro-tagline">CLEANNOVA · NHÀ SẠCH · NGƯỜI NHÀN</div>
   </div>
@@ -391,30 +395,35 @@
          HERO SECTION
     ════════════════════════════════ -->
     <section class="hero" id="hero">
+      <div class="hero-decor" aria-hidden="true">
+        <svg class="hd-arcs" viewBox="0 0 900 900"><circle cx="450" cy="450" r="250"/><circle cx="450" cy="450" r="340"/><circle cx="450" cy="450" r="430"/></svg>
+        <span class="hd-sweep"></span>
+        <span class="hd-dust d1"></span><span class="hd-dust d2"></span><span class="hd-dust d3"></span><span class="hd-dust d4"></span><span class="hd-dust d5"></span><span class="hd-dust d6"></span>
+      </div>
       <div class="container">
         <div class="hero-inner">
 
           <!-- Left: Text + CTA -->
           <div class="hero-text-side">
-            <div class="hero-eyebrow">
+            <div class="hero-eyebrow hero-stagger" style="--i:0">
               <span class="eyebrow-dot"></span>
               Thương hiệu Việt · Smart Cleaning Technology
             </div>
-            <h1 class="hero-title">
+            <h1 class="hero-title hero-stagger" style="--i:1">
               Nhà sạch hơn,<br>
               <em>cuộc sống nhẹ nhàng hơn</em>
             </h1>
-            <p class="hero-desc">
+            <p class="hero-desc hero-stagger" style="--i:2">
               Robot hút bụi lau nhà thông minh: nhận diện vật cản AI 3D, trạm sạc tự giặt và sấy giẻ lau, giúp bạn có thêm thời gian cho những điều yêu thương.
             </p>
-            <div class="hero-actions">
+            <div class="hero-actions hero-stagger" style="--i:3">
               <a href="products.html" class="btn btn-primary btn-lg btn-shimmer" id="hero-btn-shop">
                 Xem tất cả sản phẩm
                 <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
               </a>
               <a href="contact.html" class="btn btn-outline btn-lg">Nhận tư vấn miễn phí</a>
             </div>
-            <div class="hero-trust-row">
+            <div class="hero-trust-row hero-stagger" style="--i:4">
               <div class="hero-trust-item">
                 <span class="check">✓</span> Bảo hành 18 tháng
               </div>
@@ -430,7 +439,7 @@
           <!-- Right: Product Image -->
           <div class="hero-visual-wrap">
             <div class="hero-img-box animate-float">
-              <img src="assets/images/cat-robot.jpg" alt="N4 Cleannova Robot Vacuum Flagship White & Gold" loading="eager">
+              <img src="assets/images/cat-robot.jpg" alt="CLEANNOVA Robot Vacuum Flagship White & Gold" loading="eager">
             </div>
             <!-- Floating chips -->
             <div class="hero-chip chip-tr">
@@ -467,6 +476,13 @@
       </div>
     </div>
 
+    <div class="marquee-strip" aria-hidden="true">
+      <div class="marquee-track">
+        <span>Hút bụi</span><i>✦</i><span>Lau nhà</span><i>✦</i><span>Tự giặt giẻ</span><i>✦</i><span>Tự sấy giẻ</span><i>✦</i><span>Nhận diện vật cản AI 3D</span><i>✦</i><span>Bộ lọc HEPA</span><i>✦</i><span>Bảo hành 18 tháng</span><i>✦</i><span>CLEANNOVA</span><i>✦</i><span>Smart Cleaning</span><i>✦</i><span>Premium Living</span><i>✦</i>
+        <span>Hút bụi</span><i>✦</i><span>Lau nhà</span><i>✦</i><span>Tự giặt giẻ</span><i>✦</i><span>Tự sấy giẻ</span><i>✦</i><span>Nhận diện vật cản AI 3D</span><i>✦</i><span>Bộ lọc HEPA</span><i>✦</i><span>Bảo hành 18 tháng</span><i>✦</i><span>CLEANNOVA</span><i>✦</i><span>Smart Cleaning</span><i>✦</i><span>Premium Living</span><i>✦</i>
+      </div>
+    </div>
+
     <!-- ════════════════════════════════
          DANH MỤC SẢN PHẨM (TRỌNG TÂM TRANG CHỦ - 6 DANH MỤC)
     ════════════════════════════════ -->
@@ -477,35 +493,7 @@
           <h2 class="section-title">Hệ Sinh Thái Làm Sạch Toàn Diện</h2>
           <p class="section-subtitle">Thiết bị vệ sinh gia đình cao cấp phong cách Trắng & Gold tinh tế. Tối giản, hiện đại và chuẩn xác cho từng góc nhà.</p>
         </div>
-        <div class="cat-row">
-
-          <!-- 1. Robot hút bụi -->
-          <a href="products.html?category=robot" class="cat-tile reveal">
-            <div class="cat-tile-img">
-              <img src="assets/images/cat-robot.jpg" alt="Robot hút bụi thông minh N4">
-            </div>
-            <div class="cat-tile-body">
-              <div class="cat-tile-header">
-                <span class="cat-tile-icon">🤖</span>
-                <span class="cat-tile-badge">FLAGSHIP</span>
-              </div>
-              <div class="cat-tile-name">Robot hút bụi</div>
-              <div class="cat-tile-count">Hút bụi, lau nhà, AI 3D và trạm sạc tự giặt sấy giẻ</div>
-              <div class="cat-tile-arrow">Khám phá danh mục <span>→</span></div>
-            </div>
-          </a>
-
-          <!-- 2. Máy hút bụi -->
-
-          <!-- 3. Thiết bị vệ sinh -->
-
-          <!-- 4. Thiết bị dọn rác -->
-
-          <!-- 5. Phụ kiện -->
-
-          <!-- 6. Linh kiện -->
-
-        </div>
+        <div class="cat-row" id="cat-row"><!-- Render từ CATEGORIES (data.js) --></div>
       </div>
     </section>
 
@@ -678,6 +666,22 @@
   <script>
     // Render best sellers on homepage
     document.addEventListener('DOMContentLoaded', () => {
+      const catRow = document.getElementById('cat-row');
+      if (catRow && typeof CATEGORIES !== 'undefined') {
+        catRow.innerHTML = CATEGORIES.filter(c => !c.hidden).map(c => `
+          <a href="products.html?category=${c.id}" class="cat-tile reveal">
+            <div class="cat-tile-img"><img src="${c.image}" alt="${c.name}" loading="lazy"></div>
+            <div class="cat-tile-body">
+              <div class="cat-tile-header">
+                <span class="cat-tile-icon">${c.icon}</span>
+                <span class="cat-tile-badge">${c.badge}</span>
+              </div>
+              <div class="cat-tile-name">${c.name}</div>
+              <div class="cat-tile-count">${c.subtitle}</div>
+              <div class="cat-tile-arrow">Khám phá danh mục <span>→</span></div>
+            </div>
+          </a>`).join('');
+      }
       const grid = document.getElementById('homepage-product-grid');
       if (!grid || typeof PRODUCTS === 'undefined') return;
 
@@ -717,14 +721,13 @@
         </div>
       `).join('');
 
-      // Trigger scroll-reveal for statically rendered cards
-      setTimeout(() => {
-        document.querySelectorAll('.reveal').forEach(el => {
-          el.classList.add('revealed');
-        });
-      }, 150);
+      // Kích hoạt hiệu ứng cuộn cho các thẻ vừa render
+      if (typeof initScrollReveal === 'function') initScrollReveal();
     });
   </script>
   <script src="js/motion.js" defer></script>
+  <script src="js/luxe.js" defer></script>
+  <script src="js/luxe-pro.js" defer></script>
+  <script src="js/decor.js" defer></script>
 </body>
 </html>

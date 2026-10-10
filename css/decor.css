@@ -1,0 +1,247 @@
+/* ==========================================================================
+   CLEANNOVA — DECOR SYSTEM + BRAND LOGO
+   Nạp SAU luxe-pro.css · dùng chung cho MỌI trang (shop + admin + login).
+   Palette: trắng/kem 80% · xám than (charcoal) cho chữ · champagne gold #C5A059 làm nhấn.
+   Nguyên tắc: mảnh · chìm · pointer-events:none · không che nội dung · tự dừng khi khuất màn hình.
+   ========================================================================== */
+
+:root {
+  --cn-gold: #C5A059; --cn-gold-lt: #E6CD97; --cn-gold-dk: #A68032; --cn-char: #2B2620;
+  --cn-spark: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='-12 -12 24 24'%3E%3Cpath d='M0-11 L2.8-2.8 L11 0 L2.8 2.8 L0 11 L-2.8 2.8 L-11 0 L-2.8-2.8Z' fill='%23C5A059'/%3E%3C/svg%3E");
+  --cn-gold-text: linear-gradient(100deg, #A27A2A 0%, #C9A04E 35%, #E2C277 55%, #BC9340 78%, #A27A2A 100%);
+}
+html, body { overflow-x: clip; }
+
+/* ═════════ 1. LOGO CLEANNOVA ═════════ */
+.n4-logo { position: relative; gap: 12px; align-items: center; }
+.n4-logo-mark {
+  width: 52px; height: 52px; padding: 0; border: 0; border-radius: 0; background: none; box-shadow: none; flex-shrink: 0; display: block;
+}
+.n4-logo:hover .n4-logo-mark { box-shadow: none; border: 0; transform: rotate(-3deg) scale(1.05); }
+.n4-logo-mark img { display: block; width: 100%; height: 100%; object-fit: contain; filter: drop-shadow(0 5px 9px rgba(166,128,50,.30)); }
+.n4-logo-text { gap: 5px; }
+.lt-brand { display: block; font-family: var(--font-heading); font-weight: 800; font-size: 1.28rem; letter-spacing: .11em; line-height: 1; white-space: nowrap; }
+.lt-brand b { font-weight: inherit; color: var(--cn-char); }
+.lt-brand i { font-style: normal; font-weight: inherit; color: var(--cn-gold-dk);
+  background: var(--cn-gold-text); background-size: 220% 100%; -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;
+  animation: cnGoldFlow 8s ease-in-out infinite; }
+@keyframes cnGoldFlow { 0%, 100% { background-position: 0 0; } 50% { background-position: 100% 0; } }
+.n4-logo-text .lt-sub, .login-logo .lt-sub, .admin-brand-text .lt-sub {
+  display: flex; align-items: center; gap: 6px; margin: 0; font-family: var(--font-ui); font-size: .5rem; font-weight: 600; letter-spacing: .3em;
+  text-transform: uppercase; color: var(--cn-char); line-height: 1; white-space: nowrap; opacity: .82;
+}
+.n4-logo-text .lt-sub::before, .n4-logo-text .lt-sub::after, .login-logo .lt-sub::before, .login-logo .lt-sub::after,
+.admin-brand-text .lt-sub::before { content: ''; flex: 1 1 8px; min-width: 6px; height: 1px; background: linear-gradient(90deg, transparent, var(--cn-gold)); }
+.n4-logo-text .lt-sub::after, .login-logo .lt-sub::after { background: linear-gradient(270deg, transparent, var(--cn-gold)); }
+.main-footer .n4-logo.inverted .lt-brand b { color: var(--cn-char); }
+.main-footer .n4-logo.inverted .lt-sub { color: var(--cn-char); }
+.main-footer .n4-logo.inverted .n4-logo-mark { background: none; border: 0; }
+/* lấp lánh nhỏ cạnh logo */
+.n4-logo::after { content: ''; position: absolute; left: 40px; top: -3px; width: 9px; height: 9px; pointer-events: none;
+  background: var(--cn-spark) center / contain no-repeat; animation: cnTwinkle 4.2s ease-in-out infinite; }
+
+/* intro splash */
+.intro-logo-mark { flex-direction: column; align-items: center; gap: 14px; }
+.intro-logo-mark img { width: 118px; height: 118px; animation: introReveal .8s var(--ease-out) both; filter: drop-shadow(0 12px 22px rgba(166,128,50,.32)); }
+.intro-word { font-family: var(--font-heading); font-weight: 800; font-size: 2.1rem; letter-spacing: .14em; line-height: 1; animation: introReveal .8s .12s var(--ease-out) both; }
+.intro-word b { color: var(--cn-char); font-weight: inherit; }
+.intro-word i { font-style: normal; background: var(--cn-gold-text); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; }
+
+/* login */
+.login-logo { display: flex; flex-direction: column; align-items: center; gap: 9px; text-decoration: none; }
+.login-logo img { width: 96px; height: 96px; filter: drop-shadow(0 10px 18px rgba(166,128,50,.32)); transition: transform .6s var(--ease-out); }
+.login-logo:hover img { transform: rotate(-4deg) scale(1.05); }
+.login-logo .lt-brand { font-size: 1.55rem; }
+.login-logo .lt-sub { align-self: stretch; font-size: .5625rem; }
+.login-brand { margin-bottom: 18px; }
+
+/* admin sidebar */
+.admin-sidebar-header { padding: 20px 20px 16px; }
+.admin-brand { gap: 11px; }
+.admin-brand-img { width: 44px; height: 44px; flex-shrink: 0; filter: drop-shadow(0 4px 8px rgba(166,128,50,.28)); }
+.admin-brand-text { display: flex; flex-direction: column; gap: 5px; min-width: 0; }
+.admin-brand-text .lt-brand { font-size: 1.02rem; letter-spacing: .1em; }
+.admin-brand-text .lt-sub { font-size: .46rem; letter-spacing: .24em; }
+
+/* chatbot */
+.chatbot-fab-circle { background: radial-gradient(circle at 35% 28%, #FFFFFF, #FBF4E2 70%, #F1E3BE) !important; border: 1.5px solid #D9B96F; box-shadow: 0 12px 28px rgba(166,128,50,.38), inset 0 1px 0 #fff !important; }
+.cb-fab-logo { width: 42px; height: 42px; display: block; filter: drop-shadow(0 2px 3px rgba(166,128,50,.35)); }
+.chatbot-avatar { background: radial-gradient(circle at 35% 28%, #FFFFFF, #F7EDD2) !important; border: 1.5px solid #D9B96F; overflow: hidden; }
+.chatbot-avatar img { width: 30px; height: 30px; display: block; }
+
+@media (max-width: 767px) {
+  .n4-logo { gap: 9px; }
+  .n4-logo-mark { width: 44px; height: 44px; }
+  .lt-brand { font-size: 1.04rem; letter-spacing: .09em; }
+  .n4-logo-text .lt-sub { font-size: .44rem; letter-spacing: .22em; }
+  .n4-logo::after { left: 33px; }
+  .login-logo img { width: 82px; height: 82px; }
+  .intro-logo-mark img { width: 96px; height: 96px; } .intro-word { font-size: 1.7rem; }
+}
+@media (max-width: 380px) { .n4-logo-text .lt-sub::before { display: none; } .lt-brand { font-size: .98rem; } }
+
+/* watermark: thay "N4" bằng line-art logo */
+.lp-mark, .lp-mark.sm {
+  font-size: 0 !important; color: transparent !important; -webkit-text-stroke: 0 !important;
+  width: clamp(280px, 36vw, 560px); aspect-ratio: 1; line-height: 0;
+  background: url('../assets/logo/cleannova-watermark.svg') center / contain no-repeat !important;
+  -webkit-background-clip: border-box !important; background-clip: border-box !important; opacity: .42;
+}
+.lp-mark.sm { width: clamp(220px, 26vw, 400px); }
+@media (max-width: 767px) { .lp-mark, .lp-mark.sm { width: 240px; opacity: .32; } }
+
+/* ═════════ 2. NỀN TOÀN TRANG (cố định, rất nhẹ) ═════════ */
+.cn-page-art { position: fixed; inset: 0; z-index: -1; pointer-events: none; overflow: hidden; contain: strict; }
+.cn-page-art svg { position: absolute; fill: none; stroke: var(--cn-gold); stroke-width: 1; }
+.cn-page-art .l { left: -260px; top: 14vh; width: 620px; opacity: .22; }
+.cn-page-art .r { right: -300px; bottom: -4vh; width: 700px; opacity: .2; transform: scaleX(-1); }
+.cn-page-art .l path:nth-child(2), .cn-page-art .r path:nth-child(2) { stroke-dasharray: 2 9; opacity: .8; }
+.cn-page-art i { position: absolute; width: 12px; height: 12px; background: var(--cn-spark) center / contain no-repeat; opacity: .55; animation: cnTwinkle 5s ease-in-out infinite; }
+.cn-page-art i:nth-of-type(1) { left: 7vw; top: 30vh; } .cn-page-art i:nth-of-type(2) { right: 8vw; top: 22vh; animation-delay: -1.6s; width: 9px; height: 9px; }
+.cn-page-art i:nth-of-type(3) { right: 15vw; bottom: 16vh; animation-delay: -3s; } .cn-page-art i:nth-of-type(4) { left: 14vw; bottom: 10vh; animation-delay: -2.2s; width: 8px; height: 8px; }
+
+/* ═════════ 3. DẢI DECOR GIỮA CÁC SECTION ═════════ */
+.cn-divider { position: relative; height: 0; z-index: 6; pointer-events: none; }
+.cn-divider-in { position: absolute; left: 0; right: 0; top: -28px; height: 56px; overflow: hidden; }
+.cn-divider svg { position: absolute; left: 50%; top: 0; width: 1440px; height: 56px; margin-left: -720px; overflow: visible; }
+.cn-divider .ln { fill: none; stroke-width: 1.1; }
+.cn-divider .ln.a { stroke: url(#cnDivG); }
+.cn-divider .ln.b { stroke: rgba(197,160,89,.38); stroke-dasharray: 2 9; }
+.cn-divider .wake { fill: none; stroke: rgba(230,205,151,.7); stroke-width: 11; stroke-linecap: round; opacity: 0;
+  stroke-dasharray: 1700; stroke-dashoffset: 1700; animation: cnWake 22s linear infinite; }
+.cn-divider .bot { offset-path: path('M0 30 C 160 6, 300 54, 520 30 S 900 6, 1120 30 S 1340 52, 1440 26'); offset-rotate: 0deg; offset-distance: 0%; animation: cnBot 22s linear infinite; }
+.cn-divider .gem { fill: var(--cn-gold); }
+.cn-divider .gem.o { fill: #fff; stroke: var(--cn-gold); stroke-width: 1.2; }
+@keyframes cnBot { 0% { offset-distance: 0%; opacity: 0; } 5% { opacity: 1; } 95% { opacity: 1; } 100% { offset-distance: 100%; opacity: 0; } }
+@keyframes cnWake { 0% { stroke-dashoffset: 1700; opacity: 0; } 6% { opacity: .38; } 94% { opacity: .38; } 100% { stroke-dashoffset: 0; opacity: 0; } }
+
+/* ═════════ 4. TIÊU ĐỀ SECTION: ornament ═════════ */
+.cn-orn { display: block; width: 132px; height: 16px; margin: 14px 0 6px; pointer-events: none; }
+.cn-orn.c { margin-left: auto; margin-right: auto; }
+.cn-orn svg { display: block; width: 100%; height: 100%; overflow: visible; }
+.cn-orn .o1 { stroke: url(#cnOrnL); } .cn-orn .o2 { stroke: url(#cnOrnR); }
+.cn-orn path { fill: none; stroke-width: 1.2; }
+.cn-orn .sp { fill: var(--cn-gold); stroke: none; transform-box: fill-box; transform-origin: center; animation: cnSpin 7s ease-in-out infinite; }
+.cn-orn:not(.c) .o2 { opacity: .5; }
+@keyframes cnSpin { 0%, 100% { transform: scale(1) rotate(0); } 50% { transform: scale(1.25) rotate(45deg); } }
+
+/* ═════════ 5. DECOR THEO KHỐI ═════════ */
+.cn-host { position: relative; isolation: isolate; }
+.cn-deco { position: absolute; top: 0; bottom: 0; left: 50%; width: 100vw; margin-left: -50vw; z-index: -1; pointer-events: none; overflow: hidden; contain: layout paint; }
+.admin-sidebar.cn-host .cn-deco, .admin-topbar .cn-deco, .chatbot-window-box .cn-deco { left: 0; width: 100%; margin-left: 0; }
+.cn-deco > * { position: absolute; }
+.cn-deco svg { display: block; fill: none; stroke: var(--cn-gold); stroke-width: 1; overflow: visible; }
+/* vòng cung */
+.cn-arcs { width: 520px; height: 520px; opacity: .5; }
+.cn-arcs circle { vector-effect: non-scaling-stroke; }
+.cn-arcs circle:nth-child(1) { opacity: .5; } .cn-arcs circle:nth-child(2) { stroke-dasharray: 2 9; opacity: .7; } .cn-arcs circle:nth-child(3) { opacity: .3; }
+.cn-arcs.tl { left: -230px; top: -240px; } .cn-arcs.tr { right: -220px; top: -250px; }
+.cn-arcs.bl { left: -240px; bottom: -260px; } .cn-arcs.br { right: -230px; bottom: -260px; }
+.cn-arcs.spin { animation: cnSlow 140s linear infinite; }
+@keyframes cnSlow { to { transform: rotate(360deg); } }
+/* ruy-băng lụa */
+.cn-ribbon { left: 0; width: 100%; height: 120px; opacity: .6; mix-blend-mode: multiply; }
+.cn-ribbon svg { width: 100%; height: 100%; stroke: none; }
+.cn-ribbon svg path { animation: cnSilk 16s ease-in-out infinite alternate; transform-origin: 50% 50%; }
+.cn-ribbon svg path:nth-child(2) { animation-duration: 21s; animation-delay: -7s; }
+.cn-ribbon.t { top: 0; } .cn-ribbon.b { bottom: 0; } .cn-ribbon.m { top: 40%; }
+@keyframes cnSilk { from { transform: translateX(-2.5%) scaleY(1); } to { transform: translateX(2.5%) scaleY(1.2); } }
+/* đường quét robot */
+.cn-trail { left: 0; width: 100%; height: 160px; opacity: .9; }
+.cn-trail svg { width: 100%; height: 100%; stroke: none; }
+.cn-trail .p { fill: none; stroke: rgba(197,160,89,.38); stroke-width: 1.1; stroke-dasharray: 3 9; }
+.cn-trail .w { fill: none; stroke: rgba(230,205,151,.6); stroke-width: 12; stroke-linecap: round; opacity: 0; stroke-dasharray: 1700; stroke-dashoffset: 1700; animation: cnWake 18s linear infinite; }
+.cn-trail .bot { offset-path: path('M0 100 C 200 30, 340 40, 520 96 S 860 150, 1040 70 S 1300 36, 1440 90'); offset-rotate: 0deg; offset-distance: 0%; animation: cnBot 18s linear infinite; }
+.cn-trail.t { top: 12%; } .cn-trail.b { bottom: 4%; }
+/* lấp lánh */
+.cn-spark { width: 14px; height: 14px; background: var(--cn-spark) center / contain no-repeat; opacity: .6; animation: cnTwinkle 5s ease-in-out infinite; }
+.cn-spark.s { width: 9px; height: 9px; } .cn-spark.l { width: 20px; height: 20px; opacity: .5; }
+@keyframes cnTwinkle { 0%, 100% { opacity: .15; transform: scale(.7) rotate(0); } 50% { opacity: .85; transform: scale(1.1) rotate(25deg); } }
+/* lưới chấm */
+.cn-dots { width: 300px; height: 300px; opacity: .5; background-image: radial-gradient(rgba(197,160,89,.55) 1px, transparent 1.6px); background-size: 22px 22px;
+  -webkit-mask-image: radial-gradient(circle, #000 0, transparent 66%); mask-image: radial-gradient(circle, #000 0, transparent 66%); }
+/* tia sáng quét ngang */
+.cn-beam { left: 0; right: 0; height: 1px; background: linear-gradient(90deg, transparent, rgba(197,160,89,.4), transparent); overflow: hidden; }
+.cn-beam.t { top: 0; } .cn-beam.b { bottom: 0; }
+.cn-beam::after { content: ''; position: absolute; top: -1px; height: 3px; width: 20%; left: -30%; background: linear-gradient(90deg, transparent, rgba(230,205,151,.95), transparent); animation: lpBeam 8s var(--lp-ease, ease) infinite; }
+/* khối nhỏ (sidebar / topbar / chatbot) */
+.cn-mini .cn-arcs { width: 260px; height: 260px; }
+.cn-paused, .cn-paused * , .cn-paused::before, .cn-paused::after { animation-play-state: paused !important; }
+
+/* ═════════ 6. CHI TIẾT NHỎ ═════════ */
+/* góc thẻ: sản phẩm / giỏ / checkout / contact / admin / login / chatbot */
+.cn-card { position: relative; isolation: isolate; }
+.cn-corner { position: absolute; top: 0; right: 0; width: 84px; height: 84px; z-index: -1; pointer-events: none; fill: none; stroke: var(--cn-gold); stroke-width: 1;
+  opacity: .34; transition: opacity .5s var(--lp-ease, ease), transform .7s var(--lp-ease, ease); transform-origin: 100% 0; }
+.cn-corner circle { vector-effect: non-scaling-stroke; }
+.cn-corner circle:nth-child(2) { stroke-dasharray: 2 6; }
+.cn-corner .sp { fill: var(--cn-gold); stroke: none; }
+.cn-card:hover > .cn-corner { opacity: .75; transform: scale(1.12); }
+.hp-card > .cn-corner, .product-card > .cn-corner, .cat-tile > .cn-corner { top: auto; bottom: 0; right: 0; transform-origin: 100% 100%; }
+.hp-card > .cn-corner, .product-card > .cn-corner { transform: scaleY(-1); }
+.hp-card:hover > .cn-corner, .product-card:hover > .cn-corner { transform: scaleY(-1) scale(1.12); }
+.login-card > .cn-corner { width: 120px; height: 120px; opacity: .5; z-index: 0; }
+.chatbot-window-box > .cn-corner { z-index: 0; opacity: .3; }
+.admin-kpi-card > .cn-corner { width: 64px; height: 64px; }
+
+/* header: viền sáng thứ hai + lấp lánh logo */
+.main-header::before { content: ''; position: absolute; left: 0; right: 0; bottom: 3px; height: 1px; pointer-events: none; opacity: .5;
+  background: linear-gradient(90deg, transparent 5%, rgba(197,160,89,.28) 30%, transparent 50%, rgba(197,160,89,.28) 70%, transparent 95%); }
+.nav-link.active { position: relative; }
+.nav-link.active::after { content: ''; position: absolute; left: 50%; bottom: 1px; width: 6px; height: 6px; margin-left: -3px; pointer-events: none;
+  background: var(--cn-spark) center / contain no-repeat; animation: cnTwinkle 4s ease-in-out infinite; }
+
+/* footer: vạch chân trang */
+.main-footer .footer-grid { position: relative; }
+.main-footer .footer-col-title { position: relative; padding-bottom: 12px; }
+.main-footer .footer-col-title::after { content: ''; position: absolute; left: 0; bottom: 0; width: 34px; height: 1px; background: linear-gradient(90deg, var(--cn-gold), transparent); }
+
+/* admin: sidebar + topbar */
+.admin-sidebar.cn-host { overflow: hidden; }
+.admin-sidebar .admin-sidebar-header, .admin-sidebar .admin-sidebar-nav, .admin-sidebar .admin-sidebar-footer { position: relative; z-index: 1; }
+.admin-sidebar-header::after { content: ''; display: block; height: 1px; margin-top: 14px; background: linear-gradient(90deg, var(--cn-gold), transparent 80%); opacity: .6; }
+.admin-topbar::after { content: ''; position: absolute; left: 0; right: 0; bottom: -1px; height: 1px; pointer-events: none;
+  background: linear-gradient(90deg, transparent, rgba(197,160,89,.55), rgba(230,205,151,.9), rgba(197,160,89,.55), transparent); background-size: 200% 100%; animation: lpHeaderLine 10s linear infinite; }
+.admin-card-title { position: relative; }
+.admin-card-title::before { content: '✦'; margin-right: 8px; font-size: .7em; color: var(--cn-gold); vertical-align: .08em; }
+
+/* chatbot header */
+.chatbot-win-header { overflow: hidden; }
+
+/* ═════════ 7. RESPONSIVE / HIỆU NĂNG ═════════ */
+@media (max-width: 1023px) {
+  .cn-arcs { width: 380px; height: 380px; } .cn-dots { display: none; }
+  .cn-page-art .l { width: 420px; } .cn-page-art .r { width: 480px; }
+}
+@media (max-width: 767px) {
+  .cn-divider-in { top: -22px; height: 44px; } .cn-divider svg { height: 44px; transform: scaleY(.8); transform-origin: 50% 0; }
+  .cn-trail { height: 110px; } .cn-ribbon { height: 80px; }
+  .cn-arcs { width: 280px; height: 280px; } .cn-arcs.spin { animation: none; }
+  .cn-page-art i:nth-of-type(n+3) { display: none; }
+  .cn-orn { width: 108px; }
+  .cn-corner { width: 64px; height: 64px; }
+  .cn-spark.l { display: none; }
+}
+@media (hover: none) { .cn-card:hover > .cn-corner { transform: none; } .hp-card:hover > .cn-corner, .product-card:hover > .cn-corner { transform: scaleY(-1); } }
+@media (prefers-reduced-motion: reduce) {
+  .lt-brand i, .n4-logo::after, .cn-page-art i, .cn-orn .sp, .cn-spark, .cn-ribbon svg path, .cn-arcs.spin, .cn-beam::after,
+  .cn-divider .bot, .cn-divider .wake, .cn-trail .bot, .cn-trail .w, .admin-topbar::after, .nav-link.active::after { animation: none !important; }
+  .cn-divider .bot, .cn-trail .bot { offset-distance: 55%; opacity: 1; }
+  .cn-divider .wake, .cn-trail .w { stroke-dashoffset: 0; opacity: .25; }
+  .cn-spark, .cn-page-art i { opacity: .5; }
+}
+@media print { .cn-page-art, .cn-deco, .cn-divider, .cn-corner { display: none !important; } }
+
+/* watermark trong footer: nhạt hơn để không đè chữ */
+.main-footer .lp-mark, .main-footer .lp-mark.sm { opacity: .2; width: clamp(240px, 26vw, 400px); }
+
+@media (max-width: 767px) {
+  .n4-logo-text .lt-sub { letter-spacing: .16em; font-size: .42rem; }
+  .n4-logo-text .lt-sub::before, .n4-logo-text .lt-sub::after { display: none; }
+  .n4-logo-mark { width: 40px; height: 40px; } .n4-logo::after { left: 30px; }
+}
+
+/* Dashboard: tiêu đề không còn dòng phụ → ornament sát tiêu đề, topbar gọn */
+.admin-page-title.no-sub .cn-orn { margin: 8px 0 0; }
+.admin-topbar:has(.admin-page-title.no-sub) { padding-top: 20px; padding-bottom: 20px; }
+.admin-topbar + .admin-card { margin-top: 24px; }

@@ -9,6 +9,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initHeader();
   initFooter();
   initMobileDrawer();
+  initUserMenu();
   initSearch();
   initScrollEffects();
   initScrollReveal();
@@ -22,6 +23,10 @@ document.addEventListener('DOMContentLoaded', () => {
 function initIntroSplash() {
   const intro = document.getElementById('n4-intro-splash');
   if (!intro) return;
+  try {
+    if (sessionStorage.getItem('n4_intro_seen')) { intro.remove(); return; }
+    sessionStorage.setItem('n4_intro_seen', '1');
+  } catch (e) {}
 
   function dismiss() {
     if (intro.classList.contains('hiding')) return;
@@ -36,6 +41,18 @@ function initIntroSplash() {
 /* ---------------------------------------------------------
    2. DYNAMIC HEADER
    --------------------------------------------------------- */
+
+/* ---------------------------------------------------------
+   BRAND LOGO (CLEANNOVA) — dùng chung header / footer / login / admin
+   --------------------------------------------------------- */
+const CN_LOGO_SRC = 'assets/logo/cleannova-mark.svg';
+function cnLogoHTML(opts) {
+  opts = opts || {};
+  const sub = opts.sub === false ? '' : '<span class="lt-sub">Robotic Vacuum Cleaner</span>';
+  return `<span class="n4-logo-mark"><img src="${CN_LOGO_SRC}" alt="" width="120" height="120" decoding="async"></span>
+          <span class="n4-logo-text"><span class="lt-brand"><b>CLEAN</b><i>NOVA</i></span>${sub}</span>`;
+}
+
 function initHeader() {
   const headerEl = document.getElementById('main-header');
   if (!headerEl) return;
@@ -51,14 +68,8 @@ function initHeader() {
       <div class="header-inner">
 
         <!-- Logo -->
-        <a href="index.html" class="n4-logo" aria-label="N4 Cleannova Trang chủ">
-          <div class="n4-logo-mark">
-            <span class="lm-n">N</span><span class="lm-4">4</span>
-          </div>
-          <div class="n4-logo-text">
-            <span class="lt-brand">CLEANNOVA</span>
-            <span class="lt-sub">Nhà sạch, người nhàn</span>
-          </div>
+        <a href="index.html" class="n4-logo" aria-label="CLEANNOVA – Trang chủ">
+          ${cnLogoHTML()}
         </a>
 
         <!-- Desktop nav -->
@@ -70,12 +81,14 @@ function initHeader() {
         </nav>
 
         <!-- Actions -->
-        <div class="nav-actions" id="header-nav-actions">
+        <div class="nav-actions">
           <button class="btn-icon" id="search-toggle-btn" aria-label="Tìm kiếm">
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
               <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
             </svg>
           </button>
+
+          ${authAreaHTML()}
 
           <a href="cart.html" class="btn-icon" style="position:relative" aria-label="Giỏ hàng">
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
@@ -85,9 +98,6 @@ function initHeader() {
             <span class="header-cart-count" id="cart-count" style="display:none">0</span>
           </a>
 
-          <!-- Dynamic Auth UI (Guest: Đăng nhập/Đăng ký | Logged: User Profile Menu) -->
-          <div id="nav-auth-container" class="nav-auth-group"></div>
-
           <button class="hamburger-btn" id="mobile-menu-toggle" aria-label="Mở menu">
             <span></span><span></span><span></span>
           </button>
@@ -96,84 +106,39 @@ function initHeader() {
       </div>
     </div>
   `;
-
-  updateHeaderAuthUI();
 }
 
-/* ---------------------------------------------------------
-   2.1 DYNAMIC HEADER AUTH UI
-   --------------------------------------------------------- */
-function updateHeaderAuthUI() {
-  const container = document.getElementById('nav-auth-container');
-  if (!container) return;
-
-  const user = (typeof Auth !== 'undefined') ? Auth.getUser() : null;
-
-  if (!user) {
-    // GUEST: Hiển thị Đăng nhập và Đăng ký (Tuyệt đối không có nút Admin)
-    container.innerHTML = `
-      <a href="login.html" class="nav-btn-auth nav-btn-login">Đăng nhập</a>
-      <a href="register.html" class="nav-btn-auth nav-btn-register">Đăng ký</a>
-    `;
-  } else {
-    // ĐÃ ĐĂNG NHẬP (Customer hoặc Admin)
-    const initial = (user.full_name || 'U').charAt(0).toUpperCase();
-    const isAdmin = user.role === 'admin';
-
-    container.innerHTML = `
-      <div class="nav-user-dropdown-wrap">
-        <div class="nav-user-trigger" id="user-menu-trigger">
-          <div class="nav-user-avatar">${initial}</div>
-          <span class="nav-user-name">${user.full_name || 'Tài khoản'}</span>
-          <span style="font-size: 0.7rem; color: var(--text-muted);">▾</span>
-        </div>
-        <div class="nav-user-dropdown" id="user-menu-dropdown">
-          <div style="padding: 8px 12px; border-bottom: 1px solid var(--border-xs);">
-            <div style="font-weight: 700; font-size: 0.875rem; color: var(--text-heading);">${user.full_name}</div>
-            <div style="font-size: 0.75rem; color: var(--text-muted);">${user.email}</div>
-            <div style="display: inline-block; font-size: 0.7rem; font-weight: 700; color: ${isAdmin ? '#059669' : 'var(--gold-dark)'}; background: ${isAdmin ? 'rgba(16,185,129,0.1)' : 'rgba(197,160,89,0.1)'}; padding: 2px 8px; border-radius: 999px; margin-top: 4px;">
-              ${isAdmin ? '👑 Quản Trị Viên' : '🛒 Khách Hàng'}
-            </div>
-          </div>
-
-          <a href="account.html" class="nav-dropdown-item">
-            <span>👤</span> <span>Tài khoản của tôi</span>
-          </a>
-          <a href="account.html?tab=orders" class="nav-dropdown-item">
-            <span>📦</span> <span>Đơn hàng của tôi</span>
-          </a>
-
-          ${isAdmin ? `
-            <div class="nav-dropdown-divider"></div>
-            <a href="admin.html" class="nav-dropdown-item admin-link">
-              <span>✦</span> <span>Trang Quản Trị</span>
-            </a>
-          ` : ''}
-
-          <div class="nav-dropdown-divider"></div>
-          <a href="javascript:void(0)" class="nav-dropdown-item logout-link" onclick="Auth.logout()">
-            <span>🚪</span> <span>Đăng xuất</span>
-          </a>
-        </div>
-      </div>
-    `;
-
-    // Dropdown toggle logic
-    const trigger = document.getElementById('user-menu-trigger');
-    const dropdown = document.getElementById('user-menu-dropdown');
-    if (trigger && dropdown) {
-      trigger.addEventListener('click', (e) => {
-        e.stopPropagation();
-        dropdown.classList.toggle('show');
-      });
-      document.addEventListener('click', () => {
-        dropdown.classList.remove('show');
-      });
-    }
+function authAreaHTML() {
+  const ses = (typeof getSession === 'function') ? getSession() : null;
+  if (!ses) {
+    return `<a href="login.html" class="btn-login" id="btn-login">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+            <span>Đăng nhập</span></a>`;
   }
+  return `<div class="user-menu" id="user-menu">
+            <button class="user-chip" id="user-chip" aria-haspopup="true" aria-expanded="false">
+              <span class="user-avatar">${ses.name.charAt(0).toUpperCase()}</span>
+              <span class="user-name">${ses.name}</span>
+              <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="6 9 12 15 18 9"/></svg>
+            </button>
+            <div class="user-dropdown" role="menu">
+              <div class="ud-head"><strong>${ses.name}</strong><small>${ses.role === 'admin' ? 'Quản trị viên' : 'Khách hàng'}</small></div>
+              ${ses.role === 'admin' ? '<a href="admin.html" role="menuitem">📊 Trang quản trị</a>' : ''}
+              <a href="cart.html" role="menuitem">🛍️ Giỏ hàng</a>
+              <button type="button" id="btn-logout" role="menuitem">↩ Đăng xuất</button>
+            </div>
+          </div>`;
+}
 
-  // Cập nhật Mobile Drawer nếu đang mở
-  updateMobileDrawerAuth(user);
+function initUserMenu() {
+  const chip = document.getElementById('user-chip');
+  const menu = document.getElementById('user-menu');
+  if (chip && menu) {
+    chip.addEventListener('click', e => { e.stopPropagation(); const o = menu.classList.toggle('open'); chip.setAttribute('aria-expanded', o); });
+    document.addEventListener('click', () => { menu.classList.remove('open'); chip.setAttribute('aria-expanded', 'false'); });
+  }
+  document.getElementById('btn-logout')?.addEventListener('click', () => logout('index.html'));
+  document.getElementById('drawer-logout')?.addEventListener('click', e => { e.preventDefault(); logout('index.html'); });
 }
 
 /* ---------------------------------------------------------
@@ -190,14 +155,8 @@ function initFooter() {
 
         <!-- Brand col -->
         <div class="footer-brand-col">
-          <a href="index.html" class="n4-logo inverted" style="margin-bottom:4px">
-            <div class="n4-logo-mark">
-              <span class="lm-n">N</span><span class="lm-4">4</span>
-            </div>
-            <div class="n4-logo-text">
-              <span class="lt-brand">CLEANNOVA</span>
-              <span class="lt-sub">Nhà sạch, người nhàn</span>
-            </div>
+          <a href="index.html" class="n4-logo inverted" aria-label="CLEANNOVA" style="margin-bottom:4px">
+            ${cnLogoHTML()}
           </a>
           <p>Đem lại sự tự do cho đôi tay – trả lại thời gian cho yêu thương.</p>
           <div class="footer-live">
@@ -268,13 +227,14 @@ function initMobileDrawer() {
         <span style="font-family:var(--font-heading);font-size:1.125rem;font-weight:700;color:var(--text-primary)">CLEANNOVA</span>
         <button id="drawer-close" style="background:none;border:none;font-size:1.375rem;color:var(--text-muted);cursor:pointer;padding:0 4px;">✕</button>
       </div>
-      <nav class="drawer-links" id="drawer-nav-links">
+      <nav class="drawer-links">
         <a href="index.html">Trang chủ</a>
         <a href="products.html">Sản phẩm</a>
         <a href="index.html#why-n4">Về chúng tôi</a>
         <a href="contact.html">Liên hệ</a>
+        ${(typeof getSession === 'function' && getSession()?.role === 'admin') ? '<a href="admin.html">Quản trị</a>' : ''}
+        ${(typeof getSession === 'function' && getSession()) ? '<a href="#" id="drawer-logout">Đăng xuất</a>' : '<a href="login.html">Đăng nhập</a>'}
       </nav>
-      <div id="drawer-auth-box" style="margin-top: 16px; padding-top: 16px; border-top: 1px solid var(--border-xs);"></div>
     </div>
     <div>
       <a href="products.html" class="btn btn-primary btn-block">Xem tất cả sản phẩm</a>
@@ -284,43 +244,12 @@ function initMobileDrawer() {
   document.body.appendChild(backdrop);
   document.body.appendChild(drawer);
 
-  const user = (typeof Auth !== 'undefined') ? Auth.getUser() : null;
-  updateMobileDrawerAuth(user);
-
   const open  = () => { drawer.classList.add('open'); backdrop.classList.add('open'); document.body.style.overflow='hidden'; };
   const close = () => { drawer.classList.remove('open'); backdrop.classList.remove('open'); document.body.style.overflow=''; };
 
   document.getElementById('mobile-menu-toggle')?.addEventListener('click', open);
   document.getElementById('drawer-close')?.addEventListener('click', close);
   backdrop.addEventListener('click', close);
-}
-
-function updateMobileDrawerAuth(user) {
-  const authBox = document.getElementById('drawer-auth-box');
-  if (!authBox) return;
-
-  if (!user) {
-    authBox.innerHTML = `
-      <div style="display:flex;flex-direction:column;gap:8px;">
-        <a href="login.html" class="btn btn-secondary btn-sm btn-block">Đăng nhập</a>
-        <a href="register.html" class="btn btn-primary btn-sm btn-block">Đăng ký tài khoản</a>
-      </div>
-    `;
-  } else {
-    const isAdmin = user.role === 'admin';
-    authBox.innerHTML = `
-      <div style="margin-bottom:12px;">
-        <div style="font-weight:700;font-size:0.9rem;color:var(--text-heading);">${user.full_name}</div>
-        <div style="font-size:0.75rem;color:var(--text-muted);">${user.email}</div>
-      </div>
-      <div style="display:flex;flex-direction:column;gap:6px;">
-        <a href="account.html" class="nav-link" style="padding:6px 0;">👤 Tài khoản của tôi</a>
-        <a href="account.html?tab=orders" class="nav-link" style="padding:6px 0;">📦 Đơn hàng của tôi</a>
-        ${isAdmin ? '<a href="admin.html" class="nav-link" style="padding:6px 0;color:var(--gold-dark);font-weight:700;">✦ Bảng Điều Khiển Quản Trị</a>' : ''}
-        <a href="javascript:void(0)" onclick="Auth.logout()" class="nav-link" style="padding:6px 0;color:#EF4444;">🚪 Đăng xuất</a>
-      </div>
-    `;
-  }
 }
 
 /* ---------------------------------------------------------
